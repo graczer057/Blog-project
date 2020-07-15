@@ -11,18 +11,13 @@
                 </div>
             {% endif %}
 
-            {% for post in posts %}
+            {% for posts in post %}
                 <div class="col-5 mx-auto bg-light border border-dark shadow my-3 p-2">
                     <div class="d-inline-block">
-                        <strong>Tytuł: {{ post.title }}</strong>
-                        <p> <strong>Opis: </strong> {{ post.info }}</p>
-                        <p><strong>Czas utworzenia posta: </strong>{{ post.adddate|date('Y:m:d H:i:s')}}</p>
+                        <strong>Tytuł: {{ posts.title }}</strong>
+                        <p> <strong>Opis: </strong> {{ posts.info }}</p>
+                        <p><strong>Czas utworzenia posta: </strong>{{ posts.adddate|date('Y:m:d H:i:s')}}</p>
                     </div>
-                </div>
-                <div class="d-inline-block float-right">
-
-                    <a class="btn btn-outline-primary my-2" href="{{ path('see', {'id': post.id}) }}"><i class="far fa-edit"></i></a>
-
                 </div>
             {% endfor %}
 

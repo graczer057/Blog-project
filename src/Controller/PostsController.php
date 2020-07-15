@@ -8,6 +8,7 @@ use App\Adapter\Core\Transaction;
 use App\Entity\Posts\Post;
 use App\Entity\Posts\UseCase\CreatePost;
 use App\Form\Posts\AddPostType;
+use App\Repository\PostRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -24,6 +25,14 @@ use App\Entity\Posts\UseCase\CreatePost\Responder as CreateCategoryResponder;
 
 class PostsController extends AbstractController implements CreateCategoryResponder
 {
+    private $PostRepository;
+
+    public function __construct(
+        PostRepository $PostRepository
+    ){
+        $this->PostRepository = $PostRepository;
+    }
+
     /**
      * @Route("/posts", name="posts_index", methods={"GET"})
      */
@@ -37,8 +46,18 @@ class PostsController extends AbstractController implements CreateCategoryRespon
     /**
      * @Route("/post/add", name="posts_add", methods={"GET"})
      * @Route("/post/create", name="posts_create", methods={"POST"})
+     * @param string $info
+     * @param string $title
+     * @param bool $is_active
+     * @param \DateTime $add_date
+     * @param Request $request
+     * @param PostsQuery $postsQuery
+     * @param CreatePost $createPost
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @throws \Throwable
      */
     public function addAction(Request $request, PostsQuery $postsQuery, CreatePost $createPost){
+
         $form = $this->createForm(
             AddPostType::class,
             [],
@@ -57,13 +76,6 @@ class PostsController extends AbstractController implements CreateCategoryRespon
                 $data['info'],
                 $data['title']
             );
-
-            $date = new \DateTime("now");
-            $date->modify('+1 minutes');
-
-            $command->
-
-            $command->setResponder($this);
 
             $createPost->execute($command);
 

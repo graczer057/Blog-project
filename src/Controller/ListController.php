@@ -3,10 +3,12 @@
 
 namespace App\Controller;
 
+use App\Adapter\Post\PostsQuery;
 use App\Repository\PostRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGenerator;
 
 /**
  * Class ListController
@@ -16,11 +18,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class ListController extends AbstractController
 {
     private $PostRepository;
+    private $PostsQuery;
 
     public function __construct(
-        PostRepository $postRepository
+        PostRepository $postRepository,
+        PostsQuery $postsQuery
     ){
         $this->PostRepository = $postRepository;
+        $this->PostsQuery = $postsQuery;
     }
 
     /**
@@ -34,6 +39,17 @@ class ListController extends AbstractController
 
         return $this->render('homepage.html.twig', [
            'posts' => $posts
+        ]);
+    }
+
+    /**
+     * @param int $id
+     * @Route("/{id}", name="see", methods={"GET"})
+     */
+    public function Post(int $id,PostsQuery $postsQuery){
+
+        return $this->render('post.html.twig', [
+            'post' => $postsQuery->getById($id)
         ]);
     }
 }

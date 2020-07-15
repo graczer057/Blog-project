@@ -34,7 +34,7 @@ class CreatePost
           $command->getInfo(),
           $command->getTitle()
         );
-
+        dump ($post);
         $this->posts->add($post);
 
         try{

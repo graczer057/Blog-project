@@ -23,19 +23,19 @@ class AddPostType extends AbstractType
                 'attr'=>[
                     'class' => 'form-control',
                 ],
-                'label' => 'title'
+                'label' => 'Title'
             ])
             ->add('info', TextareaType::class, [
                 'attr'=>[
                     'class' => 'form-control',
                 ],
-                'label' => 'info'
+                'label' => 'Description'
             ])
             ->add('save', SubmitType::class, [
                 'attr' => [
                     'class'=>'btn btn-success waves-effect right'
                 ],
-                'label' => 'save'
+                'label' => 'Post'
             ])
         ;
     }

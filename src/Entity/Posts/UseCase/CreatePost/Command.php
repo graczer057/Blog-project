@@ -3,22 +3,21 @@
 
 namespace App\Entity\Posts\UseCase\CreatePost;
 
-
 class Command
 {
     private $info;
+    private $title;
+    private $responder;
+    private $is_active;
+    private $add_date;
 
     public function __construct(
         string $info,
-        string $title,
-        \DateTime $adddate,
-        bool $isactive
+        string $title
     )
     {
         $this->info = $info;
         $this->title = $title;
-        $this->adddate = $adddate;
-        $this->isactive = $isactive;
         $this->responder = new NullResponder();
     }
 
@@ -35,16 +34,35 @@ class Command
         return $this->title;
     }
 
+    public function setTitle(string $title){
+        $this->title = $title;
+        return $this;
+    }
+
     public function getInfo(): string{
         return $this->info;
     }
 
-    public function getAddDate(): \DateTime
-    {
-        return $this->adddate;
+    public function setInfo(string $info){
+        $this->info = $info;
+        return $this;
+    }
+
+    public function getAddDate(): \DateTime{
+        return $this->add_date;
+    }
+
+    public function setAddDate(\DateTime $add_date){
+        $this->info = $add_date;
+        return $this;
     }
 
     public function getIsActive(): bool{
-        return $this->isactive;
+        return $this->is_active;
+    }
+
+    public function setIsActive(bool $is_active){
+        $this->info = $is_active;
+        return $this;
     }
 }

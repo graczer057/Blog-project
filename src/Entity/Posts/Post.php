@@ -39,10 +39,13 @@ class Post
 
     public function __construct(
         string $info,
-        string $title
+        string $title,
+        bool $is_active = true
     ){
         $this->info=$info;
         $this->title=$title;
+        $this->add_date=new \DateTime("now");
+        $this->is_active=$is_active;
     }
 
     public function getId(): ?int
@@ -62,14 +65,14 @@ class Post
         return $this;
     }
 
-    public function getAddDate(): ?\DateTimeInterface
+    public function getAddDate(): ?\DateTime
     {
         /** @var \DateTime $add_date */
         $add_date = $this->add_date;
         return $add_date;
     }
 
-    public function setAddDate(\DateTimeInterface $add_date): self
+    public function setAddDate(\DateTime $add_date): self
     {
         $this->add_date = $add_date;
 
