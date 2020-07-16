@@ -22,8 +22,8 @@ final class Users implements UsersInterface
         $this->manager->persist($user);
     }
 
-    public function findOneByName(string $username)
+    public function findOneByToken(string $token)
     {
-        return $this->manager->getRepository('App:Users\User')->findOneBy(['username'=>$username]);
+        return $this->manager->getRepository('App:Users\User')->findOneBy(['token'=>$token]);
     }
 }

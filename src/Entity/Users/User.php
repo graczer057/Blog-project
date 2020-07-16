@@ -33,7 +33,7 @@ class User
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $token;
 
@@ -57,7 +57,7 @@ class User
         string $mail,
         string $password,
         string $token,
-        \DateTime $tokenExpire,
+        ?\DateTime $tokenExpire,
         bool $isActive,
         string $role
     ){
@@ -68,6 +68,11 @@ class User
         $this->tokenExpire=$tokenExpire;
         $this->isActive=$isActive;
         $this->role=$role;
+    }
+    public function activateUser(){
+        $this->token=null;
+        $this->tokenExpire=null;
+        $this->isActive=("1");
     }
 
     public function getId(): ?int
@@ -111,29 +116,19 @@ class User
         return $this;
     }
 
-    public function getToken(): ?string
+    public function getToken(): string
     {
-        return $this->token;
+        return (string) $this->token;
     }
 
-    public function setToken(string $token): self
+    public function setToken(?string $token): self
     {
         $this->token = $token;
 
         return $this;
     }
 
-    public function getTokenExpire(): ?\DateTimeInterface
-    {
-        return $this->tokenExpire;
-    }
 
-    public function setTokenExpire(\DateTimeInterface $tokenExpire): self
-    {
-        $this->tokenExpire = $tokenExpire;
-
-        return $this;
-    }
 
     public function getIsActive(): ?bool
     {
@@ -157,5 +152,21 @@ class User
         $this->role = $role;
 
         return $this;
+    }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getTokenExpire(): ?\DateTime
+    {
+        return $this->tokenExpire;
+    }
+
+    /**
+     * @param \DateTime|null $tokenExpire
+     */
+    public function setTokenExpire(?\DateTime $tokenExpire): void
+    {
+        $this->tokenExpire = $tokenExpire;
     }
 }

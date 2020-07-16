@@ -52,3 +52,20 @@ services:
             - "@Posts"
             - "@doctrine_application_transaction"
         public: true
+
+    App\Adapter\User\Users:
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        public: true
+
+    Users:
+        class: App\Adapter\User\Users
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        public: true
+
+    App\Entity\Users\UseCase\CreateUser:
+        arguments:
+            - "@Users"
+            - "@doctrine_application_transaction"
+        public: true

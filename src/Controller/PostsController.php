@@ -17,12 +17,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Posts\UseCase\CreatePost\Responder as CreateCategoryResponder;
 
-
-/**
- * Class PostsController
- * @package App\Controller
- */
-
 class PostsController extends AbstractController implements CreateCategoryResponder
 {
     private $PostRepository;
@@ -34,27 +28,8 @@ class PostsController extends AbstractController implements CreateCategoryRespon
     }
 
     /**
-     * @Route("/posts", name="posts_index", methods={"GET"})
-     */
-
-    public function indexAction(PostsQuery $postsQuery){
-        return $this->render('posts\index.html.twig',[
-           'posts' => $postsQuery->getAll("1"),
-        ]);
-    }
-
-    /**
      * @Route("/post/add", name="posts_add", methods={"GET"})
      * @Route("/post/create", name="posts_create", methods={"POST"})
-     * @param string $info
-     * @param string $title
-     * @param bool $is_active
-     * @param \DateTime $add_date
-     * @param Request $request
-     * @param PostsQuery $postsQuery
-     * @param CreatePost $createPost
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     * @throws \Throwable
      */
     public function addAction(Request $request, PostsQuery $postsQuery, CreatePost $createPost){
 

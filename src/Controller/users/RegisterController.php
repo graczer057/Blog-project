@@ -3,42 +3,84 @@
 
 namespace App\Controller\users;
 
-//use App\Entity\Users\User;
-//use App\Form\RegistrationFormType;
-//use App\Form\ExpireFormType;
-//use App\Security\Authenticator;
-//use App\Security\Authenticator;
-//use Doctrine\ORM\EntityManagerInterface;
-//use Doctrine\Persistence\ObjectManager;
-//use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-//use Symfony\Component\HttpFoundation\Request;
-//use Symfony\Component\HttpFoundation\Response;
-//use Symfony\Component\Mailer\MailerInterface;
-//use Symfony\Component\Routing\Annotation\Route;
-//use Symfony\Component\Routing\Generator\UrlGenerator;
-//use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-//use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
-//use Symfony\Component\Mime\Email;
-//use App\Entity\Users\ReadModel\UsersQueryInterface;
-//use App\Entity\Users\UseCase\CreateUserResponder;
+use App\Adapter\User\Users;
+use App\Adapter\Core\Transaction;
+use App\Adapter\User\UsersQuery;
+use App\Entity\Users\UseCase\CreateUser;
+use App\Entity\Users\UseCase\CreateUser\Responder as RegisterResponder;
+use App\Entity\Users\User;
+use App\Form\Users\RegisterType;
+use App\Repository\UserRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Mime\Email;
+use Symfony\Component\Routing\Generator\UrlGenerator;
+use Symfony\Component\Mailer\MailerInterface;
 
-class RegisterController
+class RegisterController extends AbstractController implements RegisterResponder
 {
-    //private $objectManager;
-    //private $entityManager;
+    private $UserRepository;
 
-    //public function __construct(ObjectManager $objectManager, EntityManagerInterface $entityManager)
-    //{
-        //$this->objectManager=$objectManager;
-       // $this->entityManager=$entityManager;
-    //}
+    public function __construct(
+        UserRepository $UserRepository
+    ){
+        $this->UserRepository = $UserRepository;
+    }
 
-    ///**
-     //* @Route("/register", name="register", methods={"GET"})
-     //*/
-    //public function register(UsersQueryInterface $UsersQuery, string $username, Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, Authenticator $authenticator, MailerInterface $mailer): Response{
-        //return$this->render('users/register.html.twig',[
-            //'users'=>$UsersQuery->getAll($username)
-        //]);
-    //}
+    /**
+     * @Route("/register/form", name="register", methods={"GET"})
+     * @Route("/register/create", name="register_create", methods={"POST"})
+     * @throws \Throwable
+     */
+
+    public function register(Request $request, UsersQuery $usersQuery, CreateUser $createUser, MailerInterface $mailer){
+        $form = $this->createForm(
+            RegisterType::class,
+            [],
+            [
+                'method' => 'POST',
+                'action' => $this->generateUrl('register_create',[])
+            ]
+        );
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted()&&$form->isValid()){
+            $data=$form->getData();
+
+            $command = new CreateUser\Command(
+                $data['username'],
+                $data['mail'],
+                $data['password']
+            );
+
+            $url = $this->generateUrl('app_activate_active', array('token' => $command->getToken()), UrlGenerator::ABSOLUTE_URL);
+
+            $email = (new Email())
+                ->from('bartlomiej.szyszkowski@yellows.eu')
+                ->to($command->getMail())
+                ->subject('Activate your account')
+                ->html($url);
+
+            $mailer->send($email);
+
+            $createUser->execute($command);
+
+            return $this->redirectToRoute('homepage', []);
+        }
+        return $this->render('users/register.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    public function userCreated(User $user)
+    {
+        $this->addFlash('success', 'Registration complete check your mail');
+    }
+
+    public function providedNameIsInUse(string $username)
+    {
+        $this->addFlash('error', 'Account exists');
+    }
 }
