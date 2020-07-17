@@ -8,45 +8,43 @@ use App\Controller\users\RegisterController;
 use App\Entity\Users\User;
 use App\Adapter\Core\Transaction;
 use App\Adapter\User\Users;
-use App\Entity\Users\UseCase\ActivateUser\Command;
+use App\Entity\Users\UseCase\ExpireUser\Command;
 use phpDocumentor\Reflection\Types\False_;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use App\Repository\UserRepository;
 use Symfony\Component\Routing\Generator\UrlGenerator;
 
-class ActivateUser
+class ExpireUser
 {
     private $users;
     private $transaction;
-    private $userRepository;
-    private $registerController;
 
-    public function __construct(Users $users, Transaction $transaction, UserRepository $userRepository, RegisterController $registerController)
-    {
+    public function __construct(
+        Users $users,
+        Transaction $transaction
+    ){
         $this->users=$users;
         $this->transaction=$transaction;
-        $this->userRepository=$userRepository;
-        $this->registerController=$registerController;
     }
 
-    public function execute(Command $command, string $token, MailerInterface $mailer){
+    public function expire(Command $command, string $mail, MailerInterface $mailer){
         $this->transaction->begin();
 
         /** @var User $currentUser */
-        $currentUser = $this->users->findOneByToken($command->getToken());
+        $currentUser = $this->users->findOneByToken($command->getMail());
 
         if($currentUser==false){
             $this->transaction->rollback();
-            $command->getResponder()->providedNameIsInUse($command->getToken());
+            $command->getResponder()->providedMailIsInUse($command->getMail());
             return;
         }
 
-        $this->users->findOneByToken($token);
+        $this->users->findOneByToken($mail);
 
         $date=new \DateTime("now");
 
-        if($currentUser->getTokenExpire()->getTimestamp() > $date->getTimestamp()) {
+        if($currentUser->getTokenExpire()->getTimeStamp() > $date->getTimestamp()){
             $email = (new Email())
                 ->from('bartlomiej.szyszkowski@yellows.eu')
                 ->to($currentUser->getMail())
@@ -54,7 +52,7 @@ class ActivateUser
                 ->text('Welcome, dear User. We glad you join our family of ToDo Project. On this page you can easily start making some of your tasks in dedicated time. Have a nice day!');
 
             $mailer->send($email);
-            $currentUser->activateUser();
+            $currentUser->expireUser();
         }else{
             $this->registerController->expire();
         }
@@ -66,9 +64,6 @@ class ActivateUser
             throw $e;
         }
 
-        $command->getResponder()->userActivated($currentUser);
-
-
-
+        $command->getResponder()->userExpired($currentUser);
     }
 }

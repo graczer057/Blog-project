@@ -5,10 +5,10 @@ namespace App\Entity\Users\UseCase\ActivateUser;
 
 use App\Entity\Users\UseCase\ActivateUser\NullResponder;
 use App\Entity\Users\UseCase\ActivateUser\Responder;
+use App\Entity\Users\UseCase\ActivateUser;
 
 class Command
 {
-    private $username;
     private $token;
     private $responder;
 

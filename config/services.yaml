@@ -69,3 +69,15 @@ services:
             - "@Users"
             - "@doctrine_application_transaction"
         public: true
+
+    App\Entity\Users\UseCase\ActivateUser:
+        arguments:
+            - "@Users"
+            - "@doctrine_application_transaction"
+        public: true
+
+    App\Entity\Users\UseCase\ExpireUser:
+        arguments:
+            - "@Users"
+            - "@doctrine_application_transaction"
+        public: true

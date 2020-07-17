@@ -26,21 +26,27 @@ use Symfony\Component\Mailer\MailerInterface;
 class ActivateController extends AbstractController implements Responder
 {
     private $UserRepository;
+    private $ActivateUser;
 
     public function __construct(
-        UserRepository $UserRepository
+        UserRepository $UserRepository,
+        ActivateUser $ActivateUser
     ){
         $this->UserRepository=$UserRepository;
+        $this->ActivateUser=$ActivateUser;
     }
 
     /**
      * @Route("/activate/{token}", name="app_activate_active")
+     * @throws \Throwable
      */
     public function activate(ActivateUser $activateUser, string $token, MailerInterface $mailer){
         $command = new ActivateUser\Command(
             $token
         );
         $activateUser->execute($command, $token, $mailer);
+
+        return $this->redirectToRoute('homepage', []);
     }
     public function userCreated(User $user)
     {

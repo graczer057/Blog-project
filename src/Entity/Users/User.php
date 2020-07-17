@@ -75,6 +75,14 @@ class User
         $this->isActive=("1");
     }
 
+    public function expireUser(){
+        $token=uniqid();
+        $date=new \DateTime("now");
+        $date->modify('+60 minutes');
+        $this->token=$token;
+        $this->tokenExpire=$date;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

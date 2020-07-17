@@ -6,6 +6,7 @@ namespace App\Controller\users;
 use App\Adapter\User\Users;
 use App\Adapter\Core\Transaction;
 use App\Adapter\User\UsersQuery;
+use App\Entity\Posts\UseCase\CreatePost\Command;
 use App\Entity\Users\UseCase\CreateUser;
 use App\Entity\Users\UseCase\CreateUser\Responder as RegisterResponder;
 use App\Entity\Users\User;
@@ -72,6 +73,11 @@ class RegisterController extends AbstractController implements RegisterResponder
         return $this->render('users/register.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    public function expire(){
+
+        return $this->redirectToRoute('user_expire', ['token'=>CreateUser\Command::class]);
     }
 
     public function userCreated(User $user)
