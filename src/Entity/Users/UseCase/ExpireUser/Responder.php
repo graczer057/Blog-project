@@ -7,6 +7,5 @@ use App\Entity\Users\User;
 
 interface Responder
 {
-    public function userExpired(User $user);
-    public function providedMailIsInUse(string $mail);
+    public function UserTokenExpire(User $user);
 }

@@ -25,41 +25,42 @@ use Symfony\Component\Mailer\MailerInterface;
 
 class ActivateController extends AbstractController implements Responder
 {
-    private $UserRepository;
-    private $ActivateUser;
-
-    public function __construct(
-        UserRepository $UserRepository,
-        ActivateUser $ActivateUser
-    ){
-        $this->UserRepository=$UserRepository;
-        $this->ActivateUser=$ActivateUser;
-    }
-
     /**
-     * @Route("/activate/{token}", name="app_activate_active")
-     * @throws \Throwable
+     * @param string $token
+     * @throws \Exception
+     * @Route("/activate/{token}", name="activate", methods={"GET", "POST"})
      */
-    public function activate(ActivateUser $activateUser, string $token, MailerInterface $mailer){
-        $command = new ActivateUser\Command(
-            $token
-        );
-        $activateUser->execute($command, $token, $mailer);
 
-        return $this->redirectToRoute('homepage', []);
-    }
-    public function userCreated(User $user)
-    {
-        // TODO: Implement userCreated() method.
+    public function activate(string $token, Users $User, ActivateUser $activateUser, MailerInterface $mailer){
+        if($this->getUser()){
+            return $this->redirectToRoute('homepage');
+        }
+        $user=$User->findByToken($token);
+
+        $date=new \DateTime("now");
+
+        if($user->getIsActive() == 0){
+            if($user->getTokenExpire()->getTimestamp() > $date->getTimestamp()){
+                $commandData=new Command(
+                    $user,
+                    true,
+                    NULL,
+                    NULL
+                );
+                $commandData->setResponder($this);
+                $activateUser->execute($commandData, $mailer);
+
+                return $this->redirectToRoute('homepage');
+            }else{
+                return $this->redirectToRoute('token_expire');
+            }
+        }else{
+            return $this->redirectToRoute('homepage');
+        }
     }
 
-    public function providedNameIsInUse(string $username)
-    {
-        // TODO: Implement providedNameIsInUse() method.
+    public function UserActivated(User $user){
+        $this->addFlash('success', 'User '.$user->getUsername().' has been activated');
     }
 
-    public function userActivated(User $user)
-    {
-        // TODO: Implement userActivated() method.
-    }
 }

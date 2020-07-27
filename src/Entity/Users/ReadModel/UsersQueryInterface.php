@@ -9,8 +9,7 @@ interface UsersQueryInterface
     /**
      * @return Users[]
      */
-    public function getAll(string $token);
-    public function getById(string $username, int $id);
-    public function getByAbbreviationCode(string $username, string $mail);
-    public function generateAbbreviationCode(string $username, string $role);
+    public function getByToken(string $token);
+    public function getByMail(string $mail);
+    public function getByLogin(string $mail, string $password);
 }

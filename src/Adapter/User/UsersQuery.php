@@ -14,49 +14,82 @@ class UsersQuery implements UsersQueryInterface
 
     public function __construct(Connection $connection)
     {
-        $this->connection=$connection;
+        $this->connection = $connection;
     }
 
     /**
-     * @param string $username
      * @return Users[]
      */
-    public function getAll(string $username)
+
+    public function getByToken(string $token)
     {
         return $this->connection->project(
-            'SELECT u.id, u.username, u.mail, u.password, u.token, u.tokenExpire, u.isActive, u.role
-                      FROM user as u
-                      WHERE u.username = :username',
-                   [
-                       'username' => $username
-                   ],
-                   function (array $result){
-                        return new Users(
-                            (int)$result['id'],
-                            (string)$result['username'],
-                            (string)$result['mail'],
-                            (string)$result['password'],
-                            (string)$result['token'],
-                            (new \DateTime($result['expireToken'])),
-                            (bool)$result['isActive'],
-                            (string)$result['role']
-                        );
-                   }
+            'SELECT u.id as id, u.username as username, u.mail as mail, u.password as password, u.token as token, u.tokenExpire as tokenExpire, u.isActive as isActive, u.role as role
+                    FROM user as u 
+                    WHERE u.token = :token',
+                [
+                    'token'=>$token
+                ],
+                function ($result){
+                    return new Users(
+                        (int) $result['id'],
+                        (string) $result['username'],
+                        (string) $result['mail'],
+                        (string) $result['password'],
+                        (string) $result['token'],
+                        (new \DateTime ($result['tokenExpire'])),
+                        (bool) $result['isActive'],
+                        (string) $result['role']
+                    );
+                }
         );
     }
 
-    public function getById(string $username, int $id)
+    public function getByMail(string $mail)
     {
-        // TODO: Implement getById() method.
+        return $this->connection->project(
+            'SELECT u.id as id, u.username as username, u.mail as mail, u.password as password, u.token as token, u.tokenExpire as tokenExpire, u.isActive as isActive, u.role as role
+                    FROM user as u 
+                    WHERE u.token = :token',
+            [
+                'mail'=>$mail
+            ],
+            function ($result){
+                return new Users(
+                    (int) $result['id'],
+                    (string) $result['username'],
+                    (string) $result['mail'],
+                    (string) $result['password'],
+                    (string) $result['token'],
+                    (new \DateTime ($result['tokenExpire'])),
+                    (bool) $result['isActive'],
+                    (string) $result['role']
+                );
+            }
+        );
     }
 
-    public function getByAbbreviationCode(string $username, string $mail)
-    {
-        // TODO: Implement getByAbbreviationCode() method.
-    }
-
-    public function generateAbbreviationCode(string $username, string $role)
-    {
-        // TODO: Implement generateAbbreviationCode() method.
+    public function getByLogin(string $mail, string $password){
+        return $this->connection->project(
+            'SELECT u.id as id, u.username as username, u.mail as mail, u.password as password, u.token as token, u.tokenExpire as tokenExpire, u.isActive as isActive, u.role as role
+                    FROM user as u 
+                    WHERE u.token = :token',
+            [
+                'mail'=>$mail,
+                'password'=>$password
+            ],
+            function ($result){
+                return new Users(
+                    (int) $result['id'],
+                    (string) $result['username'],
+                    (string) $result['mail'],
+                    (string) $result['password'],
+                    (string) $result['token'],
+                    (new \DateTime ($result['tokenExpire'])),
+                    (bool) $result['isActive'],
+                    (string) $result['role']
+                );
+            }
+        );
     }
 }

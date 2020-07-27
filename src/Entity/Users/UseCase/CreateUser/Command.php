@@ -6,6 +6,7 @@ namespace App\Entity\Users\UseCase\CreateUser;
 
 use App\Entity\Users\UseCase\CreateUser\NullResponder;
 use App\Entity\Users\UseCase\CreateUser\Responder;
+use App\Entity\Users\UseCase\CreateUser;
 
 class Command
 {

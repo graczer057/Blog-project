@@ -1,83 +1,72 @@
 <?php
 
-
 namespace App\Controller\users;
 
 use App\Adapter\User\Users;
-use App\Adapter\Core\Transaction;
-use App\Adapter\User\UsersQuery;
-use App\Entity\Posts\UseCase\CreatePost\Command;
 use App\Entity\Users\UseCase\CreateUser;
 use App\Entity\Users\UseCase\CreateUser\Responder as RegisterResponder;
 use App\Entity\Users\User;
 use App\Form\Users\RegisterType;
-use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Mime\Email;
-use Symfony\Component\Routing\Generator\UrlGenerator;
-use Symfony\Component\Mailer\MailerInterface;
 
 class RegisterController extends AbstractController implements RegisterResponder
 {
-    private $UserRepository;
+    private $entityManager;
 
-    public function __construct(
-        UserRepository $UserRepository
-    ){
-        $this->UserRepository = $UserRepository;
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager=$entityManager;
     }
 
     /**
+     * @param Request $request
      * @Route("/register/form", name="register", methods={"GET"})
      * @Route("/register/create", name="register_create", methods={"POST"})
      * @throws \Throwable
      */
 
-    public function register(Request $request, UsersQuery $usersQuery, CreateUser $createUser, MailerInterface $mailer){
+    public function register(Request $request, Users $User, CreateUser $createUser)
+    {
+        if($this->getUser()){
+            return $this->redirectToRoute('homepage');
+        }
+
         $form = $this->createForm(
             RegisterType::class,
             [],
             [
                 'method' => 'POST',
-                'action' => $this->generateUrl('register_create',[])
+                'action' => $this->generateUrl('register_create', [])
             ]
         );
-
         $form->handleRequest($request);
 
-        if($form->isSubmitted()&&$form->isValid()){
-            $data=$form->getData();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
 
             $command = new CreateUser\Command(
                 $data['username'],
                 $data['mail'],
-                $data['password']
+                $form->get('password')->getData()
             );
-
-            $url = $this->generateUrl('app_activate_active', array('token' => $command->getToken()), UrlGenerator::ABSOLUTE_URL);
-
-            $email = (new Email())
-                ->from('bartlomiej.szyszkowski@yellows.eu')
-                ->to($command->getMail())
-                ->subject('Activate your account')
-                ->html($url);
-
-            $mailer->send($email);
-
+            $command->setResponder($this);
             $createUser->execute($command);
+            $createUser=$User->findbyMail($data['mail']);
+            if($createUser != null){
+                if($createUser->getUsername() == $data['username'] && ($createUser->getMail() == $data['mail'])){
+                    //newsletter
+                    dump($createUser);
+                }
+            }
 
             return $this->redirectToRoute('homepage', []);
         }
         return $this->render('users/register.html.twig', [
             'form' => $form->createView(),
         ]);
-    }
-
-    public function expire(){
-
-        return $this->redirectToRoute('user_expire', ['token'=>CreateUser\Command::class]);
     }
 
     public function userCreated(User $user)

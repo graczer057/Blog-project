@@ -67,7 +67,10 @@ services:
     App\Entity\Users\UseCase\CreateUser:
         arguments:
             - "@Users"
+            - "@mailer"
+            - "@router"
             - "@doctrine_application_transaction"
+
         public: true
 
     App\Entity\Users\UseCase\ActivateUser:
@@ -78,6 +81,5 @@ services:
 
     App\Entity\Users\UseCase\ExpireUser:
         arguments:
-            - "@Users"
-            - "@doctrine_application_transaction"
+            - "@application_transaction"
         public: true

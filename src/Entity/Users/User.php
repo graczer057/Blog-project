@@ -69,18 +69,32 @@ class User
         $this->isActive=$isActive;
         $this->role=$role;
     }
-    public function activateUser(){
-        $this->token=null;
-        $this->tokenExpire=null;
-        $this->isActive=("1");
+    public function activateUser(
+        ?bool $isActive,
+        ?string $token,
+        ?\DateTime $tokenExpire
+    ){
+        $this->isActive=$isActive;
+        $this->token=$token;
+        $this->tokenExpire=$tokenExpire;
     }
 
-    public function expireUser(){
-        $token=uniqid();
-        $date=new \DateTime("now");
-        $date->modify('+60 minutes');
+    public function TokenExpire(
+        ?string $token,
+        ?\DateTime $tokenExpire
+    ){
         $this->token=$token;
-        $this->tokenExpire=$date;
+        $this->tokenExpire=$tokenExpire;
+    }
+
+    public function loginUser(
+        string $username,
+        string $mail,
+        string $password
+    ){
+       $this->username=$username;
+       $this->mail=$mail;
+       $this->password=$password;
     }
 
     public function getId(): ?int
@@ -135,8 +149,6 @@ class User
 
         return $this;
     }
-
-
 
     public function getIsActive(): ?bool
     {

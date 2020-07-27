@@ -35,28 +35,28 @@ class Users
         $this->role=$role;
     }
 
-    public function getId(): int{
+    public function getId(): ?int{
         return $this->id;
     }
-    public function getUsername(): string{
+    public function getUsername(): ?string{
         return $this->username;
     }
-    public function getMail(): string{
+    public function getMail(): ?string{
         return $this->mail;
     }
-    public function getPassword(): string{
+    public function getPassword(): ?string{
         return $this->password;
     }
-    public function getToken(): string{
+    public function getToken(): ?string{
         return $this->token;
     }
-    public function getTokenExpire(): \DateTime{
+    public function getTokenExpire(): ?\DateTime{
         return $this->tokenExpire;
     }
-    public function getIsActive(): bool{
+    public function getIsActive(): ?bool{
         return $this->isActive;
     }
-    public function getRole(): string{
+    public function getRole(): ?string{
         return $this->role;
     }
 }

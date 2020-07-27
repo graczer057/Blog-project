@@ -7,14 +7,8 @@ use App\Entity\Users\User;
 
 class NullResponder implements Responder
 {
-
-    public function userExpired(User $user)
+    public function UserTokenExpire(User $user)
     {
         // TODO: Implement userExpired() method.
-    }
-
-    public function providedMailIsInUse(string $mail)
-    {
-        // TODO: Implement providedMailIsInUse() method.
     }
 }
