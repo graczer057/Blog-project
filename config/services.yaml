@@ -83,3 +83,14 @@ services:
         arguments:
             - "@application_transaction"
         public: true
+
+    App\Entity\Users\UseCase\PasswordResetUser:
+        arguments:
+            - "@application_transaction"
+        public: true
+
+    App\Entity\Users\UseCase\PasswordChangeUser:
+        arguments:
+            - "@Users"
+            - "@application_transaction"
+        public: true

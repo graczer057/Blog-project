@@ -1,56 +1,55 @@
 <?php
 
+
 namespace App\Entity\Users\UseCase;
 
 use App\Adapter\Core\Transaction;
 use App\Adapter\User\Users;
-use App\Entity\Users\UseCase\ActivateUser\Command;
+use App\Entity\Users\UseCase\PasswordChangeUser\Command;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
+use Symfony\Component\Routing\Generator\UrlGenerator;
 
-class ActivateUser extends AbstractController
+class PasswordChangeUser extends AbstractController
 {
     private $transaction;
-    private $mailer;
 
     public function __construct(
         Users $users,
-        Transaction $transaction,
-        MailerInterface $mailer
+        Transaction $transaction
     ){
         $this->Users=$users;
         $this->transaction=$transaction;
-        $this->mailer=$mailer;
     }
 
     public function execute(Command $command, MailerInterface $mailer){
         $this->transaction->begin();
         $User=$command->getUser();
-        $User->activateUser(
+        $User->PasswordChange(
+            $command->getPassword(),
             $command->getIsActive(),
             $command->getToken(),
             $command->getExpireToken()
         );
 
+        $this->createNotFoundException();
+        $mail = (new Email())
+            ->from('bartlomiej.szyszkowski@yellows.eu')
+            ->to($User->getMail())
+            ->subject('Congrats! You are registered on our website!')
+            ->text('hello');
+
+        $mailer->send($mail);
+
+        $command->getResponder()->passwordChanged($User);
+
         try{
             $this->transaction->commit();
-        }catch (\Throwable $e){
+        }catch(\Throwable $e){
             $this->transaction->rollback();
             throw $e;
         }
 
-        $command->getResponder()->userActivated($User);
-
-        $this->createNotFoundException();
-        $email = (new Email())
-            ->from('bartlomiej.szyszkowski@yellows.eu')
-            ->to($User->getMail())
-            ->subject('Congrats! You are registered on our website!')
-            ->text('Welcome, dear User. We glad you join our family of Blog Project. On this page you can easily start making some posts, comments and giving likes. Have a nice day!');
-
-        $mailer->send($email);
-
-        $command->getResponder()->userActivated($User);
     }
 }

@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Reset{% endblock %}
+{% block title %}Change{% endblock %}
 
 {% block body %}
 
     <h1>Your link is expired. Please type your email one more time.</h1>
 
     {{ form_start(form) }}
-    {{ form_row(form.mail) }}
+    {{ form_row(form.plainPassword) }}
 
     <button type="submit" class="btn">Send again</button>
     {{ form_end(form) }}

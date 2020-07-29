@@ -54,6 +54,11 @@ class User implements UserInterface
      */
     private $role;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Newsletter::class, mappedBy="User", cascade={"persist", "remove"})
+     */
+    private $newsletter;
+
     public function __construct(
         string $username,
         string $mail,
@@ -89,6 +94,29 @@ class User implements UserInterface
         $this->tokenExpire=$tokenExpire;
     }
 
+    public function PasswordReset(
+        string $mail,
+        bool $isActive,
+        string $token,
+        \DateTime $tokenExpire
+    ){
+        $this->mail=$mail;
+        $this->isActive=$isActive;
+        $this->token=$token;
+        $this->tokenExpire=$tokenExpire;
+    }
+
+    public function PasswordChange(
+        string $password,
+        ?bool $isActive,
+        ?string $token,
+        ?\DateTime $tokenExpire
+    ){
+        $this->password=password_hash($password, PASSWORD_BCRYPT);
+        $this->isActive=$isActive;
+        $this->token=$token;
+        $this->tokenExpire=$tokenExpire;
+    }
 
     public function getId(): ?int
     {
