@@ -4,12 +4,10 @@ namespace App\Entity\Users;
 
 use App\Repository\UserRepository;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
 class User implements UserInterface
 {
@@ -67,7 +65,7 @@ class User implements UserInterface
     ){
         $this->username=$username;
         $this->mail=$mail;
-        $this->password=$password;
+        $this->password=password_hash($password, PASSWORD_BCRYPT);
         $this->token=$token;
         $this->tokenExpire=$tokenExpire;
         $this->isActive=$isActive;
@@ -81,16 +79,6 @@ class User implements UserInterface
         $this->isActive=$isActive;
         $this->token=$token;
         $this->tokenExpire=$tokenExpire;
-    }
-
-    public function loginUser(
-        ?string $username,
-        ?string $mail,
-        ?string $password
-    ){
-        $this->username=$username;
-        $this->mail=$mail;
-        $this->password=$password;
     }
 
     public function TokenExpire(
@@ -107,9 +95,14 @@ class User implements UserInterface
         return $this->id;
     }
 
-    public function getUsername(): ?string
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUsername(): string
     {
-        return $this->username;
+        return (string) $this->username;
     }
 
     public function setUsername(string $username): self
@@ -131,7 +124,10 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getPassword(): ?string
+    /**
+     * @see UserInterface
+     */
+    public function getPassword(): string
     {
         return (string) $this->password;
     }
@@ -167,9 +163,12 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getRole(): ?string
+    /**
+     * Returns the roles granted to the user.
+     */
+    public function getRole()
     {
-        return $this->role;
+        return array('ROLE_USER');
     }
 
     public function setRole(string $role): self
@@ -197,7 +196,7 @@ class User implements UserInterface
 
     public function getRoles()
     {
-        // TODO: Implement getRoles() method.
+        return ["ROLE_USER"];
     }
 
     /**

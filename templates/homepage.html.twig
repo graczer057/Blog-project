@@ -14,7 +14,9 @@
             {% for post in posts %}
                 <div class="col-5 mx-auto bg-light border border-dark shadow my-3 p-2">
                     <div class="d-inline-block">
+                        {% if is_granted ("admin") %}
                         <strong>Tytuł: {{ post.title }}</strong>
+                        {%  endif %}
                         <p> <strong>Opis: </strong> {{ post.info }}</p>
                         <p><strong>Czas utworzenia posta: </strong>{{ post.adddate|date('Y:m:d H:i:s')}}</p>
                     </div>
