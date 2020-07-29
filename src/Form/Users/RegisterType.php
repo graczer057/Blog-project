@@ -26,9 +26,10 @@ class RegisterType extends AbstractType{
                 ],
                 'label' => 'Email'
             ])
-            ->add('password', PasswordType::class, [
+            ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
+                'mapped' => false,
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter a password',
@@ -40,7 +41,6 @@ class RegisterType extends AbstractType{
                         'max' => 4096,
                     ]),
                 ],
-                'label' => 'password'
             ])
             ->add('save', SubmitType::class, [
                 'attr' => [

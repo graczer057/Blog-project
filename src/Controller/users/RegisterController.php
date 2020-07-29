@@ -11,24 +11,23 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Security\LoginAuthenticator;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Routing\Generator\UrlGenerator;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
+use Symfony\Component\Mime\Email;
 
 class RegisterController extends AbstractController implements RegisterResponder
 {
-    private $entityManager;
-
-    public function __construct(EntityManagerInterface $entityManager)
-    {
-        $this->entityManager=$entityManager;
-    }
-
     /**
-     * @param Request $request
      * @Route("/register/form", name="register", methods={"GET"})
      * @Route("/register/create", name="register_create", methods={"POST"})
      * @throws \Throwable
      */
 
-    public function register(Request $request, Users $User, CreateUser $createUser)
+    public function register(Request $request, Users $User, CreateUser $createUser, UserPasswordEncoderInterface $passwordEncoder)
     {
         if($this->getUser()){
             return $this->redirectToRoute('homepage');
@@ -46,11 +45,10 @@ class RegisterController extends AbstractController implements RegisterResponder
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-
             $command = new CreateUser\Command(
                 $data['username'],
                 $data['mail'],
-                $form->get('password')->getData()
+                $form->get('plainPassword')->getData()
             );
             $command->setResponder($this);
             $createUser->execute($command);
@@ -58,7 +56,6 @@ class RegisterController extends AbstractController implements RegisterResponder
             if($createUser != null){
                 if($createUser->getUsername() == $data['username'] && ($createUser->getMail() == $data['mail'])){
                     //newsletter
-                    dump($createUser);
                 }
             }
 

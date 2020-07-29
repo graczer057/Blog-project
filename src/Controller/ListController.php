@@ -46,7 +46,7 @@ class ListController extends AbstractController
      * @param int $id
      * @param PostsQuery $postsQuery
      * @return Response
-     * @Route("/{id}", name="see", methods={"GET"})
+     * @Route("/post/{id}", name="see", methods={"GET"})
      */
     public function Post($id, PostsQuery $postsQuery){
 

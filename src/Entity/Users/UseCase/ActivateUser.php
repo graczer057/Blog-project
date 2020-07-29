@@ -1,22 +1,14 @@
 <?php
 
-
 namespace App\Entity\Users\UseCase;
 
-use App\Controller\users\ExpireController;
-use App\Controller\users\RegisterController;
-use App\Entity\Users\User;
 use App\Adapter\Core\Transaction;
 use App\Adapter\User\Users;
 use App\Entity\Users\UseCase\ActivateUser\Command;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use phpDocumentor\Reflection\Types\False_;
-use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
-use App\Repository\UserRepository;
-use Symfony\Component\Routing\Generator\UrlGenerator;
 
 class ActivateUser extends AbstractController
 {

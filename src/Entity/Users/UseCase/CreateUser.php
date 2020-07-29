@@ -23,7 +23,6 @@ class CreateUser
 
     public function __construct(Users $users, MailerInterface $mailer, UrlGeneratorInterface $urlGenerator, Transaction $transaction)
     {
-
         $this->users = $users;
         $this->mailer = $mailer;
         $this->urlGenerator = $urlGenerator;

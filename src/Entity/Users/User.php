@@ -3,12 +3,15 @@
 namespace App\Entity\Users;
 
 use App\Repository\UserRepository;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -23,11 +26,12 @@ class User
     private $username;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $mail;
 
     /**
+     * @var string The hashed password
      * @ORM\Column(type="string", length=255)
      */
     private $password;
@@ -79,6 +83,16 @@ class User
         $this->tokenExpire=$tokenExpire;
     }
 
+    public function loginUser(
+        ?string $username,
+        ?string $mail,
+        ?string $password
+    ){
+        $this->username=$username;
+        $this->mail=$mail;
+        $this->password=$password;
+    }
+
     public function TokenExpire(
         ?string $token,
         ?\DateTime $tokenExpire
@@ -87,15 +101,6 @@ class User
         $this->tokenExpire=$tokenExpire;
     }
 
-    public function loginUser(
-        string $username,
-        string $mail,
-        string $password
-    ){
-       $this->username=$username;
-       $this->mail=$mail;
-       $this->password=$password;
-    }
 
     public function getId(): ?int
     {
@@ -128,7 +133,7 @@ class User
 
     public function getPassword(): ?string
     {
-        return $this->password;
+        return (string) $this->password;
     }
 
     public function setPassword(string $password): self
@@ -188,5 +193,27 @@ class User
     public function setTokenExpire(?\DateTime $tokenExpire): void
     {
         $this->tokenExpire = $tokenExpire;
+    }
+
+    public function getRoles()
+    {
+        // TODO: Implement getRoles() method.
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getSalt()
+    {
+        // not needed when using the "bcrypt" algorithm in security.yaml
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
 }
