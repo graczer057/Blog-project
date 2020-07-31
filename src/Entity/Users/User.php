@@ -5,6 +5,7 @@ namespace App\Entity\Users;
 use App\Repository\UserRepository;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Newsletter\Newsletter;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -55,7 +56,7 @@ class User implements UserInterface
     private $role;
 
     /**
-     * @ORM\OneToOne(targetEntity=Newsletter::class, mappedBy="User", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Newsletter::class, mappedBy="user", cascade={"persist", "remove"})
      */
     private $newsletter;
 
@@ -243,4 +244,13 @@ class User implements UserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getNewsletter()
+    {
+        return $this->newsletter;
+    }
+
 }

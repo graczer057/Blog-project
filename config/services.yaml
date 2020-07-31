@@ -94,3 +94,23 @@ services:
             - "@Users"
             - "@application_transaction"
         public: true
+
+    application_Newsletter:
+        class: App\Adapter\Newsletter\Newsletters
+        arguments:
+            - '@doctrine.orm.entity_manager'
+        public: true
+
+    App\Entity\Newsletter\Newsletters\UseCase\AnonJoinNewsletter:
+        arguments:
+            - "@application_Newsletter"
+            - "@application_transaction"
+        public: true
+
+    App\Entity\Newsletter\Newsletters\UseCase\UserDeleteNewsletter:
+        arguments:
+            - "@Users"
+            - "@application_Newsletter"
+            - "@application_transaction"
+        public: true
+

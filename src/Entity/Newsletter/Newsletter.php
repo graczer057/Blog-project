@@ -4,6 +4,7 @@ namespace App\Entity\Newsletter;
 
 use App\Repository\NewsletterRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Users\User;
 
 /**
  * @ORM\Entity(repositoryClass=NewsletterRepository::class)
@@ -28,9 +29,19 @@ class Newsletter
     private $isActive;
 
     /**
-     * @ORM\OneToOne(targetEntity=User::class, inversedBy="newslettter)
+     * @ORM\OneToOne(targetEntity=User::class, inversedBy="newslettter")
      */
     private $user;
+
+    public function __construct(
+        string $mail,
+        bool $isActive,
+        ?User $user
+    ){
+        $this->mail=$mail;
+        $this->isActive=$isActive;
+        $this->user=$user;
+    }
 
     public function getId(): ?int
     {

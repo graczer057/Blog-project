@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Form\Users;
+namespace App\Form\Newsletter;
 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class ResetType extends AbstractType
+class AnonJoinType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -16,13 +16,13 @@ class ResetType extends AbstractType
                 'attr' => [
                     'class' => 'form-control'
                 ],
-                'label' => 'Email'
+                'label' => 'Mail'
             ])
-            ->add('save', SubmitType::class, [
+            ->add('set', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-success waves-effect mid'
                 ],
-                'label' => 'Reset password '
+                'label' => 'Set newsletter'
             ])
         ;
     }

@@ -39,11 +39,4 @@ class AddPostType extends AbstractType
             ])
         ;
     }
-
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults([
-            '' => Post::class,
-        ]);
-    }
 }

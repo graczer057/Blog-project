@@ -30,6 +30,7 @@ class PostsController extends AbstractController implements CreateCategoryRespon
     /**
      * @Route("/post/add", name="posts_add", methods={"GET"})
      * @Route("/post/create", name="posts_create", methods={"POST"})
+     * @throws \Throwable
      */
     public function addAction(Request $request, PostsQuery $postsQuery, CreatePost $createPost){
 

@@ -4,6 +4,7 @@
 namespace App\Controller;
 
 use App\Adapter\Post\PostsQuery;
+use App\Entity\Posts\Post;
 use App\Repository\PostRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -32,7 +33,6 @@ class ListController extends AbstractController
     /**
      * @return Response
      * @Route("/", name="homepage", methods={"GET"})
-     * @IsGranted("ROLE_USER")
      */
     public function HomePage(): Response{
         $posts = $this->PostRepository->findBy([], [
@@ -48,12 +48,11 @@ class ListController extends AbstractController
      * @param int $id
      * @param PostsQuery $postsQuery
      * @return Response
-     * @Route("/post/{id}", name="see", methods={"GET"})
+     * @Route("/post/{id}/show", name="see", methods={"GET"})
      */
-    public function Post($id, PostsQuery $postsQuery){
-
+    public function Post(Post $id, PostsQuery $postsQuery){
         return $this->render('post.html.twig', [
-            'post' => $postsQuery->getById((int) $id)
+            'post' => $postsQuery->getById((int) $id->getId())
         ]);
     }
 }
