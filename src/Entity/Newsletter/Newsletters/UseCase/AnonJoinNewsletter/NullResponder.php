@@ -4,7 +4,6 @@
 namespace App\Entity\Newsletter\Newsletters\UseCase\AnonJoinNewsletter;
 
 use App\Entity\Newsletter\Newsletter;
-use App\Entity\Newsletter\Newsletters\UseCase\AnonJoinNewsletter\Responder;
 
 class NullResponder implements Responder
 {

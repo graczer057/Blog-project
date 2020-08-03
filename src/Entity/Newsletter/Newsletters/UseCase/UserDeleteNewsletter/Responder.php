@@ -8,6 +8,5 @@ use App\Entity\Users\User;
 
 interface Responder
 {
-    public function DeleteNewsletter(Newsletter $newletter);
-    public function NewsletterDeleted(string $username);
+    public function DeleteNewsletter(Newsletter $newsletter);
 }

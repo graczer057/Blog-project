@@ -3,10 +3,6 @@
 
 namespace App\Entity\Newsletter\Newsletters\UseCase\AnonJoinNewsletter;
 
-use App\Entity\Newsletter\Newsletters\UseCase\AnonJoinNewsletter\Responder;
-use App\Entity\Newsletter\Newsletter;
-use App\Entity\Users\User;
-
 class Command
 {
     private $mail;

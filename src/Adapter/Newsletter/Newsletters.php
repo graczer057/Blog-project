@@ -5,13 +5,14 @@ namespace App\Adapter\Newsletter;
 
 use App\Entity\Newsletter\Newsletter;
 use App\Entity\Newsletter\NewslettersInterface;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
 
 final class Newsletters implements NewslettersInterface
 {
     private $manager;
 
-    public function __construct(ObjectManager $manager)
+    public function __construct(EntityManagerInterface $manager)
     {
         $this->manager=$manager;
     }

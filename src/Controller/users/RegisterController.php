@@ -45,19 +45,15 @@ class RegisterController extends AbstractController implements RegisterResponder
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
+
             $command = new CreateUser\Command(
                 $data['username'],
                 $data['mail'],
                 $form->get('plainPassword')->getData()
             );
             $command->setResponder($this);
+
             $createUser->execute($command);
-            $createUser=$User->findbyMail($data['mail']);
-            if($createUser != null){
-                if($createUser->getUsername() == $data['username'] && ($createUser->getMail() == $data['mail'])){
-                    //newsletter
-                }
-            }
 
             return $this->redirectToRoute('homepage', []);
         }

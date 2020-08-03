@@ -3,37 +3,23 @@
 
 namespace App\Entity\Newsletter\Newsletters\UseCase\UserDeleteNewsletter;
 
-use App\Entity\Newsletter\Newsletters\UseCase\UserDeleteNewsletter\Responder;
-use App\Entity\Users\User;
+
+use App\Entity\Newsletter\Newsletter;
 
 class Command
 {
-    private $mail;
-    private $isActive;
-    private $user;
+    private $Newsletter;
     private $responder;
 
     public function __construct(
-        string $mail,
-        bool $isActive,
-        User $user
+        Newsletter $newsletter
     ){
-        $this->mail = $mail;
-        $this->isActive = $isActive;
-        $this->user = $user;
+        $this->Newsletter = $newsletter;
         $this->responder = new NullResponder();
     }
 
-    public function getMail(): string{
-        return $this->mail;
-    }
-
-    public function getIsActive(): bool{
-        return $this->isActive;
-    }
-
-    public function getUser(): User{
-        return $this->user;
+    public function getNewsletter(): Newsletter{
+        return $this->Newsletter;
     }
 
     public function getResponder(): Responder{

@@ -69,30 +69,30 @@ class User implements UserInterface
         bool $isActive,
         string $role
     ){
-        $this->username=$username;
-        $this->mail=$mail;
-        $this->password=password_hash($password, PASSWORD_BCRYPT);
-        $this->token=$token;
-        $this->tokenExpire=$tokenExpire;
-        $this->isActive=$isActive;
-        $this->role=$role;
+        $this->username = $username;
+        $this->mail = $mail;
+        $this->password = password_hash($password, PASSWORD_BCRYPT);
+        $this->token = $token;
+        $this->tokenExpire = $tokenExpire;
+        $this->isActive = $isActive;
+        $this->role = $role;
     }
     public function activateUser(
         ?bool $isActive,
         ?string $token,
         ?\DateTime $tokenExpire
     ){
-        $this->isActive=$isActive;
-        $this->token=$token;
-        $this->tokenExpire=$tokenExpire;
+        $this->isActive = $isActive;
+        $this->token = $token;
+        $this->tokenExpire = $tokenExpire;
     }
 
     public function TokenExpire(
         ?string $token,
         ?\DateTime $tokenExpire
     ){
-        $this->token=$token;
-        $this->tokenExpire=$tokenExpire;
+        $this->token = $token;
+        $this->tokenExpire = $tokenExpire;
     }
 
     public function PasswordReset(
@@ -101,10 +101,10 @@ class User implements UserInterface
         string $token,
         \DateTime $tokenExpire
     ){
-        $this->mail=$mail;
-        $this->isActive=$isActive;
-        $this->token=$token;
-        $this->tokenExpire=$tokenExpire;
+        $this->mail = $mail;
+        $this->isActive = $isActive;
+        $this->token = $token;
+        $this->tokenExpire = $tokenExpire;
     }
 
     public function PasswordChange(
@@ -113,10 +113,10 @@ class User implements UserInterface
         ?string $token,
         ?\DateTime $tokenExpire
     ){
-        $this->password=password_hash($password, PASSWORD_BCRYPT);
-        $this->isActive=$isActive;
-        $this->token=$token;
-        $this->tokenExpire=$tokenExpire;
+        $this->password = password_hash($password, PASSWORD_BCRYPT);
+        $this->isActive = $isActive;
+        $this->token = $token;
+        $this->tokenExpire = $tokenExpire;
     }
 
     public function getId(): ?int
