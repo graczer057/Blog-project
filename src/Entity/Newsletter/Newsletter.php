@@ -53,22 +53,8 @@ class Newsletter
         return $this->mail;
     }
 
-    public function setMail(string $mail): self
-    {
-        $this->mail = $mail;
-
-        return $this;
-    }
-
     public function getIsActive(): ?bool
     {
         return $this->isActive;
-    }
-
-    public function setIsActive(bool $isActive): self
-    {
-        $this->isActive = $isActive;
-
-        return $this;
     }
 }

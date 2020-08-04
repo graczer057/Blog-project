@@ -22,34 +22,48 @@ class PasswordChangeController extends AbstractController implements PasswordCha
      * @param Users $User
      * @param PasswordChangeUser $passwordChangeUser
      * @param MailerInterface $mailer
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @throws \Throwable
      * @Route("/change/{token}", name="change", methods={"GET", "POST"})
      */
 
-    public function change(UserPasswordEncoderInterface $passwordEncoder, Request $request, string $token, Users $User, PasswordChangeUser $passwordChangeUser, MailerInterface $mailer){
+    public function change(
+        Request $request,
+        string $token,
+        Users $User,
+        PasswordChangeUser $passwordChangeUser,
+        MailerInterface $mailer
+    )
+    {
         if($this->getUser()){
             return $this->redirectToRoute('homepage');
         }
 
-        $form=$this->createForm(ChangeType::class);
+        $form = $this->createForm(ChangeType::class);
         $form->handleRequest($request);
 
-        $user=$User->findbyToken($token);
+        $user = $User->findbyToken($token);
 
         $date=new \DateTime("now");
+
+        $isActive = true;
+
+        $isNotActive = false;
+
+        $token = null;
+
+        $tokenExpire = null;
+
         if($form->isSubmitted()&&$form->isValid()){
-            $formData=$form->getData();
-            if($user->getIsActive() == 0){
+            if($user->getIsActive() == $isNotActive){
                 if($user->getTokenExpire()->getTimestamp() > $date->getTimestamp()){
-                    $command=new Command(
+                    $command = new Command(
                         $user,
                         $form->get('plainPassword')->getData(),
-                        1,
-                        NULL,
-                        NULL
+                        $isActive,
+                        $token,
+                        $tokenExpire
                     );
-                    dump($user);
+
                     $command->setResponder($this);
 
                     $passwordChangeUser->execute($command, $mailer);
@@ -57,6 +71,7 @@ class PasswordChangeController extends AbstractController implements PasswordCha
                     return $this->redirectToRoute('homepage');
                 }else{
                     $this->addFlash('error', 'Password is the same as the oldest. Please type your new password once again.');
+
                     return $this->render('users/change.html.twig', [
                         'form' => $form->createView()
                     ]);

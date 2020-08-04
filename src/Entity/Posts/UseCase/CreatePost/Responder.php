@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Entity\Posts\UseCase\CreatePost;
-
 
 use App\Entity\Posts\Post;
 

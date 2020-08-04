@@ -7,17 +7,10 @@ use App\Entity\Users\UseCase\CreateUser;
 use App\Entity\Users\UseCase\CreateUser\Responder as RegisterResponder;
 use App\Entity\Users\User;
 use App\Form\Users\RegisterType;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Security\LoginAuthenticator;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Routing\Generator\UrlGenerator;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
-use Symfony\Component\Mime\Email;
 
 class RegisterController extends AbstractController implements RegisterResponder
 {
@@ -27,7 +20,10 @@ class RegisterController extends AbstractController implements RegisterResponder
      * @throws \Throwable
      */
 
-    public function register(Request $request, Users $User, CreateUser $createUser, UserPasswordEncoderInterface $passwordEncoder)
+    public function register(
+        Request $request,
+        CreateUser $createUser
+    )
     {
         if($this->getUser()){
             return $this->redirectToRoute('homepage');
@@ -41,9 +37,11 @@ class RegisterController extends AbstractController implements RegisterResponder
                 'action' => $this->generateUrl('register_create', [])
             ]
         );
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $data = $form->getData();
 
             $command = new CreateUser\Command(

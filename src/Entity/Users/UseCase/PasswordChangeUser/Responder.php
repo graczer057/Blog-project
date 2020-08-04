@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Entity\Users\UseCase\PasswordChangeUser;
 
 use App\Entity\Users\User;

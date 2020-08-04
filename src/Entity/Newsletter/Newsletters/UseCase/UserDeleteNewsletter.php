@@ -1,15 +1,11 @@
 <?php
 
-
 namespace App\Entity\Newsletter\Newsletters\UseCase;
 
-use App\Adapter\User\Users;
 use App\Adapter\Newsletter\Newsletters;
 use App\Adapter\Core\Transaction;
-use App\Entity\Newsletter\Newsletter;
 use App\Entity\Newsletter\Newsletters\UseCase\UserDeleteNewsletter\Command;
 use App\Entity\Users\User;
-use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
@@ -27,11 +23,15 @@ class UserDeleteNewsletter extends AbstractController
         $this->transaction = $transaction;
     }
 
-    public function exeute(User $user, Command $command, MailerInterface $mailer){
+    public function exeute(
+        User $user,
+        Command $command,
+        MailerInterface $mailer
+    )
+    {
         $this->transaction->begin();
 
         $this->newsletters->delete($command->getNewsletter());
-
 
         $email = (new Email())
             ->from('bartlomiej.szyszkowski@yellows.eu')
@@ -41,12 +41,13 @@ class UserDeleteNewsletter extends AbstractController
 
         $mailer->send($email);
 
+        $command->getResponder()->DeleteNewsletter($command->getNewsletter());
+
         try {
             $this->transaction->commit();
         } catch (\Throwable $e) {
             $this->transaction->rollback();
             throw $e;
         }
-
     }
 }

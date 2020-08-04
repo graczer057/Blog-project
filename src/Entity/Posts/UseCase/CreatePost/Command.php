@@ -1,11 +1,9 @@
 <?php
 
-
 namespace App\Entity\Posts\UseCase\CreatePost;
 
 class Command
 {
-    private $id;
     private $info;
     private $title;
     private $responder;
@@ -29,10 +27,6 @@ class Command
 
     public function getResponder(): Responder{
         return $this->responder;
-    }
-
-    public function getId(): string {
-        return $this->id;
     }
 
     public function getTitle(): string{

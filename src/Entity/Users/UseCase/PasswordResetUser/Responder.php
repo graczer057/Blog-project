@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Entity\Users\UseCase\PasswordResetUser;
 
 use App\Entity\Users\User;

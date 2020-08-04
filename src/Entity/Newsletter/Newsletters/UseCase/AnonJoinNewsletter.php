@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Entity\Newsletter\Newsletters\UseCase;
 
 use App\Adapter\Newsletter\Newsletters;
@@ -24,7 +23,11 @@ class AnonJoinNewsletter extends AbstractController
         $this->transaction = $transaction;
     }
 
-    public function execute(Command $command, MailerInterface $mailer){
+    public function execute(
+        Command $command,
+        MailerInterface $mailer
+    )
+    {
         $this->transaction->begin();
 
         if($this->newsletters->finOneByMail($command->getMail())){
@@ -32,10 +35,14 @@ class AnonJoinNewsletter extends AbstractController
             return;
         }
 
+        $isActive = true;
+
+        $user = null;
+
         $newsletter = new Newsletter(
             $command->getMail(),
-            1,
-            null
+            $isActive,
+            $user
         );
 
         $email = (new Email())

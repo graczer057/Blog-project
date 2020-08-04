@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Entity\Newsletter\Newsletters\UseCase\AnonJoinNewsletter;
 
 class Command

@@ -2,17 +2,14 @@
 
 namespace App\Controller;
 
-use App\Entity\Newsletter\Newsletter;
 use App\Entity\Posts\Post;
 use App\Entity\Posts\UseCase\CreatePost;
 use App\Form\Posts\AddPostType;
-use App\Repository\PostRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Posts\UseCase\CreatePost\Responder as CreateCategoryResponder;
-use App\Entity\Newsletter\Newsletters\UseCase\SendingNewsletter\Command;
 
 class PostsController extends AbstractController implements CreateCategoryResponder
 {
@@ -21,7 +18,12 @@ class PostsController extends AbstractController implements CreateCategoryRespon
      * @Route("/post/create", name="posts_create", methods={"POST"})
      * @throws \Throwable
      */
-    public function addAction(Command $command1, MailerInterface $mailer, Request $request, CreatePost $createPost){
+    public function addAction(
+        MailerInterface $mailer,
+        Request $request,
+        CreatePost $createPost
+    )
+    {
 
         $form = $this->createForm(
             AddPostType::class,
@@ -34,7 +36,8 @@ class PostsController extends AbstractController implements CreateCategoryRespon
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted()&&$form->isValid()){
+        if($form->isSubmitted() && $form->isValid()){
+
             $data = $form->getData();
 
             $command = new CreatePost\Command(
@@ -42,7 +45,7 @@ class PostsController extends AbstractController implements CreateCategoryRespon
                 $data['title']
             );
 
-            $createPost->execute($command1, $command, $mailer);
+            $createPost->execute($command, $mailer);
 
             return $this->redirectToRoute('homepage', []);
         }

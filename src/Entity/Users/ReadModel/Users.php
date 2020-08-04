@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Entity\Users\ReadModel;
-
 
 class Users
 {

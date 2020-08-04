@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Entity\Users\UseCase\ActivateUser;
 
 use App\Entity\Users\User;
@@ -16,6 +15,7 @@ class Command
 
     /**
      * Command constructor.
+     * @param User $user
      * @param bool $isActive
      * @param string $token
      * @param DateTime $expireToken
@@ -53,9 +53,6 @@ class Command
         return $this->responder;
     }
 
-    /**
-     * @param Responder $responder
-     */
     public function setResponder(Responder $responder){
         $this->responder=$responder;
     }

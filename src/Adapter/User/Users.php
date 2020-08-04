@@ -14,7 +14,7 @@ final class Users implements UsersInterface
 
     public function __construct(ObjectManager $manager)
     {
-        $this->manager=$manager;
+        $this->manager = $manager;
     }
 
     public function add(User $user)

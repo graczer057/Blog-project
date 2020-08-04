@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Entity\Newsletter\Newsletters\UseCase\UserJoinNewsletter;
 
 use App\Entity\Newsletter\Newsletter;

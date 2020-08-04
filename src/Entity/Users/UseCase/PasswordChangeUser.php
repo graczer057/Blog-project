@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Entity\Users\UseCase;
 
 use App\Adapter\Core\Transaction;
@@ -9,7 +8,6 @@ use App\Entity\Users\UseCase\PasswordChangeUser\Command;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
-use Symfony\Component\Routing\Generator\UrlGenerator;
 
 class PasswordChangeUser extends AbstractController
 {
@@ -23,9 +21,14 @@ class PasswordChangeUser extends AbstractController
         $this->transaction=$transaction;
     }
 
-    public function execute(Command $command, MailerInterface $mailer){
+    public function execute(
+        Command $command,
+        MailerInterface $mailer
+    )
+    {
         $this->transaction->begin();
-        $User=$command->getUser();
+
+        $User = $command->getUser();
         $User->PasswordChange(
             $command->getPassword(),
             $command->getIsActive(),
@@ -34,6 +37,7 @@ class PasswordChangeUser extends AbstractController
         );
 
         $this->createNotFoundException();
+
         $mail = (new Email())
             ->from('bartlomiej.szyszkowski@yellows.eu')
             ->to($User->getMail())

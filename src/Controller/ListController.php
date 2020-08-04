@@ -1,16 +1,13 @@
 <?php
 
-
 namespace App\Controller;
 
 use App\Adapter\Post\PostsQuery;
 use App\Entity\Posts\Post;
 use App\Repository\PostRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Routing\Generator\UrlGenerator;
 
 /**
  * Class ListController

@@ -116,13 +116,26 @@ class __TwigTemplate_504eacf37614a638d94dbbc14b49ae0381724cb50976c2ce6ff5a09e036
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("register");
         echo "\">Zarejestruj</a>
                 </li>
-            </ul>
+                ";
+        // line 39
+        if (twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 39, $this->source); })()), "user", [], "any", false, false, false, 39)) {
+            // line 40
+            echo "                    <li class=\"nav-item\">
+                        <a class=\"nav-link\" href=\"";
+            // line 41
+            echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_logout");
+            echo "\">Wyloguj się</a>
+                    </li>
+                ";
+        }
+        // line 44
+        echo "            </ul>
         </div>
     </nav>
 </header>
 
 <main>";
-        // line 44
+        // line 49
         $this->displayBlock('body', $context, $blocks);
         echo "</main>
 
@@ -135,18 +148,18 @@ class __TwigTemplate_504eacf37614a638d94dbbc14b49ae0381724cb50976c2ce6ff5a09e036
 
 
 <script src=\"";
-        // line 54
+        // line 59
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("assets/js/jquery-3.5.1/jquery-3.5.1.min.js"), "html", null, true);
         echo "\"></script>
 <script src=\"";
-        // line 55
+        // line 60
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("assets/js/bootstrap/bootstrap.bundle.js"), "html", null, true);
         echo "\"></script>
 <script src=\"https://kit.fontawesome.com/b26e0d0c0b.js\" crossorigin=\"anonymous\"></script>
 ";
-        // line 57
+        // line 62
         $this->displayBlock('javascripts', $context, $blocks);
-        // line 58
+        // line 63
         echo "</body>
 </html>
 
@@ -195,7 +208,7 @@ class __TwigTemplate_504eacf37614a638d94dbbc14b49ae0381724cb50976c2ce6ff5a09e036
 
     }
 
-    // line 44
+    // line 49
     public function block_body($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -213,7 +226,7 @@ class __TwigTemplate_504eacf37614a638d94dbbc14b49ae0381724cb50976c2ce6ff5a09e036
 
     }
 
-    // line 57
+    // line 62
     public function block_javascripts($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -243,7 +256,7 @@ class __TwigTemplate_504eacf37614a638d94dbbc14b49ae0381724cb50976c2ce6ff5a09e036
 
     public function getDebugInfo()
     {
-        return array (  217 => 57,  199 => 44,  181 => 7,  163 => 6,  150 => 58,  148 => 57,  143 => 55,  139 => 54,  126 => 44,  116 => 37,  110 => 34,  96 => 31,  90 => 28,  84 => 25,  65 => 9,  60 => 8,  58 => 7,  54 => 6,  47 => 1,);
+        return array (  230 => 62,  212 => 49,  194 => 7,  176 => 6,  163 => 63,  161 => 62,  156 => 60,  152 => 59,  139 => 49,  132 => 44,  126 => 41,  123 => 40,  121 => 39,  116 => 37,  110 => 34,  96 => 31,  90 => 28,  84 => 25,  65 => 9,  60 => 8,  58 => 7,  54 => 6,  47 => 1,);
     }
 
     public function getSourceContext()
@@ -286,6 +299,11 @@ class __TwigTemplate_504eacf37614a638d94dbbc14b49ae0381724cb50976c2ce6ff5a09e036
                 <li class=\"nav-item\">
                     <a class=\"nav-link\" href=\"{{ path('register') }}\">Zarejestruj</a>
                 </li>
+                {% if app.user %}
+                    <li class=\"nav-item\">
+                        <a class=\"nav-link\" href=\"{{ path('app_logout') }}\">Wyloguj się</a>
+                    </li>
+                {% endif %}
             </ul>
         </div>
     </nav>

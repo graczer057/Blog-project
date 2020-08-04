@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Entity\Newsletter\Newsletters\UseCase;
 
 use App\Adapter\Newsletter\Newsletters;
@@ -28,14 +27,20 @@ class UserJoinNewsletter extends AbstractController
         $this->transaction = $transaction;
     }
 
-    public function execute(Command $command, MailerInterface $mailer){
+    public function execute(
+        Command $command,
+        MailerInterface $mailer
+    )
+    {
         $this->transaction->begin();
 
         $user = $command->getUser();
 
+        $isActive = true;
+
         $newsletter = new Newsletter(
             $this->getUser()->getMail(),
-            1,
+            $isActive,
             $user
         );
 

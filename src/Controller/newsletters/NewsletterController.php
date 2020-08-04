@@ -46,11 +46,11 @@ class NewsletterController extends AbstractController implements JoinResponder
 
     public function JoinNewsletter(Newsletter $newsletter)
     {
-        $this->addFlash('success', 'Please check your email: ');
+        $this->addFlash('success', 'Please check your email');
     }
 
     public function mailAlreadyInUse(string $mail)
     {
-        // TODO: Implement mailAlreadyInUse() method.
+        $this->addFlash('error', 'This mail is already in use');
     }
 }

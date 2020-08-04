@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Entity\Users\UseCase;
 
 use App\Adapter\Core\Transaction;
@@ -20,11 +19,14 @@ class PasswordResetUser extends AbstractController
         $this->transaction=$transaction;
     }
 
-    public function execute(Command $command, MailerInterface $mailer){
+    public function execute(
+        Command $command,
+        MailerInterface $mailer
+    )
+    {
         $this->transaction->begin();
 
         $User = $command->getUser();
-
         $User->PasswordReset(
             $command->getMail(),
             $command->getIsActive(),
@@ -33,6 +35,7 @@ class PasswordResetUser extends AbstractController
         );
 
         $this->createNotFoundException();
+
         $url = $this->generateUrl('change', array('token' => $command->getToken()), UrlGenerator::ABSOLUTE_URL);
 
         $email = (new Email())

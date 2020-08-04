@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Controller\users;
 
 use App\Adapter\User\Users;
@@ -23,21 +22,35 @@ class ExpireController extends AbstractController implements TokenExpireResponde
      * @Route ("/token/expire", name="token_expire", methods={"GET", "POST"})
      */
 
-    public function TokenExpire(Request $request, Users $User, ExpireUser $expireUser, MailerInterface $mailer){
+    public function TokenExpire(
+        Request $request,
+        Users $User,
+        ExpireUser $expireUser,
+        MailerInterface $mailer
+    )
+    {
         if($this->getUser()){
             return $this->redirectToRoute('homepage');
         }
 
-        $form=$this->createForm(ExpireFormType::class);
+        $form = $this->createForm(ExpireFormType::class);
         $form->handleRequest($request);
 
-        if($form->isSubmitted()&&$form->isValid()){
-            $formData=$form->getData();
+        $isActive = true;
 
-            $user=$User->findbyMail($formData['mail']);
+        $isNotActive = false;
 
-            if($user->getIsActive()==false){
-                $commandData = new Command($user, md5(uniqid(Time())), new DateTime('+15 minutes'));
+        $token = md5(uniqid(Time()));
+
+        $date = new DateTime('+15 minutes');
+
+        if($form->isSubmitted() && $form->isValid()){
+            $formData = $form->getData();
+
+            $user = $User->findbyMail($formData['mail']);
+
+            if($user->getIsActive == $isNotActive){
+                $commandData = new Command($user, $token, $date);
                 $commandData->setResponder($this);
 
                 $expireUser->execute($commandData, $mailer);
@@ -51,6 +64,6 @@ class ExpireController extends AbstractController implements TokenExpireResponde
     }
 
     public function UserTokenExpire(User $user){
-        $this->addFlash('success', 'Please check your email: '.$user->getUsername());
+        $this->addFlash('success', 'Please check your email: '.$user->getMail());
     }
 }

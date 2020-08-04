@@ -7,7 +7,6 @@ use App\Adapter\Newsletter\Newsletters;
 use App\Adapter\User\Users;
 use App\Entity\Newsletter\Newsletter;
 use App\Entity\Users\UseCase\ActivateUser\Command as ActivateCommand;
-use App\Entity\Newsletter\Newsletters\UseCase\UserJoinNewsletter\Command as NewsletterCommand;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
@@ -30,18 +29,25 @@ class ActivateUser extends AbstractController
         $this->mailer=$mailer;
     }
 
-    public function execute(ActivateCommand $command, MailerInterface $mailer){
+    public function execute(
+        ActivateCommand $command,
+        MailerInterface $mailer
+    )
+    {
         $this->transaction->begin();
-        $User=$command->getUser();
+
+        $User = $command->getUser();
         $User->activateUser(
             $command->getIsActive(),
             $command->getToken(),
             $command->getExpireToken()
         );
 
+        $isActive = true;
+
         $Newsletter = new Newsletter(
             $User->getMail(),
-            1,
+            $isActive,
             $User
         );
 
@@ -55,6 +61,7 @@ class ActivateUser extends AbstractController
         }
 
         $this->createNotFoundException();
+
         $email = (new Email())
             ->from('bartlomiej.szyszkowski@yellows.eu')
             ->to($User->getMail())

@@ -1,10 +1,6 @@
 <?php
 
-
 namespace App\Entity\Posts\ReadModel;
-
-
-use phpDocumentor\Reflection\Types\String_;
 
 class PostsReadModel
 {

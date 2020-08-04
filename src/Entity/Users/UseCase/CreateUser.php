@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Entity\Users\UseCase;
 
 use App\Entity\Users\User;
@@ -19,7 +18,12 @@ class CreateUser
     private $urlGenerator;
     private $transaction;
 
-    public function __construct(Users $users, MailerInterface $mailer, UrlGeneratorInterface $urlGenerator, Transaction $transaction)
+    public function __construct(
+        Users $users,
+        MailerInterface $mailer,
+        UrlGeneratorInterface $urlGenerator,
+        Transaction $transaction
+    )
     {
         $this->users = $users;
         $this->mailer = $mailer;
@@ -27,7 +31,10 @@ class CreateUser
         $this->transaction = $transaction;
     }
 
-    public function execute(Command $command){
+    public function execute(
+        Command $command
+    )
+    {
         $this->transaction->begin();
 
         $user = new User(

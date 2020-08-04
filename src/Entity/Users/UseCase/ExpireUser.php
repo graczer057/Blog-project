@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Entity\Users\UseCase;
 
 use App\Adapter\Core\Transaction;
@@ -20,17 +19,21 @@ class ExpireUser extends AbstractController
         $this->transaction=$transaction;
     }
 
-    public function execute(Command $command, MailerInterface $mailer){
+    public function execute(
+        Command $command,
+        MailerInterface $mailer
+    )
+    {
         $this->transaction->begin();
 
         $User = $command->getUser();
-
         $User->TokenExpire(
             $command->getToken(),
             $command->getTokenExpire()
         );
 
         $this->createNotFoundException();
+
         $url = $this->generateUrl('activate', array('token' => $command->getToken()), UrlGenerator::ABSOLUTE_URL);
 
         $email = (new Email())

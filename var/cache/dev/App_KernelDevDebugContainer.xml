@@ -5438,10 +5438,9 @@
         <argument key="postsQuery" type="service" id="App\Adapter\Post\PostsQuery"/>
       </argument>
     </service>
-    <service id=".service_locator.F_6pC2x" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator..DyIK.X" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
-        <argument key="command1" type="service" id=".errored..service_locator.F_6pC2x.App\Entity\Newsletter\Newsletters\UseCase\SendingNewsletter\Command"/>
         <argument key="createPost" type="service" id="App\Entity\Posts\UseCase\CreatePost"/>
         <argument key="mailer" type="service" id="mailer.mailer"/>
       </argument>
@@ -5487,13 +5486,12 @@
         <argument key="users" type="service" id="App\Adapter\User\Users"/>
       </argument>
     </service>
-    <service id=".service_locator.4tO0bWI" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.vSqKIbb" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="User" type="service" id="App\Adapter\User\Users"/>
         <argument key="activateUser" type="service" id="App\Entity\Users\UseCase\ActivateUser"/>
         <argument key="mailer" type="service" id="mailer.mailer"/>
-        <argument key="user" type="service" id=".errored..service_locator.4tO0bWI.App\Entity\Users\User"/>
       </argument>
     </service>
     <service id=".service_locator.VnT6WfK" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
@@ -5535,12 +5533,11 @@
         <argument key="passwordEncoder" type="service" id="security.user_password_encoder.generic"/>
       </argument>
     </service>
-    <service id=".service_locator.WtDaBvg" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.TdR_qZ1" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
-        <argument key="command" type="service" id=".errored..service_locator.WtDaBvg.App\Entity\Posts\UseCase\CreatePost\Command"/>
+        <argument key="command" type="service" id=".errored..service_locator.TdR_qZ1.App\Entity\Posts\UseCase\CreatePost\Command"/>
         <argument key="mailer" type="service" id="mailer.mailer"/>
-        <argument key="newsCommand" type="service" id=".errored..service_locator.WtDaBvg.App\Entity\Newsletter\Newsletters\UseCase\SendingNewsletter\Command"/>
       </argument>
     </service>
     <service id=".service_locator.XuTbgWg" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
@@ -5593,11 +5590,11 @@
         <argument key="mailer" type="service" id="mailer.mailer"/>
       </argument>
     </service>
-    <service id=".service_locator.z8fn7GK" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.XffeVSb" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\ListController::Post" type="service" id=".service_locator.ugyrBnk"/>
-        <argument key="App\Controller\PostsController::addAction" type="service" id=".service_locator.F_6pC2x"/>
+        <argument key="App\Controller\PostsController::addAction" type="service" id=".service_locator..DyIK.X"/>
         <argument key="App\Controller\PostsController::postCreated" type="service" id=".service_locator.qR_a68B"/>
         <argument key="App\Controller\SecurityController::login" type="service" id=".service_locator.xA8Fw_."/>
         <argument key="App\Controller\newsletters\NewsletterController::Join" type="service" id=".service_locator.Lj2YAcf"/>
@@ -5607,7 +5604,7 @@
         <argument key="App\Controller\newsletters\UserJoinController::Join" type="service" id=".service_locator..RyPjJv"/>
         <argument key="App\Controller\users\ActivateController::JoinNewsletter" type="service" id=".service_locator.L8FURQc"/>
         <argument key="App\Controller\users\ActivateController::UserActivated" type="service" id=".service_locator.VnT6WfK"/>
-        <argument key="App\Controller\users\ActivateController::activate" type="service" id=".service_locator.4tO0bWI"/>
+        <argument key="App\Controller\users\ActivateController::activate" type="service" id=".service_locator.vSqKIbb"/>
         <argument key="App\Controller\users\ExpireController::TokenExpire" type="service" id=".service_locator.WTQmulf"/>
         <argument key="App\Controller\users\ExpireController::UserTokenExpire" type="service" id=".service_locator.VnT6WfK"/>
         <argument key="App\Controller\users\PasswordChangeController::change" type="service" id=".service_locator.mtdYu6H"/>
@@ -5619,7 +5616,7 @@
         <argument key="App\Entity\Newsletter\Newsletters\UseCase\AnonJoinNewsletter::execute" type="service" id=".service_locator.apuLg5r"/>
         <argument key="App\Entity\Newsletter\Newsletters\UseCase\UserDeleteNewsletter::exeute" type="service" id=".service_locator.P3K8z4_"/>
         <argument key="App\Entity\Newsletter\Newsletters\UseCase\UserJoinNewsletter::execute" type="service" id=".service_locator.pBzUO1j"/>
-        <argument key="App\Entity\Posts\UseCase\CreatePost::execute" type="service" id=".service_locator.WtDaBvg"/>
+        <argument key="App\Entity\Posts\UseCase\CreatePost::execute" type="service" id=".service_locator.TdR_qZ1"/>
         <argument key="App\Entity\Users\UseCase\ActivateUser::execute" type="service" id=".service_locator.XuTbgWg"/>
         <argument key="App\Entity\Users\UseCase\ExpireUser::execute" type="service" id=".service_locator.vrc7Oql"/>
         <argument key="App\Entity\Users\UseCase\PasswordChangeUser::execute" type="service" id=".service_locator.lEPEAjr"/>
@@ -5631,7 +5628,7 @@
         <argument key="kernel::registerContainerConfiguration" type="service" id=".service_locator.C9JCBPC"/>
         <argument key="kernel::terminate" type="service" id=".service_locator.beq5mCo"/>
         <argument key="App\Controller\ListController:Post" type="service" id=".service_locator.ugyrBnk"/>
-        <argument key="App\Controller\PostsController:addAction" type="service" id=".service_locator.F_6pC2x"/>
+        <argument key="App\Controller\PostsController:addAction" type="service" id=".service_locator..DyIK.X"/>
         <argument key="App\Controller\PostsController:postCreated" type="service" id=".service_locator.qR_a68B"/>
         <argument key="App\Controller\SecurityController:login" type="service" id=".service_locator.xA8Fw_."/>
         <argument key="App\Controller\newsletters\NewsletterController:Join" type="service" id=".service_locator.Lj2YAcf"/>
@@ -5641,7 +5638,7 @@
         <argument key="App\Controller\newsletters\UserJoinController:Join" type="service" id=".service_locator..RyPjJv"/>
         <argument key="App\Controller\users\ActivateController:JoinNewsletter" type="service" id=".service_locator.L8FURQc"/>
         <argument key="App\Controller\users\ActivateController:UserActivated" type="service" id=".service_locator.VnT6WfK"/>
-        <argument key="App\Controller\users\ActivateController:activate" type="service" id=".service_locator.4tO0bWI"/>
+        <argument key="App\Controller\users\ActivateController:activate" type="service" id=".service_locator.vSqKIbb"/>
         <argument key="App\Controller\users\ExpireController:TokenExpire" type="service" id=".service_locator.WTQmulf"/>
         <argument key="App\Controller\users\ExpireController:UserTokenExpire" type="service" id=".service_locator.VnT6WfK"/>
         <argument key="App\Controller\users\PasswordChangeController:change" type="service" id=".service_locator.mtdYu6H"/>
@@ -5653,7 +5650,7 @@
         <argument key="App\Entity\Newsletter\Newsletters\UseCase\AnonJoinNewsletter:execute" type="service" id=".service_locator.apuLg5r"/>
         <argument key="App\Entity\Newsletter\Newsletters\UseCase\UserDeleteNewsletter:exeute" type="service" id=".service_locator.P3K8z4_"/>
         <argument key="App\Entity\Newsletter\Newsletters\UseCase\UserJoinNewsletter:execute" type="service" id=".service_locator.pBzUO1j"/>
-        <argument key="App\Entity\Posts\UseCase\CreatePost:execute" type="service" id=".service_locator.WtDaBvg"/>
+        <argument key="App\Entity\Posts\UseCase\CreatePost:execute" type="service" id=".service_locator.TdR_qZ1"/>
         <argument key="App\Entity\Users\UseCase\ActivateUser:execute" type="service" id=".service_locator.XuTbgWg"/>
         <argument key="App\Entity\Users\UseCase\ExpireUser:execute" type="service" id=".service_locator.vrc7Oql"/>
         <argument key="App\Entity\Users\UseCase\PasswordChangeUser:execute" type="service" id=".service_locator.lEPEAjr"/>
@@ -6233,12 +6230,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-      <argument type="service" id=".service_locator.z8fn7GK"/>
+      <argument type="service" id=".service_locator.XffeVSb"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver" public="false">
-      <argument type="service" id=".service_locator.z8fn7GK"/>
+      <argument type="service" id=".service_locator.XffeVSb"/>
     </service>
     <service id=".debug.http_client.inner" class="Symfony\Contracts\HttpClient\HttpClientInterface" public="false">
       <argument type="collection"/>
@@ -6251,13 +6248,10 @@
     <service id=".errored..service_locator.beq5mCo.Symfony\Component\HttpFoundation\Response" class="Symfony\Component\HttpFoundation\Response"/>
     <service id=".errored..service_locator.C9JCBPC.Symfony\Component\Config\Loader\LoaderInterface" class="Symfony\Component\Config\Loader\LoaderInterface"/>
     <service id=".errored..service_locator.ugyrBnk.App\Entity\Posts\Post" class="App\Entity\Posts\Post"/>
-    <service id=".errored..service_locator.F_6pC2x.App\Entity\Newsletter\Newsletters\UseCase\SendingNewsletter\Command" class="App\Entity\Newsletter\Newsletters\UseCase\SendingNewsletter\Command"/>
     <service id=".errored..service_locator.qR_a68B.App\Entity\Posts\Post" class="App\Entity\Posts\Post"/>
     <service id=".errored..service_locator.L8FURQc.App\Entity\Newsletter\Newsletter" class="App\Entity\Newsletter\Newsletter"/>
-    <service id=".errored..service_locator.4tO0bWI.App\Entity\Users\User" class="App\Entity\Users\User"/>
     <service id=".errored..service_locator.VnT6WfK.App\Entity\Users\User" class="App\Entity\Users\User"/>
-    <service id=".errored..service_locator.WtDaBvg.App\Entity\Posts\UseCase\CreatePost\Command" class="App\Entity\Posts\UseCase\CreatePost\Command"/>
-    <service id=".errored..service_locator.WtDaBvg.App\Entity\Newsletter\Newsletters\UseCase\SendingNewsletter\Command" class="App\Entity\Newsletter\Newsletters\UseCase\SendingNewsletter\Command"/>
+    <service id=".errored..service_locator.TdR_qZ1.App\Entity\Posts\UseCase\CreatePost\Command" class="App\Entity\Posts\UseCase\CreatePost\Command"/>
     <service id=".errored..service_locator.XuTbgWg.App\Entity\Users\UseCase\ActivateUser\Command" class="App\Entity\Users\UseCase\ActivateUser\Command"/>
     <service id=".errored..service_locator.vrc7Oql.App\Entity\Users\UseCase\ExpireUser\Command" class="App\Entity\Users\UseCase\ExpireUser\Command"/>
     <service id=".errored..service_locator.ha4pBI8.App\Entity\Users\UseCase\PasswordResetUser\Command" class="App\Entity\Users\UseCase\PasswordResetUser\Command"/>
@@ -6644,7 +6638,7 @@
     <service id="Psr\Log\LoggerInterface" alias="monolog.logger" public="false"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.WaGDpDt" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.z8fn7GK"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.XffeVSb"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
     <service id="Psr\Log\LoggerInterface $consoleLogger" alias="monolog.logger.console"/>

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Form\Users;
-
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -18,7 +16,6 @@ class LoginType extends AbstractType
         $builder
             ->add('mail')
             ->add('plainPassword', PasswordType::class, [
-                // instead of being set onto the object directly,
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter a password',
@@ -26,7 +23,6 @@ class LoginType extends AbstractType
                     new Length([
                         'min' => 6,
                         'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),
                 ],

@@ -6,7 +6,6 @@ namespace App\Adapter\Newsletter;
 use App\Entity\Newsletter\Newsletter;
 use App\Entity\Newsletter\NewslettersInterface;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ObjectManager;
 
 final class Newsletters implements NewslettersInterface
 {
@@ -22,9 +21,8 @@ final class Newsletters implements NewslettersInterface
         $this->manager->remove($newsletter);
     }
 
-    public function getAll(Newsletter $newsletter)
-    {
-        return $this->manager->getRepository('App:Newsletter\Newsletter')->findAll();
+    public function getAll(): ?array{
+        return $this->manager->getRepository('App:Newsletter\Newsletter')->findAll([]);
     }
 
     public function add(Newsletter $newsletter)

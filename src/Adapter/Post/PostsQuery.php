@@ -3,20 +3,18 @@
 
 namespace App\Adapter\Post;
 
-use App\Entity\Posts\Post;
 use App\Entity\Posts\ReadModel\PostsQueryInterface;
 use App\Entity\Posts\ReadModel\PostsReadModel;
-use App\Entity\Posts\PostsInterface;
 use Doctrine\DBAL\Driver\Connection;
-use PhpParser\Comment;
 
 class PostsQuery implements PostsQueryInterface
 {
     private $connection;
 
-    public function __construct(Connection $connection)
-    {
-        $this->connection=$connection;
+    public function __construct(
+        Connection $connection
+    ){
+        $this->connection = $connection;
     }
 
     /**
@@ -61,15 +59,5 @@ class PostsQuery implements PostsQueryInterface
                 );
             }
         );
-    }
-
-    public function getByAbbreviationCode(string $info, \DateTime $add_time)
-    {
-        // TODO: Implement getByAbbreviationCode() method.
-    }
-
-    public function generateAbbreviationCode(string $info, bool $is_active)
-    {
-        // TODO: Implement generateAbbreviationCode() method.
     }
 }

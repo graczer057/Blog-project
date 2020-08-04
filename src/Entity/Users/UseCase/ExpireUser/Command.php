@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Entity\Users\UseCase\ExpireUser;
 
 use App\Entity\Users\User;
@@ -15,7 +14,8 @@ class Command
 
     /**
      * Command constructor.
-     * @param string $token
+     * @param User $user
+     * @param string|null $Token
      * @param DateTime $tokenExpire
      */
 
@@ -41,10 +41,6 @@ class Command
     public function getTokenExpire(): ?\DateTime{
         return $this->tokenExpire;
     }
-
-    /**
-     * @param Responder $responder
-     */
 
     public function setResponder(Responder $responder): void{
         $this->responder = $responder;

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Entity\Newsletter\Newsletters\ReadModel;
 
 use App\Entity\Users\User;
