@@ -2,37 +2,26 @@
 
 namespace App\Controller;
 
-use App\Adapter\Post\Posts;
-use App\Adapter\Post\PostsQuery;
-use App\Adapter\Core\Transaction;
+use App\Entity\Newsletter\Newsletter;
 use App\Entity\Posts\Post;
 use App\Entity\Posts\UseCase\CreatePost;
 use App\Form\Posts\AddPostType;
 use App\Repository\PostRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\ORM\EntityManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Posts\UseCase\CreatePost\Responder as CreateCategoryResponder;
+use App\Entity\Newsletter\Newsletters\UseCase\SendingNewsletter\Command;
 
 class PostsController extends AbstractController implements CreateCategoryResponder
 {
-    private $PostRepository;
-
-    public function __construct(
-        PostRepository $PostRepository
-    ){
-        $this->PostRepository = $PostRepository;
-    }
-
     /**
      * @Route("/post/add", name="posts_add", methods={"GET"})
      * @Route("/post/create", name="posts_create", methods={"POST"})
      * @throws \Throwable
      */
-    public function addAction(Request $request, PostsQuery $postsQuery, CreatePost $createPost){
+    public function addAction(Command $command1, MailerInterface $mailer, Request $request, CreatePost $createPost){
 
         $form = $this->createForm(
             AddPostType::class,
@@ -53,9 +42,9 @@ class PostsController extends AbstractController implements CreateCategoryRespon
                 $data['title']
             );
 
-            $createPost->execute($command);
+            $createPost->execute($command1, $command, $mailer);
 
-            return $this->redirectToRoute('homepage',[]);
+            return $this->redirectToRoute('homepage', []);
         }
         return $this->render('posts/add.html.twig',[
             'form' => $form->createView(),

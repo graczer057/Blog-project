@@ -8,7 +8,6 @@ use App\Adapter\User\Users;
 use App\Adapter\Core\Transaction;
 use App\Entity\Newsletter\Newsletter;
 use App\Entity\Newsletter\Newsletters\UseCase\UserJoinNewsletter\Command;
-use App\Entity\Users\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
@@ -29,37 +28,34 @@ class UserJoinNewsletter extends AbstractController
         $this->transaction = $transaction;
     }
 
-    public function execute (User $user, Command $command, MailerInterface $mailer){
+    public function execute(Command $command, MailerInterface $mailer){
         $this->transaction->begin();
 
-        if($this->newsletters->finOneByMail($command->getMail())){
-            $command->getResponder()->UserJoined($command->getMail());
-            return;
-        }
+        $user = $command->getUser();
 
         $newsletter = new Newsletter(
-            $command->getMail(),
+            $this->getUser()->getMail(),
             1,
             $user
         );
 
         $email = (new Email())
             ->from('bartlomiej.szyszkowski@yellows.eu')
-            ->to($newsletter->getMail())
-            ->subject('Newsletter completed')
-            ->text('Dear user. Thank you for joining our newsletter family :)');
+            ->to($user->getMail())
+            ->subject('Newsletter add')
+            ->text('Dear user. You just join ours newsletter family. Welcome! :)');
 
         $mailer->send($email);
 
         $this->newsletters->add($newsletter);
 
-        try{
+        try {
             $this->transaction->commit();
-        } catch (\throwable $e) {
+        } catch (\Throwable $e) {
             $this->transaction->rollback();
             throw $e;
         }
 
-        $command->getResponder()->UserJoined($newsletter);
+        $command->getResponder()->JoinNewsletter($newsletter);
     }
 }

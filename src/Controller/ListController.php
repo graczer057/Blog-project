@@ -48,7 +48,7 @@ class ListController extends AbstractController
      * @param int $id
      * @param PostsQuery $postsQuery
      * @return Response
-     * @Route("/post/{id}/show", name="see", methods={"GET"})
+     * @Route("/posts/{id}/show", name="see", methods={"GET"})
      */
     public function Post(Post $id, PostsQuery $postsQuery){
         return $this->render('post.html.twig', [

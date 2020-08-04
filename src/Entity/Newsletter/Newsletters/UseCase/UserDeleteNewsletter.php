@@ -37,7 +37,7 @@ class UserDeleteNewsletter extends AbstractController
             ->from('bartlomiej.szyszkowski@yellows.eu')
             ->to($user->getMail())
             ->subject('Newsletter delete')
-            ->text('Dear user. You just delet your mail form our base of newsletter. If you want to go back to that list please hit button "newsletter"');
+            ->text('Dear user. You just delete your mail form our base of newsletter. If you want to go back to that list please hit button "newsletter"');
 
         $mailer->send($email);
 

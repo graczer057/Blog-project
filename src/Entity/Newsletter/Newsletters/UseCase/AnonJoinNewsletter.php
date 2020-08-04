@@ -47,6 +47,7 @@ class AnonJoinNewsletter extends AbstractController
         $mailer->send($email);
 
         $this->newsletters->add($newsletter);
+
         try{
             $this->transaction->commit();
         } catch (\throwable $e) {

@@ -19,7 +19,8 @@ return [
         '/login' => [[['_route' => 'app_login', '_controller' => 'App\\Controller\\SecurityController::login'], null, null, null, false, false, null]],
         '/logout' => [[['_route' => 'app_logout', '_controller' => 'App\\Controller\\SecurityController::logout'], null, null, null, false, false, null]],
         '/anon/join/newsletter' => [[['_route' => 'anon_join', '_controller' => 'App\\Controller\\newsletters\\NewsletterController::Join'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        '/newsletter/delete' => [[['_route' => 'newsletter_delete', '_controller' => 'App\\Controller\\newsletters\\UserDeleteController::Join'], null, null, null, false, false, null]],
+        '/newsletter/delete' => [[['_route' => 'newsletter_delete', '_controller' => 'App\\Controller\\newsletters\\UserDeleteController::Delete'], null, null, null, false, false, null]],
+        '/newsletter/join/user' => [[['_route' => 'user_join', '_controller' => 'App\\Controller\\newsletters\\UserJoinController::Join'], null, null, null, false, false, null]],
         '/token/expire' => [[['_route' => 'token_expire', '_controller' => 'App\\Controller\\users\\ExpireController::TokenExpire'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
         '/password/reset' => [[['_route' => 'password_reset', '_controller' => 'App\\Controller\\users\\PasswordResetController::PasswordReset'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
         '/register/form' => [[['_route' => 'register', '_controller' => 'App\\Controller\\users\\RegisterController::register'], null, ['GET' => 0], null, false, false, null]],
@@ -42,9 +43,9 @@ return [
                         .'|(*:159)'
                     .')'
                 .')'
-                .'|/post/([^/]++)/show(*:188)'
-                .'|/activate/([^/]++)(*:214)'
-                .'|/change/([^/]++)(*:238)'
+                .'|/posts/([^/]++)/show(*:189)'
+                .'|/activate/([^/]++)(*:215)'
+                .'|/change/([^/]++)(*:239)'
             .')/?$}sDu',
     ],
     [ // $dynamicRoutes
@@ -55,9 +56,9 @@ return [
         136 => [[['_route' => '_profiler_exception', '_controller' => 'web_profiler.controller.exception_panel::body'], ['token'], null, null, false, false, null]],
         149 => [[['_route' => '_profiler_exception_css', '_controller' => 'web_profiler.controller.exception_panel::stylesheet'], ['token'], null, null, false, false, null]],
         159 => [[['_route' => '_profiler', '_controller' => 'web_profiler.controller.profiler::panelAction'], ['token'], null, null, false, true, null]],
-        188 => [[['_route' => 'see', '_controller' => 'App\\Controller\\ListController::Post'], ['id'], ['GET' => 0], null, false, false, null]],
-        214 => [[['_route' => 'activate', '_controller' => 'App\\Controller\\users\\ActivateController::activate'], ['token'], ['GET' => 0, 'POST' => 1], null, false, true, null]],
-        238 => [
+        189 => [[['_route' => 'see', '_controller' => 'App\\Controller\\ListController::Post'], ['id'], ['GET' => 0], null, false, false, null]],
+        215 => [[['_route' => 'activate', '_controller' => 'App\\Controller\\users\\ActivateController::activate'], ['token'], ['GET' => 0, 'POST' => 1], null, false, true, null]],
+        239 => [
             [['_route' => 'change', '_controller' => 'App\\Controller\\users\\PasswordChangeController::change'], ['token'], ['GET' => 0, 'POST' => 1], null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],

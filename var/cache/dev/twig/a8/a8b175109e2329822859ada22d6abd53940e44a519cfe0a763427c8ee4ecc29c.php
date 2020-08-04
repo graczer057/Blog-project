@@ -90,33 +90,39 @@ class __TwigTemplate_504eacf37614a638d94dbbc14b49ae0381724cb50976c2ce6ff5a09e036
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("posts_add");
         echo "\">Dodaj nowego posta<span class=\"sr-only\">(current)</span></a>
                 </li>
-                <li class=\"nav-item\">
+                <li class=\"nav-item active\">
                     <a class=\"nav-link\" href=\"";
         // line 31
-        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_login");
-        echo "\">zaloguj</a>
+        if (twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 31, $this->source); })()), "user", [], "any", false, false, false, 31)) {
+            if ( !twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 31, $this->source); })()), "user", [], "any", false, false, false, 31), "newsletter", [], "any", false, false, false, 31)) {
+                echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("user_join");
+            } else {
+                echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("newsletter_delete");
+            }
+        } else {
+            echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("anon_join");
+        }
+        echo "\">Newsletter</a>
                 </li>
                 <li class=\"nav-item\">
                     <a class=\"nav-link\" href=\"";
         // line 34
-        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("register");
-        echo "\">Zarejestruj</a>
+        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_login");
+        echo "\">Zaloguj się</a>
                 </li>
                 <li class=\"nav-item\">
                     <a class=\"nav-link\" href=\"";
         // line 37
-        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("newsletter_delete");
-        echo "\">Newsletter</a>
-                    ";
-        // line 39
-        echo "                </li>
+        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("register");
+        echo "\">Zarejestruj</a>
+                </li>
             </ul>
         </div>
     </nav>
 </header>
 
 <main>";
-        // line 45
+        // line 44
         $this->displayBlock('body', $context, $blocks);
         echo "</main>
 
@@ -129,18 +135,18 @@ class __TwigTemplate_504eacf37614a638d94dbbc14b49ae0381724cb50976c2ce6ff5a09e036
 
 
 <script src=\"";
-        // line 55
+        // line 54
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("assets/js/jquery-3.5.1/jquery-3.5.1.min.js"), "html", null, true);
         echo "\"></script>
 <script src=\"";
-        // line 56
+        // line 55
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("assets/js/bootstrap/bootstrap.bundle.js"), "html", null, true);
         echo "\"></script>
 <script src=\"https://kit.fontawesome.com/b26e0d0c0b.js\" crossorigin=\"anonymous\"></script>
 ";
-        // line 58
+        // line 57
         $this->displayBlock('javascripts', $context, $blocks);
-        // line 59
+        // line 58
         echo "</body>
 </html>
 
@@ -189,7 +195,7 @@ class __TwigTemplate_504eacf37614a638d94dbbc14b49ae0381724cb50976c2ce6ff5a09e036
 
     }
 
-    // line 45
+    // line 44
     public function block_body($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -207,7 +213,7 @@ class __TwigTemplate_504eacf37614a638d94dbbc14b49ae0381724cb50976c2ce6ff5a09e036
 
     }
 
-    // line 58
+    // line 57
     public function block_javascripts($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -237,7 +243,7 @@ class __TwigTemplate_504eacf37614a638d94dbbc14b49ae0381724cb50976c2ce6ff5a09e036
 
     public function getDebugInfo()
     {
-        return array (  211 => 58,  193 => 45,  175 => 7,  157 => 6,  144 => 59,  142 => 58,  137 => 56,  133 => 55,  120 => 45,  112 => 39,  108 => 37,  102 => 34,  96 => 31,  90 => 28,  84 => 25,  65 => 9,  60 => 8,  58 => 7,  54 => 6,  47 => 1,);
+        return array (  217 => 57,  199 => 44,  181 => 7,  163 => 6,  150 => 58,  148 => 57,  143 => 55,  139 => 54,  126 => 44,  116 => 37,  110 => 34,  96 => 31,  90 => 28,  84 => 25,  65 => 9,  60 => 8,  58 => 7,  54 => 6,  47 => 1,);
     }
 
     public function getSourceContext()
@@ -271,15 +277,14 @@ class __TwigTemplate_504eacf37614a638d94dbbc14b49ae0381724cb50976c2ce6ff5a09e036
                 <li class=\"nav-item active\">
                     <a class=\"nav-link\" href=\"{{ path('posts_add') }}\">Dodaj nowego posta<span class=\"sr-only\">(current)</span></a>
                 </li>
+                <li class=\"nav-item active\">
+                    <a class=\"nav-link\" href=\"{% if app.user %}{% if not app.user.newsletter %}{{ path('user_join') }}{%  else%}{{ path('newsletter_delete') }}{% endif %}{% else %}{{ path('anon_join') }}{% endif %}\">Newsletter</a>
+                </li>
                 <li class=\"nav-item\">
-                    <a class=\"nav-link\" href=\"{{ path('app_login') }}\">zaloguj</a>
+                    <a class=\"nav-link\" href=\"{{ path('app_login') }}\">Zaloguj się</a>
                 </li>
                 <li class=\"nav-item\">
                     <a class=\"nav-link\" href=\"{{ path('register') }}\">Zarejestruj</a>
-                </li>
-                <li class=\"nav-item\">
-                    <a class=\"nav-link\" href=\"{{ path('newsletter_delete') }}\">Newsletter</a>
-                    {#<a class=\"nav-link\" href=\"{% if app.user %}{% if app.user.newsLetter.isActive() %}1{%  else%}2{% endif %} {% else %}3{% endif %}\">News</a>#}
                 </li>
             </ul>
         </div>

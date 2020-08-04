@@ -50,6 +50,7 @@ services:
     App\Entity\Posts\UseCase\CreatePost:
         arguments:
             - "@Posts"
+            - "@application_Newsletter"
             - "@doctrine_application_transaction"
         public: true
 

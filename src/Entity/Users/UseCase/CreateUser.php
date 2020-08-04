@@ -7,8 +7,6 @@ use App\Entity\Users\User;
 use App\Adapter\Core\Transaction;
 use App\Adapter\User\Users;
 use App\Entity\Users\UseCase\CreateUser\Command;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Generator\UrlGenerator;
