@@ -328,6 +328,10 @@
       <tag name="controller.service_arguments"/>
       <tag name="routing.route_loader"/>
     </service>
+    <service id="App\Adapter\Comment\Comments" class="App\Adapter\Comment\Comments" autowire="true" autoconfigure="true"/>
+    <service id="App\Adapter\Comment\CommentsQuery" class="App\Adapter\Comment\CommentsQuery" autowire="true" autoconfigure="true">
+      <argument type="service" id="doctrine.dbal.default_connection"/>
+    </service>
     <service id="App\Adapter\Core\Transaction" class="App\Adapter\Core\Transaction" autowire="true" autoconfigure="true">
       <argument type="service" id="doctrine.orm.default_entity_manager"/>
     </service>
@@ -428,6 +432,9 @@
         <argument type="service" id=".service_locator.g9CqTPp.App\Controller\users\RegisterController"/>
       </call>
     </service>
+    <service id="App\Form\Comment\CommentType" class="App\Form\Comment\CommentType" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+    </service>
     <service id="App\Form\Newsletter\AnonJoinType" class="App\Form\Newsletter\AnonJoinType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
@@ -448,6 +455,10 @@
     </service>
     <service id="App\Form\Users\ResetType" class="App\Form\Users\ResetType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
+    </service>
+    <service id="App\Repository\CommentRepository" class="App\Repository\CommentRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
     </service>
     <service id="App\Repository\NewsletterRepository" class="App\Repository\NewsletterRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
@@ -993,12 +1004,14 @@
       <argument type="service" id="form.registry"/>
       <argument type="collection">
         <argument>Symfony\Component\Form\Extension\Core\Type</argument>
+        <argument>App\Form\Comment</argument>
         <argument>App\Form\Newsletter</argument>
         <argument>App\Form\Posts</argument>
         <argument>App\Form\Users</argument>
         <argument>Symfony\Bridge\Doctrine\Form\Type</argument>
       </argument>
       <argument type="collection">
+        <argument>App\Form\Comment\CommentType</argument>
         <argument>App\Form\Newsletter\AnonJoinType</argument>
         <argument>App\Form\Posts\AddPostType</argument>
         <argument>App\Form\Users\ChangeType</argument>
@@ -1347,7 +1360,7 @@
       <argument type="service" id="form.registry"/>
     </service>
     <service id="form.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension" public="false">
-      <argument type="service" id=".service_locator.wJdtsbo"/>
+      <argument type="service" id=".service_locator.zNjXkJK"/>
       <argument type="collection">
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="iterator">
           <argument type="service" id="form.type_extension.form.transformation_failure_handling"/>
@@ -3793,7 +3806,7 @@
       <factory class="Doctrine\ORM\EntityManager" method="create"/>
     </service>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory" public="false">
-      <argument type="service" id=".service_locator.zXYTpF5"/>
+      <argument type="service" id=".service_locator.pUjtn_v"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -5144,6 +5157,8 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\users\RegisterController" class="App\Controller\users\RegisterController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\users\RegisterController" class="App\Controller\users\RegisterController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\users\RegisterController" class="App\Controller\users\RegisterController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\Comment\CommentType" class="App\Form\Comment\CommentType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\Comment\CommentType" class="App\Form\Comment\CommentType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\Newsletter\AnonJoinType" class="App\Form\Newsletter\AnonJoinType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\Newsletter\AnonJoinType" class="App\Form\Newsletter\AnonJoinType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\Posts\AddPostType" class="App\Form\Posts\AddPostType" autowire="true" abstract="true"/>
@@ -5158,6 +5173,8 @@
     <service id=".abstract.instanceof.App\Form\Users\RegisterType" class="App\Form\Users\RegisterType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\Users\ResetType" class="App\Form\Users\ResetType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\Users\ResetType" class="App\Form\Users\ResetType" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\CommentRepository" class="App\Repository\CommentRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\CommentRepository" class="App\Repository\CommentRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\NewsletterRepository" class="App\Repository\NewsletterRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\NewsletterRepository" class="App\Repository\NewsletterRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\PostRepository" class="App\Repository\PostRepository" autowire="true" abstract="true"/>
@@ -5508,13 +5525,12 @@
         <argument key="mailer" type="service" id="mailer.mailer"/>
       </argument>
     </service>
-    <service id=".service_locator.mtdYu6H" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.c.vP.5m" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="User" type="service" id="App\Adapter\User\Users"/>
         <argument key="mailer" type="service" id="mailer.mailer"/>
         <argument key="passwordChangeUser" type="service" id="App\Entity\Users\UseCase\PasswordChangeUser"/>
-        <argument key="passwordEncoder" type="service" id="security.user_password_encoder.generic"/>
       </argument>
     </service>
     <service id=".service_locator.Ld.W6k5" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
@@ -5525,12 +5541,10 @@
         <argument key="passwordResetUser" type="service" id="App\Entity\Users\UseCase\PasswordResetUser"/>
       </argument>
     </service>
-    <service id=".service_locator.A7shXJh" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.XXe4fRj" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
-        <argument key="User" type="service" id="App\Adapter\User\Users"/>
         <argument key="createUser" type="service" id="App\Entity\Users\UseCase\CreateUser"/>
-        <argument key="passwordEncoder" type="service" id="security.user_password_encoder.generic"/>
       </argument>
     </service>
     <service id=".service_locator.TdR_qZ1" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
@@ -5590,7 +5604,7 @@
         <argument key="mailer" type="service" id="mailer.mailer"/>
       </argument>
     </service>
-    <service id=".service_locator.XffeVSb" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.FJ9iHI9" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\ListController::Post" type="service" id=".service_locator.ugyrBnk"/>
@@ -5607,11 +5621,11 @@
         <argument key="App\Controller\users\ActivateController::activate" type="service" id=".service_locator.vSqKIbb"/>
         <argument key="App\Controller\users\ExpireController::TokenExpire" type="service" id=".service_locator.WTQmulf"/>
         <argument key="App\Controller\users\ExpireController::UserTokenExpire" type="service" id=".service_locator.VnT6WfK"/>
-        <argument key="App\Controller\users\PasswordChangeController::change" type="service" id=".service_locator.mtdYu6H"/>
+        <argument key="App\Controller\users\PasswordChangeController::change" type="service" id=".service_locator.c.vP.5m"/>
         <argument key="App\Controller\users\PasswordChangeController::passwordChanged" type="service" id=".service_locator.VnT6WfK"/>
         <argument key="App\Controller\users\PasswordResetController::PasswordReset" type="service" id=".service_locator.Ld.W6k5"/>
         <argument key="App\Controller\users\PasswordResetController::UserPasswordReset" type="service" id=".service_locator.VnT6WfK"/>
-        <argument key="App\Controller\users\RegisterController::register" type="service" id=".service_locator.A7shXJh"/>
+        <argument key="App\Controller\users\RegisterController::register" type="service" id=".service_locator.XXe4fRj"/>
         <argument key="App\Controller\users\RegisterController::userCreated" type="service" id=".service_locator.VnT6WfK"/>
         <argument key="App\Entity\Newsletter\Newsletters\UseCase\AnonJoinNewsletter::execute" type="service" id=".service_locator.apuLg5r"/>
         <argument key="App\Entity\Newsletter\Newsletters\UseCase\UserDeleteNewsletter::exeute" type="service" id=".service_locator.P3K8z4_"/>
@@ -5641,11 +5655,11 @@
         <argument key="App\Controller\users\ActivateController:activate" type="service" id=".service_locator.vSqKIbb"/>
         <argument key="App\Controller\users\ExpireController:TokenExpire" type="service" id=".service_locator.WTQmulf"/>
         <argument key="App\Controller\users\ExpireController:UserTokenExpire" type="service" id=".service_locator.VnT6WfK"/>
-        <argument key="App\Controller\users\PasswordChangeController:change" type="service" id=".service_locator.mtdYu6H"/>
+        <argument key="App\Controller\users\PasswordChangeController:change" type="service" id=".service_locator.c.vP.5m"/>
         <argument key="App\Controller\users\PasswordChangeController:passwordChanged" type="service" id=".service_locator.VnT6WfK"/>
         <argument key="App\Controller\users\PasswordResetController:PasswordReset" type="service" id=".service_locator.Ld.W6k5"/>
         <argument key="App\Controller\users\PasswordResetController:UserPasswordReset" type="service" id=".service_locator.VnT6WfK"/>
-        <argument key="App\Controller\users\RegisterController:register" type="service" id=".service_locator.A7shXJh"/>
+        <argument key="App\Controller\users\RegisterController:register" type="service" id=".service_locator.XXe4fRj"/>
         <argument key="App\Controller\users\RegisterController:userCreated" type="service" id=".service_locator.VnT6WfK"/>
         <argument key="App\Entity\Newsletter\Newsletters\UseCase\AnonJoinNewsletter:execute" type="service" id=".service_locator.apuLg5r"/>
         <argument key="App\Entity\Newsletter\Newsletters\UseCase\UserDeleteNewsletter:exeute" type="service" id=".service_locator.P3K8z4_"/>
@@ -5719,9 +5733,10 @@
       <argument type="service" id="debug.argument_resolver.not_tagged_controller.inner"/>
       <argument type="service" id="debug.stopwatch"/>
     </service>
-    <service id=".service_locator.wJdtsbo" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.zNjXkJK" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
+        <argument key="App\Form\Comment\CommentType" type="service" id="App\Form\Comment\CommentType"/>
         <argument key="App\Form\Newsletter\AnonJoinType" type="service" id="App\Form\Newsletter\AnonJoinType"/>
         <argument key="App\Form\Posts\AddPostType" type="service" id="App\Form\Posts\AddPostType"/>
         <argument key="App\Form\Users\ChangeType" type="service" id="App\Form\Users\ChangeType"/>
@@ -5747,9 +5762,10 @@
         <argument key="doctrine.orm.default_listeners.attach_entity_listeners" type="service" id="doctrine.orm.default_listeners.attach_entity_listeners"/>
       </argument>
     </service>
-    <service id=".service_locator.zXYTpF5" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.pUjtn_v" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
+        <argument key="App\Repository\CommentRepository" type="service" id="App\Repository\CommentRepository"/>
         <argument key="App\Repository\NewsletterRepository" type="service" id="App\Repository\NewsletterRepository"/>
         <argument key="App\Repository\PostRepository" type="service" id="App\Repository\PostRepository"/>
         <argument key="App\Repository\UserRepository" type="service" id="App\Repository\UserRepository"/>
@@ -6230,12 +6246,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-      <argument type="service" id=".service_locator.XffeVSb"/>
+      <argument type="service" id=".service_locator.FJ9iHI9"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver" public="false">
-      <argument type="service" id=".service_locator.XffeVSb"/>
+      <argument type="service" id=".service_locator.FJ9iHI9"/>
     </service>
     <service id=".debug.http_client.inner" class="Symfony\Contracts\HttpClient\HttpClientInterface" public="false">
       <argument type="collection"/>
@@ -6638,7 +6654,7 @@
     <service id="Psr\Log\LoggerInterface" alias="monolog.logger" public="false"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.WaGDpDt" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.XffeVSb"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.FJ9iHI9"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
     <service id="Psr\Log\LoggerInterface $consoleLogger" alias="monolog.logger.console"/>

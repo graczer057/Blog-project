@@ -22,7 +22,7 @@ final class Newsletters implements NewslettersInterface
     }
 
     public function getAll(): ?array{
-        return $this->manager->getRepository('App:Newsletter\Newsletter')->findAll([]);
+        return $this->manager->getRepository(Newsletter::class)->findAll();
     }
 
     public function add(Newsletter $newsletter)

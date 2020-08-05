@@ -23,14 +23,14 @@ class Users
         bool $isActive,
         string $role
     ){
-        $this->id=$id;
-        $this->username=$username;
-        $this->mail=$mail;
-        $this->password=$password;
-        $this->token=$token;
-        $this->tokenExpire=$tokenExpire;
-        $this->isActive=$isActive;
-        $this->role=$role;
+        $this->id = $id;
+        $this->username = $username;
+        $this->mail = $mail;
+        $this->password = $password;
+        $this->token = $token;
+        $this->tokenExpire = $tokenExpire;
+        $this->isActive = $isActive;
+        $this->role = $role;
     }
 
     public function getId(): ?int{

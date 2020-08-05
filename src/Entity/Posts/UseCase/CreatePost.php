@@ -11,6 +11,7 @@ use App\Entity\Posts\UseCase\CreatePost\Command as Command;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
+use Symfony\Component\Routing\Generator\UrlGenerator;
 
 class CreatePost extends AbstractController
 {
@@ -28,6 +29,12 @@ class CreatePost extends AbstractController
         $this->transaction = $transaction;
     }
 
+    /**
+     * @param Command $command
+     * @param MailerInterface $mailer
+     * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
+     * @throws \Throwable
+     */
     public function execute(
         Command $command,
         MailerInterface $mailer
@@ -58,12 +65,13 @@ class CreatePost extends AbstractController
             throw $e;
         }
 
-        $url = $this->generateUrl('see', array('id' => $post->getId()));
+        $url = $this->generateUrl('see', array('id' => $post->getId()), UrlGenerator::ABSOLUTE_URL);
 
         $email = (new Email())
             ->from('bartlomiej.szyszkowski@yellows.eu')
             ->subject('New post')
             ->text('Hello. New post on blog website is available, check it out! ' . $url);
+
 
         /** @var Newsletter $mail */
         foreach ($mails as $mail) {

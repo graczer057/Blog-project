@@ -91,7 +91,7 @@ class __TwigTemplate_418e9714df9407992dd7cf648d20bffda10f99790dd012a31f80036ea54
         $context['_seq'] = twig_ensure_traversable((isset($context["posts"]) || array_key_exists("posts", $context) ? $context["posts"] : (function () { throw new RuntimeError('Variable "posts" does not exist.', 14, $this->source); })()));
         foreach ($context['_seq'] as $context["_key"] => $context["post"]) {
             // line 15
-            echo "                <div class=\"col-5 mx-auto bg-light border border-dark shadow my-3 p-2\">
+            echo "                <div class=\"col-5 mx-auto bg-white border border-dark shadow my-3 p-2\">
                     <div class=\"d-inline-block\">
                         ";
             // line 17
@@ -116,7 +116,7 @@ class __TwigTemplate_418e9714df9407992dd7cf648d20bffda10f99790dd012a31f80036ea54
                     <a class=\"btn btn-outline-primary my-2\" href=\"";
             // line 25
             echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("see", ["id" => twig_get_attribute($this->env, $this->source, $context["post"], "id", [], "any", false, false, false, 25)]), "html", null, true);
-            echo "\"><i class=\"far fa-edit\"></i></a>
+            echo "\"><i class=\"fa-edit\"></i></a>
 
                 </div>
             ";
@@ -169,7 +169,7 @@ class __TwigTemplate_418e9714df9407992dd7cf648d20bffda10f99790dd012a31f80036ea54
             {% endif %}
 
             {% for post in posts %}
-                <div class=\"col-5 mx-auto bg-light border border-dark shadow my-3 p-2\">
+                <div class=\"col-5 mx-auto bg-white border border-dark shadow my-3 p-2\">
                     <div class=\"d-inline-block\">
                         {% if is_granted (\"admin\") %}{%  endif %}
                         <strong>Tytuł: {{ post.title }}</strong>
@@ -179,7 +179,7 @@ class __TwigTemplate_418e9714df9407992dd7cf648d20bffda10f99790dd012a31f80036ea54
                 </div>
                 <div class=\"d-inline-block float-right\">
 
-                    <a class=\"btn btn-outline-primary my-2\" href=\"{{ path('see', {'id': post.id}) }}\"><i class=\"far fa-edit\"></i></a>
+                    <a class=\"btn btn-outline-primary my-2\" href=\"{{ path('see', {'id': post.id}) }}\"><i class=\"fa-edit\"></i></a>
 
                 </div>
             {% endfor %}

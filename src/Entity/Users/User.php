@@ -2,6 +2,7 @@
 
 namespace App\Entity\Users;
 
+use App\Entity\Comments\Comment;
 use App\Repository\UserRepository;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
@@ -56,9 +57,16 @@ class User implements UserInterface
     private $role;
 
     /**
+     * @var Newsletter $newsletter
      * @ORM\OneToOne(targetEntity=Newsletter::class, mappedBy="user", cascade={"persist", "remove"})
      */
     private $newsletter;
+
+    /**
+     * @var Comment $comment
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $comment;
 
     public function __construct(
         string $username,

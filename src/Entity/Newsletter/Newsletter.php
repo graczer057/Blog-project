@@ -29,7 +29,8 @@ class Newsletter
     private $isActive;
 
     /**
-     * @ORM\OneToOne(targetEntity=User::class, inversedBy="newslettter")
+     * @ORM\OneToOne(targetEntity=User::class)
+     * @ORM\JoinColumn(name="user", referencedColumnName="id")
      */
     private $user;
 
