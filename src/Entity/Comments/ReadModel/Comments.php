@@ -2,6 +2,7 @@
 
 namespace App\Entity\Comments\ReadModel;
 
+use App\Entity\Posts\Post;
 use App\Entity\Users\User;
 
 class Comments
@@ -10,17 +11,20 @@ class Comments
     private $info;
     private $addDate;
     private $user;
+    private $post;
 
     public function __construct(
         int $id,
         string $info,
         \DateTime $addDate,
-        User $user
+        User $user,
+        Post $post
     ){
         $this->id = $id;
         $this->info = $info;
         $this->addDate = $addDate;
         $this->user = $user;
+        $this->post = $post;
     }
 
     public function getId(): ?int{
@@ -37,5 +41,9 @@ class Comments
 
     public function getUser(): ?User{
         return $this->user;
+    }
+
+    public function getPost(): ?Post{
+        return $this->post;
     }
 }

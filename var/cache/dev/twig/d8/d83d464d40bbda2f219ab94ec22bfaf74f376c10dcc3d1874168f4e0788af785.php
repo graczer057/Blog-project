@@ -803,6 +803,6 @@ class __TwigTemplate_bdbf2a919d1d94857bb1c649bed4a47e1a24e73bbaec84c94cc1fa12cb4
         </table>
     {% endif %}
 {% endblock %}
-", "@WebProfiler/Collector/config.html.twig", "C:\\Users\\bartl\\Projekty_tydzień_2\\Blog_vol.1\\vendor\\symfony\\web-profiler-bundle\\Resources\\views\\Collector\\config.html.twig");
+", "@WebProfiler/Collector/config.html.twig", "C:\\Users\\bartl\\BLOG\\vendor\\symfony\\web-profiler-bundle\\Resources\\views\\Collector\\config.html.twig");
     }
 }

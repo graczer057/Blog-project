@@ -65,7 +65,7 @@ class __TwigTemplate_d0eb63fccaa47b72e4c54bb7d70f75ae9bfca44f4c249e8641591b1a035
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02 = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "title"));
 
-        echo "Expire";
+        echo "Reset";
         
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->leave($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof);
 
@@ -130,7 +130,7 @@ class __TwigTemplate_d0eb63fccaa47b72e4c54bb7d70f75ae9bfca44f4c249e8641591b1a035
     {
         return new Source("{% extends 'base.html.twig' %}
 
-{% block title %}Expire{% endblock %}
+{% block title %}Reset{% endblock %}
 
 {% block body %}
 
@@ -141,6 +141,6 @@ class __TwigTemplate_d0eb63fccaa47b72e4c54bb7d70f75ae9bfca44f4c249e8641591b1a035
 
     <button type=\"submit\" class=\"btn\">Send again</button>
     {{ form_end(form) }}
-{% endblock %}", "users/expire.html.twig", "C:\\Users\\bartl\\Projekty_tydzień_2\\Blog_vol.1\\templates\\users\\expire.html.twig");
+{% endblock %}", "users/expire.html.twig", "C:\\Users\\bartl\\BLOG\\templates\\users\\expire.html.twig");
     }
 }

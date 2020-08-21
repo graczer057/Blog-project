@@ -10,7 +10,6 @@
                     <p>{{ flashesbag.success[0] }}</p>
                 </div>
             {% endif %}
-
             {% for posts in post %}
                 <div class="col-5 mx-auto bg-light border border-dark shadow my-3 p-2">
                     <div class="d-inline-block">
@@ -20,7 +19,23 @@
                     </div>
                 </div>
             {% endfor %}
+            {% if app.user %}
+            <div class="col-5 mx-auto bg-light border border-dark shadow my-3 p-2">
 
+            <h5>Jeśli chcesz pozostawić komentarz pod tym postem musisz być zalogowany</h5>
+
+                {{ form_start(form) }}
+                {{ form_row(form.info) }}
+
+                {{ form_end(form) }}
+            </div>
+            {% endif %}
+            {% for comment in comments %}
+                <div class="col-5 mx-auto bg-light border border-dark shadow my-3 p-2">
+                        <p><strong>Komentarz: </strong>{{ comment.info }}</p>
+                        <p><strong>Czas utworzenia posta: </strong>{{ comment.adddate|date('Y:m:d H:i:s')}}</p>
+                </div>
+            {% endfor %}
         </div>
     </div>
 

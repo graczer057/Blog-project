@@ -413,6 +413,6 @@ class __TwigTemplate_9ef91f348bc21fdcc0e0052ca29e64f3f97829604f18ef653e3143b83ce
         </div>
     {% endfor %}
 {% endblock %}
-", "@Debug/Profiler/dump.html.twig", "C:\\Users\\bartl\\Projekty_tydzień_2\\Blog_vol.1\\vendor\\symfony\\debug-bundle\\Resources\\views\\Profiler\\dump.html.twig");
+", "@Debug/Profiler/dump.html.twig", "C:\\Users\\bartl\\BLOG\\vendor\\symfony\\debug-bundle\\Resources\\views\\Profiler\\dump.html.twig");
     }
 }

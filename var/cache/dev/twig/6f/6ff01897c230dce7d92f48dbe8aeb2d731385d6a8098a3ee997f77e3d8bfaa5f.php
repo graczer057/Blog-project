@@ -141,6 +141,6 @@ class __TwigTemplate_93be7787753d8a9847abe2ceec02c1b2cbc8d2e3b265530ffc86ddc6d57
 
     <button type=\"submit\" class=\"btn\">Send</button>
     {{ form_end(form) }}
-{% endblock %}", "Newsletter/JoinNewsletter.html.twig", "C:\\Users\\bartl\\Projekty_tydzień_2\\Blog_vol.1\\templates\\Newsletter\\JoinNewsletter.html.twig");
+{% endblock %}", "Newsletter/JoinNewsletter.html.twig", "C:\\Users\\bartl\\BLOG\\templates\\Newsletter\\JoinNewsletter.html.twig");
     }
 }

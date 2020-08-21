@@ -174,6 +174,6 @@ class __TwigTemplate_72267b644469dbfa8220cad2b0451c1a9c7354c8f8ebb26b25ad9113ff7
         {% endif %}
     </div>
 {% endblock %}
-", "@WebProfiler/Profiler/open.html.twig", "C:\\Users\\bartl\\Projekty_tydzień_2\\Blog_vol.1\\vendor\\symfony\\web-profiler-bundle\\Resources\\views\\Profiler\\open.html.twig");
+", "@WebProfiler/Profiler/open.html.twig", "C:\\Users\\bartl\\BLOG\\vendor\\symfony\\web-profiler-bundle\\Resources\\views\\Profiler\\open.html.twig");
     }
 }

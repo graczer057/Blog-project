@@ -1704,6 +1704,6 @@ class __TwigTemplate_90923cd6930fa91906a4ef6a426ff63746d190b89e63cf7406271cb2ce8
     });
 
 /*]]>*/</script>
-", "@WebProfiler/Profiler/base_js.html.twig", "C:\\Users\\bartl\\Projekty_tydzień_2\\Blog_vol.1\\vendor\\symfony\\web-profiler-bundle\\Resources\\views\\Profiler\\base_js.html.twig");
+", "@WebProfiler/Profiler/base_js.html.twig", "C:\\Users\\bartl\\BLOG\\vendor\\symfony\\web-profiler-bundle\\Resources\\views\\Profiler\\base_js.html.twig");
     }
 }

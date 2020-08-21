@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitc01707ae02b15c54420394ab1cf48058
+class ComposerStaticInit49e25b3545bb55f3287d773784ba2572
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -12,8 +12,8 @@ class ComposerStaticInitc01707ae02b15c54420394ab1cf48058
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
         '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
         '92c8763cd6170fce6fcfe7e26b4e8c10' => __DIR__ . '/..' . '/symfony/phpunit-bridge/bootstrap.php',
-        '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
         'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
+        '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
@@ -158,8 +158,8 @@ class ComposerStaticInitc01707ae02b15c54420394ab1cf48058
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
         ),
         'Webmozart\\Assert\\' => 
         array (
@@ -539,10 +539,10 @@ class ComposerStaticInitc01707ae02b15c54420394ab1cf48058
         ),
         'Doctrine\\Common\\' => 
         array (
-            0 => __DIR__ . '/..' . '/doctrine/common/lib/Doctrine/Common',
+            0 => __DIR__ . '/..' . '/doctrine/reflection/lib/Doctrine/Common',
             1 => __DIR__ . '/..' . '/doctrine/event-manager/lib/Doctrine/Common',
             2 => __DIR__ . '/..' . '/doctrine/persistence/lib/Doctrine/Common',
-            3 => __DIR__ . '/..' . '/doctrine/reflection/lib/Doctrine/Common',
+            3 => __DIR__ . '/..' . '/doctrine/common/lib/Doctrine/Common',
         ),
         'Doctrine\\Bundle\\MigrationsBundle\\' => 
         array (
@@ -563,6 +563,95 @@ class ComposerStaticInitc01707ae02b15c54420394ab1cf48058
     );
 
     public static $classMap = array (
+        'App\\Adapter\\Comment\\Comments' => __DIR__ . '/../..' . '/src/Adapter/Comment/Comments.php',
+        'App\\Adapter\\Comment\\CommentsQuery' => __DIR__ . '/../..' . '/src/Adapter/Comment/CommentsQuery.php',
+        'App\\Adapter\\Core\\Transaction' => __DIR__ . '/../..' . '/src/Adapter/Core/Transaction.php',
+        'App\\Adapter\\Newsletter\\Newsletters' => __DIR__ . '/../..' . '/src/Adapter/Newsletter/Newsletters.php',
+        'App\\Adapter\\Post\\Posts' => __DIR__ . '/../..' . '/src/Adapter/Post/Posts.php',
+        'App\\Adapter\\Post\\PostsQuery' => __DIR__ . '/../..' . '/src/Adapter/Post/PostsQuery.php',
+        'App\\Adapter\\User\\Users' => __DIR__ . '/../..' . '/src/Adapter/User/Users.php',
+        'App\\Adapter\\User\\UsersQuery' => __DIR__ . '/../..' . '/src/Adapter/User/UsersQuery.php',
+        'App\\Controller\\ListController' => __DIR__ . '/../..' . '/src/Controller/ListController.php',
+        'App\\Controller\\PostsController' => __DIR__ . '/../..' . '/src/Controller/PostsController.php',
+        'App\\Controller\\SecurityController' => __DIR__ . '/../..' . '/src/Controller/SecurityController.php',
+        'App\\Controller\\newsletters\\NewsletterController' => __DIR__ . '/../..' . '/src/Controller/newsletters/NewsletterController.php',
+        'App\\Controller\\newsletters\\UserDeleteController' => __DIR__ . '/../..' . '/src/Controller/newsletters/UserDeleteController.php',
+        'App\\Controller\\newsletters\\UserJoinController' => __DIR__ . '/../..' . '/src/Controller/newsletters/UserJoinController.php',
+        'App\\Controller\\users\\ActivateController' => __DIR__ . '/../..' . '/src/Controller/users/ActivateController.php',
+        'App\\Controller\\users\\ExpireController' => __DIR__ . '/../..' . '/src/Controller/users/ExpireController.php',
+        'App\\Controller\\users\\PasswordChangeController' => __DIR__ . '/../..' . '/src/Controller/users/PasswordChangeController.php',
+        'App\\Controller\\users\\PasswordResetController' => __DIR__ . '/../..' . '/src/Controller/users/PasswordResetController.php',
+        'App\\Controller\\users\\RegisterController' => __DIR__ . '/../..' . '/src/Controller/users/RegisterController.php',
+        'App\\Core\\Transaction' => __DIR__ . '/../..' . '/src/Core/Transaction.php',
+        'App\\Entity\\Comments\\Comment' => __DIR__ . '/../..' . '/src/Entity/Comments/Comment.php',
+        'App\\Entity\\Comments\\CommentsInterface' => __DIR__ . '/../..' . '/src/Entity/Comments/CommentsInterface.php',
+        'App\\Entity\\Comments\\ReadModel\\Comments' => __DIR__ . '/../..' . '/src/Entity/Comments/ReadModel/Comments.php',
+        'App\\Entity\\Comments\\ReadModel\\CommentsQueryInterface' => __DIR__ . '/../..' . '/src/Entity/Comments/ReadModel/CommentsQueryInterface.php',
+        'App\\Entity\\Comments\\UseCase\\CreateComment' => __DIR__ . '/../..' . '/src/Entity/Comments/UseCase/CreateComment.php',
+        'App\\Entity\\Comments\\UseCase\\CreateComment\\Command' => __DIR__ . '/../..' . '/src/Entity/Comments/UseCase/CreateComment/Command.php',
+        'App\\Entity\\Comments\\UseCase\\CreateComment\\NullResponder' => __DIR__ . '/../..' . '/src/Entity/Comments/UseCase/CreateComment/NullResponder.php',
+        'App\\Entity\\Comments\\UseCase\\CreateComment\\Responder' => __DIR__ . '/../..' . '/src/Entity/Comments/UseCase/CreateComment/Responder.php',
+        'App\\Entity\\Newsletter\\Newsletter' => __DIR__ . '/../..' . '/src/Entity/Newsletter/Newsletter.php',
+        'App\\Entity\\Newsletter\\NewslettersInterface' => __DIR__ . '/../..' . '/src/Entity/Newsletter/NewslettersInterface.php',
+        'App\\Entity\\Newsletter\\Newsletters\\ReadModel\\Newsletters' => __DIR__ . '/../..' . '/src/Entity/Newsletter/Newsletters/ReadModel/Newsletters.php',
+        'App\\Entity\\Newsletter\\Newsletters\\UseCase\\AnonJoinNewsletter' => __DIR__ . '/../..' . '/src/Entity/Newsletter/Newsletters/UseCase/AnonJoinNewsletter.php',
+        'App\\Entity\\Newsletter\\Newsletters\\UseCase\\AnonJoinNewsletter\\Command' => __DIR__ . '/../..' . '/src/Entity/Newsletter/Newsletters/UseCase/AnonJoinNewsletter/Command.php',
+        'App\\Entity\\Newsletter\\Newsletters\\UseCase\\AnonJoinNewsletter\\NullResponder' => __DIR__ . '/../..' . '/src/Entity/Newsletter/Newsletters/UseCase/AnonJoinNewsletter/NullResponder.php',
+        'App\\Entity\\Newsletter\\Newsletters\\UseCase\\AnonJoinNewsletter\\Responder' => __DIR__ . '/../..' . '/src/Entity/Newsletter/Newsletters/UseCase/AnonJoinNewsletter/Responder.php',
+        'App\\Entity\\Newsletter\\Newsletters\\UseCase\\UserDeleteNewsletter' => __DIR__ . '/../..' . '/src/Entity/Newsletter/Newsletters/UseCase/UserDeleteNewsletter.php',
+        'App\\Entity\\Newsletter\\Newsletters\\UseCase\\UserDeleteNewsletter\\Command' => __DIR__ . '/../..' . '/src/Entity/Newsletter/Newsletters/UseCase/UserDeleteNewsletter/Command.php',
+        'App\\Entity\\Newsletter\\Newsletters\\UseCase\\UserDeleteNewsletter\\NullResponder' => __DIR__ . '/../..' . '/src/Entity/Newsletter/Newsletters/UseCase/UserDeleteNewsletter/NullResponder.php',
+        'App\\Entity\\Newsletter\\Newsletters\\UseCase\\UserDeleteNewsletter\\Responder' => __DIR__ . '/../..' . '/src/Entity/Newsletter/Newsletters/UseCase/UserDeleteNewsletter/Responder.php',
+        'App\\Entity\\Newsletter\\Newsletters\\UseCase\\UserJoinNewsletter' => __DIR__ . '/../..' . '/src/Entity/Newsletter/Newsletters/UseCase/UserJoinNewsletter.php',
+        'App\\Entity\\Newsletter\\Newsletters\\UseCase\\UserJoinNewsletter\\Command' => __DIR__ . '/../..' . '/src/Entity/Newsletter/Newsletters/UseCase/UserJoinNewsletter/Command.php',
+        'App\\Entity\\Newsletter\\Newsletters\\UseCase\\UserJoinNewsletter\\NullResponder' => __DIR__ . '/../..' . '/src/Entity/Newsletter/Newsletters/UseCase/UserJoinNewsletter/NullResponder.php',
+        'App\\Entity\\Newsletter\\Newsletters\\UseCase\\UserJoinNewsletter\\Responder' => __DIR__ . '/../..' . '/src/Entity/Newsletter/Newsletters/UseCase/UserJoinNewsletter/Responder.php',
+        'App\\Entity\\Posts\\Post' => __DIR__ . '/../..' . '/src/Entity/Posts/Post.php',
+        'App\\Entity\\Posts\\PostsInterface' => __DIR__ . '/../..' . '/src/Entity/Posts/PostsInterface.php',
+        'App\\Entity\\Posts\\ReadModel\\PostsQueryInterface' => __DIR__ . '/../..' . '/src/Entity/Posts/ReadModel/PostsQueryInterface.php',
+        'App\\Entity\\Posts\\ReadModel\\PostsReadModel' => __DIR__ . '/../..' . '/src/Entity/Posts/ReadModel/PostsReadModel.php',
+        'App\\Entity\\Posts\\UseCase\\CreatePost' => __DIR__ . '/../..' . '/src/Entity/Posts/UseCase/CreatePost.php',
+        'App\\Entity\\Posts\\UseCase\\CreatePost\\Command' => __DIR__ . '/../..' . '/src/Entity/Posts/UseCase/CreatePost/Command.php',
+        'App\\Entity\\Posts\\UseCase\\CreatePost\\NullResponder' => __DIR__ . '/../..' . '/src/Entity/Posts/UseCase/CreatePost/NullResponder.php',
+        'App\\Entity\\Posts\\UseCase\\CreatePost\\Responder' => __DIR__ . '/../..' . '/src/Entity/Posts/UseCase/CreatePost/Responder.php',
+        'App\\Entity\\Users\\ReadModel\\Users' => __DIR__ . '/../..' . '/src/Entity/Users/ReadModel/Users.php',
+        'App\\Entity\\Users\\ReadModel\\UsersQueryInterface' => __DIR__ . '/../..' . '/src/Entity/Users/ReadModel/UsersQueryInterface.php',
+        'App\\Entity\\Users\\UseCase\\ActivateUser' => __DIR__ . '/../..' . '/src/Entity/Users/UseCase/ActivateUser.php',
+        'App\\Entity\\Users\\UseCase\\ActivateUser\\Command' => __DIR__ . '/../..' . '/src/Entity/Users/UseCase/ActivateUser/Command.php',
+        'App\\Entity\\Users\\UseCase\\ActivateUser\\NullResponder' => __DIR__ . '/../..' . '/src/Entity/Users/UseCase/ActivateUser/NullResponder.php',
+        'App\\Entity\\Users\\UseCase\\ActivateUser\\Responder' => __DIR__ . '/../..' . '/src/Entity/Users/UseCase/ActivateUser/Responder.php',
+        'App\\Entity\\Users\\UseCase\\CreateUser' => __DIR__ . '/../..' . '/src/Entity/Users/UseCase/CreateUser.php',
+        'App\\Entity\\Users\\UseCase\\CreateUser\\Command' => __DIR__ . '/../..' . '/src/Entity/Users/UseCase/CreateUser/Command.php',
+        'App\\Entity\\Users\\UseCase\\CreateUser\\NullResponder' => __DIR__ . '/../..' . '/src/Entity/Users/UseCase/CreateUser/NullResponder.php',
+        'App\\Entity\\Users\\UseCase\\CreateUser\\Responder' => __DIR__ . '/../..' . '/src/Entity/Users/UseCase/CreateUser/Responder.php',
+        'App\\Entity\\Users\\UseCase\\ExpireUser' => __DIR__ . '/../..' . '/src/Entity/Users/UseCase/ExpireUser.php',
+        'App\\Entity\\Users\\UseCase\\ExpireUser\\Command' => __DIR__ . '/../..' . '/src/Entity/Users/UseCase/ExpireUser/Command.php',
+        'App\\Entity\\Users\\UseCase\\ExpireUser\\NullResponder' => __DIR__ . '/../..' . '/src/Entity/Users/UseCase/ExpireUser/NullResponder.php',
+        'App\\Entity\\Users\\UseCase\\ExpireUser\\Responder' => __DIR__ . '/../..' . '/src/Entity/Users/UseCase/ExpireUser/Responder.php',
+        'App\\Entity\\Users\\UseCase\\PasswordChangeUser' => __DIR__ . '/../..' . '/src/Entity/Users/UseCase/PasswordChangeUser.php',
+        'App\\Entity\\Users\\UseCase\\PasswordChangeUser\\Command' => __DIR__ . '/../..' . '/src/Entity/Users/UseCase/PasswordChangeUser/Command.php',
+        'App\\Entity\\Users\\UseCase\\PasswordChangeUser\\NullResponder' => __DIR__ . '/../..' . '/src/Entity/Users/UseCase/PasswordChangeUser/NullResponder.php',
+        'App\\Entity\\Users\\UseCase\\PasswordChangeUser\\Responder' => __DIR__ . '/../..' . '/src/Entity/Users/UseCase/PasswordChangeUser/Responder.php',
+        'App\\Entity\\Users\\UseCase\\PasswordResetUser' => __DIR__ . '/../..' . '/src/Entity/Users/UseCase/PasswordResetUser.php',
+        'App\\Entity\\Users\\UseCase\\PasswordResetUser\\Command' => __DIR__ . '/../..' . '/src/Entity/Users/UseCase/PasswordResetUser/Command.php',
+        'App\\Entity\\Users\\UseCase\\PasswordResetUser\\NullResponder' => __DIR__ . '/../..' . '/src/Entity/Users/UseCase/PasswordResetUser/NullResponder.php',
+        'App\\Entity\\Users\\UseCase\\PasswordResetUser\\Responder' => __DIR__ . '/../..' . '/src/Entity/Users/UseCase/PasswordResetUser/Responder.php',
+        'App\\Entity\\Users\\User' => __DIR__ . '/../..' . '/src/Entity/Users/User.php',
+        'App\\Entity\\Users\\UsersInterface' => __DIR__ . '/../..' . '/src/Entity/Users/UsersInterface.php',
+        'App\\Form\\Comment\\CommentType' => __DIR__ . '/../..' . '/src/Form/Comment/CommentType.php',
+        'App\\Form\\Newsletter\\AnonJoinType' => __DIR__ . '/../..' . '/src/Form/Newsletter/AnonJoinType.php',
+        'App\\Form\\Posts\\AddPostType' => __DIR__ . '/../..' . '/src/Form/Posts/AddPostType.php',
+        'App\\Form\\Users\\ChangeType' => __DIR__ . '/../..' . '/src/Form/Users/ChangeType.php',
+        'App\\Form\\Users\\ExpireFormType' => __DIR__ . '/../..' . '/src/Form/Users/ExpireFormType.php',
+        'App\\Form\\Users\\LoginType' => __DIR__ . '/../..' . '/src/Form/Users/LoginType.php',
+        'App\\Form\\Users\\RegisterType' => __DIR__ . '/../..' . '/src/Form/Users/RegisterType.php',
+        'App\\Form\\Users\\ResetType' => __DIR__ . '/../..' . '/src/Form/Users/ResetType.php',
+        'App\\Kernel' => __DIR__ . '/../..' . '/src/Kernel.php',
+        'App\\Repository\\CommentRepository' => __DIR__ . '/../..' . '/src/Repository/CommentRepository.php',
+        'App\\Repository\\NewsletterRepository' => __DIR__ . '/../..' . '/src/Repository/NewsletterRepository.php',
+        'App\\Repository\\PostRepository' => __DIR__ . '/../..' . '/src/Repository/PostRepository.php',
+        'App\\Repository\\UserRepository' => __DIR__ . '/../..' . '/src/Repository/UserRepository.php',
+        'App\\Security\\LoginAuthenticator' => __DIR__ . '/../..' . '/src/Security/LoginAuthenticator.php',
         'Collator' => __DIR__ . '/..' . '/symfony/intl/Resources/stubs/Collator.php',
         'Doctrine\\Bundle\\DoctrineBundle\\Command\\CreateDatabaseDoctrineCommand' => __DIR__ . '/..' . '/doctrine/doctrine-bundle/Command/CreateDatabaseDoctrineCommand.php',
         'Doctrine\\Bundle\\DoctrineBundle\\Command\\DoctrineCommand' => __DIR__ . '/..' . '/doctrine/doctrine-bundle/Command/DoctrineCommand.php',
@@ -5114,9 +5203,9 @@ class ComposerStaticInitc01707ae02b15c54420394ab1cf48058
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitc01707ae02b15c54420394ab1cf48058::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitc01707ae02b15c54420394ab1cf48058::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitc01707ae02b15c54420394ab1cf48058::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit49e25b3545bb55f3287d773784ba2572::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit49e25b3545bb55f3287d773784ba2572::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit49e25b3545bb55f3287d773784ba2572::$classMap;
 
         }, null, ClassLoader::class);
     }

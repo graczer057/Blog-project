@@ -227,6 +227,6 @@ class __TwigTemplate_da91f855ab5458466e7acdd7c222db3c127b69cfd5aaba64ae643613c84
         </div>
     </form>
 </div>
-", "@WebProfiler/Profiler/search.html.twig", "C:\\Users\\bartl\\Projekty_tydzień_2\\Blog_vol.1\\vendor\\symfony\\web-profiler-bundle\\Resources\\views\\Profiler\\search.html.twig");
+", "@WebProfiler/Profiler/search.html.twig", "C:\\Users\\bartl\\BLOG\\vendor\\symfony\\web-profiler-bundle\\Resources\\views\\Profiler\\search.html.twig");
     }
 }

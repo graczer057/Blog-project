@@ -66,10 +66,10 @@ class User extends \App\Entity\Users\User implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'App\\Entity\\Users\\User' . "\0" . 'id', '' . "\0" . 'App\\Entity\\Users\\User' . "\0" . 'username', '' . "\0" . 'App\\Entity\\Users\\User' . "\0" . 'mail', '' . "\0" . 'App\\Entity\\Users\\User' . "\0" . 'password', '' . "\0" . 'App\\Entity\\Users\\User' . "\0" . 'token', '' . "\0" . 'App\\Entity\\Users\\User' . "\0" . 'tokenExpire', '' . "\0" . 'App\\Entity\\Users\\User' . "\0" . 'isActive', '' . "\0" . 'App\\Entity\\Users\\User' . "\0" . 'role', '' . "\0" . 'App\\Entity\\Users\\User' . "\0" . 'newsletter'];
+            return ['__isInitialized__', '' . "\0" . 'App\\Entity\\Users\\User' . "\0" . 'id', '' . "\0" . 'App\\Entity\\Users\\User' . "\0" . 'username', '' . "\0" . 'App\\Entity\\Users\\User' . "\0" . 'mail', '' . "\0" . 'App\\Entity\\Users\\User' . "\0" . 'password', '' . "\0" . 'App\\Entity\\Users\\User' . "\0" . 'token', '' . "\0" . 'App\\Entity\\Users\\User' . "\0" . 'tokenExpire', '' . "\0" . 'App\\Entity\\Users\\User' . "\0" . 'isActive', '' . "\0" . 'App\\Entity\\Users\\User' . "\0" . 'role', '' . "\0" . 'App\\Entity\\Users\\User' . "\0" . 'newsletter', '' . "\0" . 'App\\Entity\\Users\\User' . "\0" . 'comment', '' . "\0" . 'App\\Entity\\Users\\User' . "\0" . 'likes'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'App\\Entity\\Users\\User' . "\0" . 'id', '' . "\0" . 'App\\Entity\\Users\\User' . "\0" . 'username', '' . "\0" . 'App\\Entity\\Users\\User' . "\0" . 'mail', '' . "\0" . 'App\\Entity\\Users\\User' . "\0" . 'password', '' . "\0" . 'App\\Entity\\Users\\User' . "\0" . 'token', '' . "\0" . 'App\\Entity\\Users\\User' . "\0" . 'tokenExpire', '' . "\0" . 'App\\Entity\\Users\\User' . "\0" . 'isActive', '' . "\0" . 'App\\Entity\\Users\\User' . "\0" . 'role', '' . "\0" . 'App\\Entity\\Users\\User' . "\0" . 'newsletter'];
+        return ['__isInitialized__', '' . "\0" . 'App\\Entity\\Users\\User' . "\0" . 'id', '' . "\0" . 'App\\Entity\\Users\\User' . "\0" . 'username', '' . "\0" . 'App\\Entity\\Users\\User' . "\0" . 'mail', '' . "\0" . 'App\\Entity\\Users\\User' . "\0" . 'password', '' . "\0" . 'App\\Entity\\Users\\User' . "\0" . 'token', '' . "\0" . 'App\\Entity\\Users\\User' . "\0" . 'tokenExpire', '' . "\0" . 'App\\Entity\\Users\\User' . "\0" . 'isActive', '' . "\0" . 'App\\Entity\\Users\\User' . "\0" . 'role', '' . "\0" . 'App\\Entity\\Users\\User' . "\0" . 'newsletter', '' . "\0" . 'App\\Entity\\Users\\User' . "\0" . 'comment', '' . "\0" . 'App\\Entity\\Users\\User' . "\0" . 'likes'];
     }
 
     /**
@@ -431,6 +431,39 @@ class User extends \App\Entity\Users\User implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getNewsletter', []);
 
         return parent::getNewsletter();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getComment()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getComment', []);
+
+        return parent::getComment();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getLikes(): ?\App\Entity\Likes\Like
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getLikes', []);
+
+        return parent::getLikes();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setLikes(\App\Entity\Likes\Like $likes): \App\Entity\Users\User
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setLikes', [$likes]);
+
+        return parent::setLikes($likes);
     }
 
 }

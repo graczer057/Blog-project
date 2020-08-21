@@ -2,7 +2,11 @@
 
 namespace App\Entity\Posts;
 
+use App\Entity\Comments\Comment;
+use App\Entity\Likes\Like;
 use App\Repository\PostRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -37,6 +41,18 @@ class Post
      */
     private $title;
 
+    /**
+     * @var Comment $comment
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="post", cascade={"persist", "remove"})
+     */
+    private $comment;
+
+    /**
+     * @var Like $likes
+     * @ORM\OneToMany(targetEntity=Like::class, mappedBy="post")
+     */
+    private $likes;
+
     public function __construct(
         string $info,
         string $title,
@@ -46,6 +62,7 @@ class Post
         $this->title=$title;
         $this->add_date=new \DateTime("now");
         $this->is_active=$is_active;
+        $this->likes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -99,6 +116,49 @@ class Post
     public function setTitle(string $title): self
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+    public function getComment(): Comment
+    {
+        return $this->comment;
+    }
+
+    public function setComment(Comment $comment)
+    {
+        $this->comment = $comment;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Like[]
+     */
+    public function getLikes(): Collection
+    {
+        return $this->likes;
+    }
+
+    public function addLike(Like $like): self
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes[] = $like;
+            $like->setPost($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLike(Like $like): self
+    {
+        if ($this->likes->contains($like)) {
+            $this->likes->removeElement($like);
+            // set the owning side to null (unless already changed)
+            if ($like->getPost() === $this) {
+                $like->setPost(null);
+            }
+        }
 
         return $this;
     }

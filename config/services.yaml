@@ -103,6 +103,23 @@ services:
             - '@doctrine.orm.entity_manager'
         public: true
 
+    App\Adapter\Comment\Comments:
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        public: true
+
+    application_comment:
+        class: App\Adapter\Comment\Comments
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        public: true
+
+    App\Entity\Comments\UseCase\CreateComment:
+        arguments:
+            - "@application_comment"
+            - "@application_transaction"
+        public: true
+
     App\Entity\Newsletter\Newsletters\UseCase\AnonJoinNewsletter:
         arguments:
             - "@application_Newsletter"

@@ -1,3 +1,0 @@
-<?php //%255BApp%255CEntity%255CNewsletter%255CNewsletters%255CUseCase%255CUserDeleteNewsletter%255CCommand%255D%255B1%255D
-
-return [PHP_INT_MAX, []];

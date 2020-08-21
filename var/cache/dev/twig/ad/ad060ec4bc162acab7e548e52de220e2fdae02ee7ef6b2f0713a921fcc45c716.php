@@ -141,6 +141,6 @@ class __TwigTemplate_e580e8bce0f10a9b59e84ea3a68c46abddfebb8f37aa83661030db1b551
 
     <button type=\"submit\" class=\"btn\">Send</button>
     {{ form_end(form) }}
-{% endblock %}", "users/reset.html.twig", "C:\\Users\\bartl\\Projekty_tydzień_2\\Blog_vol.1\\templates\\users\\reset.html.twig");
+{% endblock %}", "users/reset.html.twig", "C:\\Users\\bartl\\BLOG\\templates\\users\\reset.html.twig");
     }
 }

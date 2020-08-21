@@ -215,6 +215,6 @@ class __TwigTemplate_8b99752a7cb2b69c8e2a973e3e314f8bbccbe767a397f202a86cbbf5f24
     </button>
 </form>
 {% endblock %}
-", "security/login.html.twig", "C:\\Users\\bartl\\Projekty_tydzień_2\\Blog_vol.1\\templates\\security\\login.html.twig");
+", "security/login.html.twig", "C:\\Users\\bartl\\BLOG\\templates\\security\\login.html.twig");
     }
 }

@@ -2,8 +2,10 @@
 
 namespace App\Adapter\Comment;
 
+use App\Entity\Comments\Comment;
 use App\Entity\Comments\ReadModel\CommentsQueryInterface;
 use App\Entity\Comments\ReadModel\Comments;
+use App\Entity\Posts\Post;
 use App\Entity\Users\User;
 use Doctrine\DBAL\Driver\Connection;
 
@@ -24,7 +26,7 @@ class CommentsQuery implements CommentsQueryInterface
          * @param array $result
          * @return Comments
          */
-            'SELECT c.id as id, c.info as info, c.addDate as addDate, c.user as user
+            'SELECT c.id as id, c.info as info, c.addDate as addDate, c.user as user, c.post as post
                 FROM comment as c 
                 WHERE c.id = :id',
             [
@@ -35,7 +37,8 @@ class CommentsQuery implements CommentsQueryInterface
                     (int)$result['id'],
                     (string)$result['info'],
                     (new \DateTime($result['addDate'])),
-                    (User($result['isActive']))
+                    (User($result['isActive'])),
+                    (Post($result['post']))
                 );
             }
          );
@@ -44,7 +47,7 @@ class CommentsQuery implements CommentsQueryInterface
     public function getUser(User $user)
     {
         return $this->connection->project(
-            'SELECT c.id as id, c.info as info, c.addDate as addDate, c.user as user
+            'SELECT c.id as id, c.info as info, c.addDate as addDate, c.user as user, c.post as post
                 From comment as c
                 WHERE c.user = :user',
             [
@@ -55,9 +58,39 @@ class CommentsQuery implements CommentsQueryInterface
                     (int)$result['id'],
                     (string)$result['info'],
                     (new \DateTime($result['addDate'])),
-                    (User($result['user']))
+                    (User($result['user'])),
+                    (Post($result['post']))
                 );
             }
+        );
+    }
+
+    public function add(Comment $comment)
+    {
+        // TODO: Implement add() method.
+    }
+
+    public function getAll(Comment $comment)
+    {
+        return $this->connection->project(
+        /**
+         * @param array $result
+         * @return Comments
+         */
+            'SELECT c.id as id, c.info as info, c.addDate as addDate, c.user as user, c.post as post
+                FROM comment as c',
+                [
+                    'comment' => $comment
+                ],
+                function (array $result){
+                    return new Comments(
+                        (int)$result['id'],
+                        (string)$result['info'],
+                        (new \DateTime($result['addDate'])),
+                        (User($result['isActive'])),
+                        (Post($result['post']))
+                    );
+                }
         );
     }
 }

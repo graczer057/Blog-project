@@ -2,6 +2,7 @@
 
 namespace App\Entity\Comments;
 
+use App\Entity\Posts\Post;
 use App\Entity\Users\User;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -33,6 +34,24 @@ class Comment
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Post::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $post;
+
+    public function __construct(
+        User $user,
+        string $info,
+        \DateTime $addDate,
+        Post $post
+    ){
+        $this->user = $user;
+        $this->info = $info;
+        $this->addDate = $addDate;
+        $this->post = $post;
+    }
 
     public function getId(): ?int
     {
@@ -71,6 +90,16 @@ class Comment
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getPost(): ?Post {
+        return $this->post;
+    }
+
+    public function setPost(?Post $post){
+        $this->post = $post;
 
         return $this;
     }

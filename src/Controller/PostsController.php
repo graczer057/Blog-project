@@ -24,7 +24,6 @@ class PostsController extends AbstractController implements CreateCategoryRespon
         CreatePost $createPost
     )
     {
-
         $form = $this->createForm(
             AddPostType::class,
             [],

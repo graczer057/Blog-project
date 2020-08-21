@@ -21,15 +21,26 @@ class CreateComment extends AbstractController
         $this->transaction = $transaction;
     }
 
-    public function execute(
-        Command $command
-    )
+    public function execute(Command $command)
     {
         $this->transaction->begin();
 
         $comment = new Comment(
+            $command->getUser(),
             $command->getInfo(),
-            $command->getAddDate()
+            $command->getAddDate(),
+            $command->getPost()
         );
+
+        $this->comments->add($comment);
+
+        try {
+            $this->transaction->commit();
+        } catch (\Throwable $e) {
+            $this->transaction->rollback();
+            throw $e;
+        }
+
+        $command->getResponder()->CommentCreated($comment);
     }
 }

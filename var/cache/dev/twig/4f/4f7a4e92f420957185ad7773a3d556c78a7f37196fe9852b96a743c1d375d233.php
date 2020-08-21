@@ -141,6 +141,6 @@ class __TwigTemplate_c82a4a787894225e6f25c9cdd8b42c8769293a14fb2a88d74d215bcd988
 
     <button type=\"submit\" class=\"btn\">Send again</button>
     {{ form_end(form) }}
-{% endblock %}", "users/change.html.twig", "C:\\Users\\bartl\\Projekty_tydzień_2\\Blog_vol.1\\templates\\users\\change.html.twig");
+{% endblock %}", "users/change.html.twig", "C:\\Users\\bartl\\BLOG\\templates\\users\\change.html.twig");
     }
 }

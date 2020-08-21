@@ -59,6 +59,6 @@ class __TwigTemplate_d397536dd544c9ec9a26e233ecd74925bd2abf9e0628b15f6620d840450
 
     public function getSourceContext()
     {
-        return new Source("", "users/email/Activate.html.twig", "C:\\Users\\bartl\\Projekty_tydzień_2\\Blog_vol.1\\templates\\users\\email\\Activate.html.twig");
+        return new Source("", "users/email/Activate.html.twig", "C:\\Users\\bartl\\BLOG\\templates\\users\\email\\Activate.html.twig");
     }
 }

@@ -326,6 +326,6 @@ class __TwigTemplate_504eacf37614a638d94dbbc14b49ae0381724cb50976c2ce6ff5a09e036
 </body>
 </html>
 
-", "base.html.twig", "C:\\Users\\bartl\\Projekty_tydzień_2\\Blog_vol.1\\templates\\base.html.twig");
+", "base.html.twig", "C:\\Users\\bartl\\BLOG\\templates\\base.html.twig");
     }
 }

@@ -84,26 +84,24 @@ class __TwigTemplate_6bc7c7b6092b7b45de2dec3c9acb4c776376f5dd74c7ae7f8a7fbee56ba
             ";
         }
         // line 13
-        echo "
-            ";
-        // line 14
+        echo "            ";
         $context['_parent'] = $context;
-        $context['_seq'] = twig_ensure_traversable((isset($context["post"]) || array_key_exists("post", $context) ? $context["post"] : (function () { throw new RuntimeError('Variable "post" does not exist.', 14, $this->source); })()));
+        $context['_seq'] = twig_ensure_traversable((isset($context["post"]) || array_key_exists("post", $context) ? $context["post"] : (function () { throw new RuntimeError('Variable "post" does not exist.', 13, $this->source); })()));
         foreach ($context['_seq'] as $context["_key"] => $context["posts"]) {
-            // line 15
+            // line 14
             echo "                <div class=\"col-5 mx-auto bg-light border border-dark shadow my-3 p-2\">
                     <div class=\"d-inline-block\">
                         <strong>Tytuł: ";
-            // line 17
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["posts"], "title", [], "any", false, false, false, 17), "html", null, true);
+            // line 16
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["posts"], "title", [], "any", false, false, false, 16), "html", null, true);
             echo "</strong>
                         <p> <strong>Opis: </strong> ";
-            // line 18
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["posts"], "info", [], "any", false, false, false, 18), "html", null, true);
+            // line 17
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["posts"], "info", [], "any", false, false, false, 17), "html", null, true);
             echo "</p>
                         <p><strong>Czas utworzenia posta: </strong>";
-            // line 19
-            echo twig_escape_filter($this->env, twig_date_format_filter($this->env, twig_get_attribute($this->env, $this->source, $context["posts"], "adddate", [], "any", false, false, false, 19), "Y:m:d H:i:s"), "html", null, true);
+            // line 18
+            echo twig_escape_filter($this->env, twig_date_format_filter($this->env, twig_get_attribute($this->env, $this->source, $context["posts"], "adddate", [], "any", false, false, false, 18), "Y:m:d H:i:s"), "html", null, true);
             echo "</p>
                     </div>
                 </div>
@@ -112,9 +110,53 @@ class __TwigTemplate_6bc7c7b6092b7b45de2dec3c9acb4c776376f5dd74c7ae7f8a7fbee56ba
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['posts'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 23
-        echo "
-        </div>
+        // line 22
+        echo "            ";
+        if (twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 22, $this->source); })()), "user", [], "any", false, false, false, 22)) {
+            // line 23
+            echo "            <div class=\"col-5 mx-auto bg-light border border-dark shadow my-3 p-2\">
+
+            <h5>Jeśli chcesz pozostawić komentarz pod tym postem musisz być zalogowany</h5>
+
+                ";
+            // line 27
+            echo             $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 27, $this->source); })()), 'form_start');
+            echo "
+                ";
+            // line 28
+            echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(twig_get_attribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 28, $this->source); })()), "info", [], "any", false, false, false, 28), 'row');
+            echo "
+
+                ";
+            // line 30
+            echo             $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 30, $this->source); })()), 'form_end');
+            echo "
+            </div>
+            ";
+        }
+        // line 33
+        echo "            ";
+        $context['_parent'] = $context;
+        $context['_seq'] = twig_ensure_traversable((isset($context["comments"]) || array_key_exists("comments", $context) ? $context["comments"] : (function () { throw new RuntimeError('Variable "comments" does not exist.', 33, $this->source); })()));
+        foreach ($context['_seq'] as $context["_key"] => $context["comment"]) {
+            // line 34
+            echo "                <div class=\"col-5 mx-auto bg-light border border-dark shadow my-3 p-2\">
+                        <p><strong>Komentarz: </strong>";
+            // line 35
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["comment"], "info", [], "any", false, false, false, 35), "html", null, true);
+            echo "</p>
+                        <p><strong>Czas utworzenia posta: </strong>";
+            // line 36
+            echo twig_escape_filter($this->env, twig_date_format_filter($this->env, twig_get_attribute($this->env, $this->source, $context["comment"], "adddate", [], "any", false, false, false, 36), "Y:m:d H:i:s"), "html", null, true);
+            echo "</p>
+                </div>
+            ";
+        }
+        $_parent = $context['_parent'];
+        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['comment'], $context['_parent'], $context['loop']);
+        $context = array_intersect_key($context, $_parent) + $_parent;
+        // line 39
+        echo "        </div>
     </div>
 
 ";
@@ -138,7 +180,7 @@ class __TwigTemplate_6bc7c7b6092b7b45de2dec3c9acb4c776376f5dd74c7ae7f8a7fbee56ba
 
     public function getDebugInfo()
     {
-        return array (  116 => 23,  106 => 19,  102 => 18,  98 => 17,  94 => 15,  90 => 14,  87 => 13,  81 => 10,  78 => 9,  76 => 8,  71 => 5,  61 => 4,  50 => 1,  48 => 2,  35 => 1,);
+        return array (  159 => 39,  150 => 36,  146 => 35,  143 => 34,  138 => 33,  132 => 30,  127 => 28,  123 => 27,  117 => 23,  114 => 22,  104 => 18,  100 => 17,  96 => 16,  92 => 14,  87 => 13,  81 => 10,  78 => 9,  76 => 8,  71 => 5,  61 => 4,  50 => 1,  48 => 2,  35 => 1,);
     }
 
     public function getSourceContext()
@@ -155,7 +197,6 @@ class __TwigTemplate_6bc7c7b6092b7b45de2dec3c9acb4c776376f5dd74c7ae7f8a7fbee56ba
                     <p>{{ flashesbag.success[0] }}</p>
                 </div>
             {% endif %}
-
             {% for posts in post %}
                 <div class=\"col-5 mx-auto bg-light border border-dark shadow my-3 p-2\">
                     <div class=\"d-inline-block\">
@@ -165,10 +206,26 @@ class __TwigTemplate_6bc7c7b6092b7b45de2dec3c9acb4c776376f5dd74c7ae7f8a7fbee56ba
                     </div>
                 </div>
             {% endfor %}
+            {% if app.user %}
+            <div class=\"col-5 mx-auto bg-light border border-dark shadow my-3 p-2\">
 
+            <h5>Jeśli chcesz pozostawić komentarz pod tym postem musisz być zalogowany</h5>
+
+                {{ form_start(form) }}
+                {{ form_row(form.info) }}
+
+                {{ form_end(form) }}
+            </div>
+            {% endif %}
+            {% for comment in comments %}
+                <div class=\"col-5 mx-auto bg-light border border-dark shadow my-3 p-2\">
+                        <p><strong>Komentarz: </strong>{{ comment.info }}</p>
+                        <p><strong>Czas utworzenia posta: </strong>{{ comment.adddate|date('Y:m:d H:i:s')}}</p>
+                </div>
+            {% endfor %}
         </div>
     </div>
 
-{% endblock %}", "post.html.twig", "C:\\Users\\bartl\\Projekty_tydzień_2\\Blog_vol.1\\templates\\post.html.twig");
+{% endblock %}", "post.html.twig", "C:\\Users\\bartl\\BLOG\\templates\\post.html.twig");
     }
 }

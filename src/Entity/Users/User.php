@@ -3,6 +3,7 @@
 namespace App\Entity\Users;
 
 use App\Entity\Comments\Comment;
+use App\Entity\Likes\Like;
 use App\Repository\UserRepository;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
@@ -67,6 +68,12 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="user", cascade={"persist", "remove"})
      */
     private $comment;
+
+    /**
+     * @var Like $likes
+     * @ORM\OneToOne(targetEntity=Like::class, mappedBy="User", cascade={"persist", "remove"})
+     */
+    private $likes;
 
     public function __construct(
         string $username,
@@ -259,6 +266,28 @@ class User implements UserInterface
     public function getNewsletter()
     {
         return $this->newsletter;
+    }
+
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    public function getLikes(): ?Like
+    {
+        return $this->likes;
+    }
+
+    public function setLikes(Like $likes): self
+    {
+        $this->likes = $likes;
+
+        // set the owning side of the relation if necessary
+        if ($likes->getUser() !== $this) {
+            $likes->setUser($this);
+        }
+
+        return $this;
     }
 
 }

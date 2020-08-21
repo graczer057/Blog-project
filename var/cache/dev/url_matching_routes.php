@@ -56,7 +56,7 @@ return [
         136 => [[['_route' => '_profiler_exception', '_controller' => 'web_profiler.controller.exception_panel::body'], ['token'], null, null, false, false, null]],
         149 => [[['_route' => '_profiler_exception_css', '_controller' => 'web_profiler.controller.exception_panel::stylesheet'], ['token'], null, null, false, false, null]],
         159 => [[['_route' => '_profiler', '_controller' => 'web_profiler.controller.profiler::panelAction'], ['token'], null, null, false, true, null]],
-        189 => [[['_route' => 'see', '_controller' => 'App\\Controller\\ListController::Post'], ['id'], ['GET' => 0], null, false, false, null]],
+        189 => [[['_route' => 'see', '_controller' => 'App\\Controller\\ListController::Post'], ['id'], null, null, false, false, null]],
         215 => [[['_route' => 'activate', '_controller' => 'App\\Controller\\users\\ActivateController::activate'], ['token'], ['GET' => 0, 'POST' => 1], null, false, true, null]],
         239 => [
             [['_route' => 'change', '_controller' => 'App\\Controller\\users\\PasswordChangeController::change'], ['token'], ['GET' => 0, 'POST' => 1], null, false, true, null],
