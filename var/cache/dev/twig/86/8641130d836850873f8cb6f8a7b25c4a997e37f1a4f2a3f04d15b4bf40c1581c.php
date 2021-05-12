@@ -26,6 +26,7 @@ class __TwigTemplate_6bc7c7b6092b7b45de2dec3c9acb4c776376f5dd74c7ae7f8a7fbee56ba
 
         $this->blocks = [
             'body' => [$this, 'block_body'],
+            'javascripts' => [$this, 'block_javascripts'],
         ];
     }
 
@@ -70,95 +71,182 @@ class __TwigTemplate_6bc7c7b6092b7b45de2dec3c9acb4c776376f5dd74c7ae7f8a7fbee56ba
         // line 5
         echo "    <div class=\"container\">
         <div class=\"row\">
-
             ";
-        // line 8
-        if (twig_get_attribute($this->env, $this->source, ($context["flashesbag"] ?? null), "success", [], "any", true, true, false, 8)) {
-            // line 9
-            echo "                <div class=\"col-8 mx-auto bg-success border border-dark shadow rounded\">
-                    <p>";
-            // line 10
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["flashesbag"]) || array_key_exists("flashesbag", $context) ? $context["flashesbag"] : (function () { throw new RuntimeError('Variable "flashesbag" does not exist.', 10, $this->source); })()), "success", [], "any", false, false, false, 10), 0, [], "array", false, false, false, 10), "html", null, true);
-            echo "</p>
+        // line 7
+        if (twig_get_attribute($this->env, $this->source, ($context["flashesbag"] ?? null), "success", [], "any", true, true, false, 7)) {
+            // line 8
+            echo "                <div id=\"success\" class=\"col-8 mx-auto bg-success border border-dark shadow rounded\">
+                    <p>comment add</p>
                 </div>
             ";
         }
-        // line 13
-        echo "            ";
-        $context['_parent'] = $context;
-        $context['_seq'] = twig_ensure_traversable((isset($context["post"]) || array_key_exists("post", $context) ? $context["post"] : (function () { throw new RuntimeError('Variable "post" does not exist.', 13, $this->source); })()));
-        foreach ($context['_seq'] as $context["_key"] => $context["posts"]) {
-            // line 14
-            echo "                <div class=\"col-5 mx-auto bg-light border border-dark shadow my-3 p-2\">
-                    <div class=\"d-inline-block\">
+        // line 12
+        echo "                <div class=\"col-5 mx-auto bg-light border border-dark shadow my-3 p-2\">
+                    <div id=\"likes_area\" class=\"d-inline-block\">
                         <strong>Tytuł: ";
-            // line 16
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["posts"], "title", [], "any", false, false, false, 16), "html", null, true);
-            echo "</strong>
+        // line 14
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, (isset($context["post"]) || array_key_exists("post", $context) ? $context["post"] : (function () { throw new RuntimeError('Variable "post" does not exist.', 14, $this->source); })()), "title", [], "any", false, false, false, 14), "html", null, true);
+        echo "</strong>
                         <p> <strong>Opis: </strong> ";
-            // line 17
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["posts"], "info", [], "any", false, false, false, 17), "html", null, true);
-            echo "</p>
+        // line 15
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, (isset($context["post"]) || array_key_exists("post", $context) ? $context["post"] : (function () { throw new RuntimeError('Variable "post" does not exist.', 15, $this->source); })()), "info", [], "any", false, false, false, 15), "html", null, true);
+        echo "</p>
                         <p><strong>Czas utworzenia posta: </strong>";
-            // line 18
-            echo twig_escape_filter($this->env, twig_date_format_filter($this->env, twig_get_attribute($this->env, $this->source, $context["posts"], "adddate", [], "any", false, false, false, 18), "Y:m:d H:i:s"), "html", null, true);
-            echo "</p>
+        // line 16
+        echo twig_escape_filter($this->env, twig_date_format_filter($this->env, twig_get_attribute($this->env, $this->source, (isset($context["post"]) || array_key_exists("post", $context) ? $context["post"] : (function () { throw new RuntimeError('Variable "post" does not exist.', 16, $this->source); })()), "adddate", [], "any", false, false, false, 16), "Y:m:d H:i:s"), "html", null, true);
+        echo "</p>
+                        <p class=\"like__count\" id=\"like__count\"><strong>Liczba polubień: </strong><span id=\"likes__quantity\">";
+        // line 17
+        echo twig_escape_filter($this->env, (isset($context["likes"]) || array_key_exists("likes", $context) ? $context["likes"] : (function () { throw new RuntimeError('Variable "likes" does not exist.', 17, $this->source); })()), "html", null, true);
+        echo "</span></p>
+";
+        // line 19
+        echo "                        <button class=\"btn__unlike\" id=\"btn__unlike\">Nie lubię tego</button>
                     </div>
                 </div>
-            ";
-        }
-        $_parent = $context['_parent'];
-        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['posts'], $context['_parent'], $context['loop']);
-        $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 22
-        echo "            ";
-        if (twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 22, $this->source); })()), "user", [], "any", false, false, false, 22)) {
-            // line 23
-            echo "            <div class=\"col-5 mx-auto bg-light border border-dark shadow my-3 p-2\">
 
-            <h5>Jeśli chcesz pozostawić komentarz pod tym postem musisz być zalogowany</h5>
+            <div class=\"col-5 mx-auto bg-light border border-dark shadow my-3 p-2\">
+
+                <h5>Jeśli chcesz pozostawić komentarz pod tym postem musisz być zalogowany</h5>
+
 
                 ";
-            // line 27
-            echo             $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 27, $this->source); })()), 'form_start');
+        // line 28
+        if (twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 28, $this->source); })()), "user", [], "any", false, false, false, 28)) {
+            // line 29
             echo "
-                ";
-            // line 28
-            echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(twig_get_attribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 28, $this->source); })()), "info", [], "any", false, false, false, 28), 'row');
-            echo "
-
-                ";
+                    ";
             // line 30
-            echo             $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 30, $this->source); })()), 'form_end');
+            echo             $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 30, $this->source); })()), 'form_start', ["attr" => ["class" => "comment_form"]]);
             echo "
-            </div>
-            ";
-        }
-        // line 33
-        echo "            ";
-        $context['_parent'] = $context;
-        $context['_seq'] = twig_ensure_traversable((isset($context["comments"]) || array_key_exists("comments", $context) ? $context["comments"] : (function () { throw new RuntimeError('Variable "comments" does not exist.', 33, $this->source); })()));
-        foreach ($context['_seq'] as $context["_key"] => $context["comment"]) {
-            // line 34
-            echo "                <div class=\"col-5 mx-auto bg-light border border-dark shadow my-3 p-2\">
-                        <p><strong>Komentarz: </strong>";
+                    ";
+            // line 31
+            echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(twig_get_attribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 31, $this->source); })()), "info", [], "any", false, false, false, 31), 'row');
+            echo "
+
+                    <button class=\"btn__comment\" id=\"btn__comment\">Skomentuj</button>
+
+                    ";
             // line 35
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["comment"], "info", [], "any", false, false, false, 35), "html", null, true);
+            echo             $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 35, $this->source); })()), 'form_end');
+            echo "
+
+                ";
+        }
+        // line 38
+        echo "            </div>
+
+            <div class=\"col-12\">
+                <div id=\"comments-area\" class=\"row\">
+                    ";
+        // line 42
+        $context['_parent'] = $context;
+        $context['_seq'] = twig_ensure_traversable((isset($context["comments"]) || array_key_exists("comments", $context) ? $context["comments"] : (function () { throw new RuntimeError('Variable "comments" does not exist.', 42, $this->source); })()));
+        foreach ($context['_seq'] as $context["_key"] => $context["comment"]) {
+            // line 43
+            echo "                        <div id=\"comment-show\" class=\"col-5 mx-auto bg-light border border-dark shadow my-3 p-2\">
+                            <p><strong>Komentarz: </strong>";
+            // line 44
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["comment"], "info", [], "any", false, false, false, 44), "html", null, true);
             echo "</p>
-                        <p><strong>Czas utworzenia posta: </strong>";
-            // line 36
-            echo twig_escape_filter($this->env, twig_date_format_filter($this->env, twig_get_attribute($this->env, $this->source, $context["comment"], "adddate", [], "any", false, false, false, 36), "Y:m:d H:i:s"), "html", null, true);
+                            <p><strong>Czas utworzenia posta: </strong>";
+            // line 45
+            echo twig_escape_filter($this->env, twig_date_format_filter($this->env, twig_get_attribute($this->env, $this->source, $context["comment"], "adddate", [], "any", false, false, false, 45), "Y:m:d H:i:s"), "html", null, true);
             echo "</p>
-                </div>
-            ";
+                        </div>
+                    ";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['comment'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 39
-        echo "        </div>
+        // line 48
+        echo "                </div>
+            </div>
+        </div>
     </div>
 
+";
+        
+        $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->leave($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof);
+
+        
+        $__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e->leave($__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e_prof);
+
+    }
+
+    // line 54
+    public function block_javascripts($context, array $blocks = [])
+    {
+        $macros = $this->macros;
+        $__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
+        $__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e->enter($__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "javascripts"));
+
+        $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02 = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
+        $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "javascripts"));
+
+        // line 55
+        echo "
+    <script>
+        \$('.btn__unlike').on('click', function (event){
+            event.preventDefault();
+
+            \$.ajax({
+                url: '";
+        // line 61
+        echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_unlike", ["id" => twig_get_attribute($this->env, $this->source, (isset($context["post"]) || array_key_exists("post", $context) ? $context["post"] : (function () { throw new RuntimeError('Variable "post" does not exist.', 61, $this->source); })()), "id", [], "any", false, false, false, 61)]), "html", null, true);
+        echo "',
+                type: \"delete\",
+                method: \"delete\",
+                success: (responseData) => {
+                    let newLikeHtmlObj = \$('#likes__quantity')
+
+                    newLikeHtmlObj.html(parseInt(newLikeHtmlObj.html()) - 1)
+                }
+            })
+        })
+        \$('.btn__like').on('click', function (event){
+            event.preventDefault();
+
+            \$.ajax({
+                url: '";
+        // line 75
+        echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("add_like", ["id" => twig_get_attribute($this->env, $this->source, (isset($context["post"]) || array_key_exists("post", $context) ? $context["post"] : (function () { throw new RuntimeError('Variable "post" does not exist.', 75, $this->source); })()), "id", [], "any", false, false, false, 75)]), "html", null, true);
+        echo "',
+                type: \"post\",
+                method: \"post\",
+                success: (responseData) => {
+                    let newLikeHtmlObj = \$('#likes__quantity')
+
+                    newLikeHtmlObj.html(parseInt(newLikeHtmlObj.html()) + 1)
+                }
+            })
+        })
+        \$('.comment_form').on('submit', function (event){
+            event.preventDefault();
+            let info = document.getElementById('comment_info').value
+            let time = new Date()
+            let addDate = time.getFullYear() + \":\" +  time.getMonth() + \":\" + time.getDay() + \" \" + time.getHours() + \":\" + time.getMinutes() + \":\" + time.getSeconds()
+            \$.ajax({
+                url: '";
+        // line 91
+        echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("create_comment", ["id" => twig_get_attribute($this->env, $this->source, (isset($context["post"]) || array_key_exists("post", $context) ? $context["post"] : (function () { throw new RuntimeError('Variable "post" does not exist.', 91, $this->source); })()), "id", [], "any", false, false, false, 91)]), "html", null, true);
+        echo "',
+                type: \"post\",
+                method: \"post\",
+                data: \$(this).serialize(),
+                success: (dataResponse) => {
+                    let successMSG = dataResponse.status
+
+                    \$('#success').append(successMSG)
+
+                    let newCommentHtmlObj =
+                        '<div id=\"comment-show\" class=\"col-5 mx-auto bg-light border border-dark shadow my-3 p-2\"><p><strong>Komentarz: </strong>'+info+'</p><p><strong>Czas utworzenia posta: </strong>'+addDate+'</p></div>'
+
+                    \$('#comments-area').append(newCommentHtmlObj)
+                }
+            })
+        })
+    </script>
 ";
         
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->leave($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof);
@@ -180,7 +268,7 @@ class __TwigTemplate_6bc7c7b6092b7b45de2dec3c9acb4c776376f5dd74c7ae7f8a7fbee56ba
 
     public function getDebugInfo()
     {
-        return array (  159 => 39,  150 => 36,  146 => 35,  143 => 34,  138 => 33,  132 => 30,  127 => 28,  123 => 27,  117 => 23,  114 => 22,  104 => 18,  100 => 17,  96 => 16,  92 => 14,  87 => 13,  81 => 10,  78 => 9,  76 => 8,  71 => 5,  61 => 4,  50 => 1,  48 => 2,  35 => 1,);
+        return array (  232 => 91,  213 => 75,  196 => 61,  188 => 55,  178 => 54,  163 => 48,  154 => 45,  150 => 44,  147 => 43,  143 => 42,  137 => 38,  131 => 35,  124 => 31,  120 => 30,  117 => 29,  115 => 28,  104 => 19,  100 => 17,  96 => 16,  92 => 15,  88 => 14,  84 => 12,  78 => 8,  76 => 7,  72 => 5,  62 => 4,  51 => 1,  49 => 2,  36 => 1,);
     }
 
     public function getSourceContext()
@@ -191,41 +279,107 @@ class __TwigTemplate_6bc7c7b6092b7b45de2dec3c9acb4c776376f5dd74c7ae7f8a7fbee56ba
 {% block body %}
     <div class=\"container\">
         <div class=\"row\">
-
             {% if flashesbag.success is defined %}
-                <div class=\"col-8 mx-auto bg-success border border-dark shadow rounded\">
-                    <p>{{ flashesbag.success[0] }}</p>
+                <div id=\"success\" class=\"col-8 mx-auto bg-success border border-dark shadow rounded\">
+                    <p>comment add</p>
                 </div>
             {% endif %}
-            {% for posts in post %}
                 <div class=\"col-5 mx-auto bg-light border border-dark shadow my-3 p-2\">
-                    <div class=\"d-inline-block\">
-                        <strong>Tytuł: {{ posts.title }}</strong>
-                        <p> <strong>Opis: </strong> {{ posts.info }}</p>
-                        <p><strong>Czas utworzenia posta: </strong>{{ posts.adddate|date('Y:m:d H:i:s')}}</p>
+                    <div id=\"likes_area\" class=\"d-inline-block\">
+                        <strong>Tytuł: {{ post.title }}</strong>
+                        <p> <strong>Opis: </strong> {{ post.info }}</p>
+                        <p><strong>Czas utworzenia posta: </strong>{{ post.adddate|date('Y:m:d H:i:s')}}</p>
+                        <p class=\"like__count\" id=\"like__count\"><strong>Liczba polubień: </strong><span id=\"likes__quantity\">{{ likes }}</span></p>
+{#                        <button class=\"btn__like\" id=\"btn__like\">Lubię to</button>#}
+                        <button class=\"btn__unlike\" id=\"btn__unlike\">Nie lubię tego</button>
                     </div>
                 </div>
-            {% endfor %}
-            {% if app.user %}
+
             <div class=\"col-5 mx-auto bg-light border border-dark shadow my-3 p-2\">
 
-            <h5>Jeśli chcesz pozostawić komentarz pod tym postem musisz być zalogowany</h5>
+                <h5>Jeśli chcesz pozostawić komentarz pod tym postem musisz być zalogowany</h5>
 
-                {{ form_start(form) }}
-                {{ form_row(form.info) }}
 
-                {{ form_end(form) }}
+                {% if app.user %}
+
+                    {{ form_start(form, { 'attr': {'class':'comment_form'}}) }}
+                    {{ form_row(form.info) }}
+
+                    <button class=\"btn__comment\" id=\"btn__comment\">Skomentuj</button>
+
+                    {{ form_end(form) }}
+
+                {% endif %}
             </div>
-            {% endif %}
-            {% for comment in comments %}
-                <div class=\"col-5 mx-auto bg-light border border-dark shadow my-3 p-2\">
-                        <p><strong>Komentarz: </strong>{{ comment.info }}</p>
-                        <p><strong>Czas utworzenia posta: </strong>{{ comment.adddate|date('Y:m:d H:i:s')}}</p>
+
+            <div class=\"col-12\">
+                <div id=\"comments-area\" class=\"row\">
+                    {% for comment in comments %}
+                        <div id=\"comment-show\" class=\"col-5 mx-auto bg-light border border-dark shadow my-3 p-2\">
+                            <p><strong>Komentarz: </strong>{{ comment.info }}</p>
+                            <p><strong>Czas utworzenia posta: </strong>{{ comment.adddate|date('Y:m:d H:i:s')}}</p>
+                        </div>
+                    {% endfor %}
                 </div>
-            {% endfor %}
+            </div>
         </div>
     </div>
 
+{% endblock %}
+{% block javascripts %}
+
+    <script>
+        \$('.btn__unlike').on('click', function (event){
+            event.preventDefault();
+
+            \$.ajax({
+                url: '{{ path('app_unlike', {'id':post.id}) }}',
+                type: \"delete\",
+                method: \"delete\",
+                success: (responseData) => {
+                    let newLikeHtmlObj = \$('#likes__quantity')
+
+                    newLikeHtmlObj.html(parseInt(newLikeHtmlObj.html()) - 1)
+                }
+            })
+        })
+        \$('.btn__like').on('click', function (event){
+            event.preventDefault();
+
+            \$.ajax({
+                url: '{{ path('add_like',{'id':post.id}) }}',
+                type: \"post\",
+                method: \"post\",
+                success: (responseData) => {
+                    let newLikeHtmlObj = \$('#likes__quantity')
+
+                    newLikeHtmlObj.html(parseInt(newLikeHtmlObj.html()) + 1)
+                }
+            })
+        })
+        \$('.comment_form').on('submit', function (event){
+            event.preventDefault();
+            let info = document.getElementById('comment_info').value
+            let time = new Date()
+            let addDate = time.getFullYear() + \":\" +  time.getMonth() + \":\" + time.getDay() + \" \" + time.getHours() + \":\" + time.getMinutes() + \":\" + time.getSeconds()
+            \$.ajax({
+                url: '{{ path('create_comment',{'id':post.id}) }}',
+                type: \"post\",
+                method: \"post\",
+                data: \$(this).serialize(),
+                success: (dataResponse) => {
+                    let successMSG = dataResponse.status
+
+                    \$('#success').append(successMSG)
+
+                    let newCommentHtmlObj =
+                        '<div id=\"comment-show\" class=\"col-5 mx-auto bg-light border border-dark shadow my-3 p-2\"><p><strong>Komentarz: </strong>'+info+'</p><p><strong>Czas utworzenia posta: </strong>'+addDate+'</p></div>'
+
+                    \$('#comments-area').append(newCommentHtmlObj)
+                }
+            })
+        })
+    </script>
 {% endblock %}", "post.html.twig", "C:\\Users\\bartl\\BLOG\\templates\\post.html.twig");
     }
 }

@@ -40,7 +40,5 @@ class CreateComment extends AbstractController
             $this->transaction->rollback();
             throw $e;
         }
-
-        $command->getResponder()->CommentCreated($comment);
     }
 }

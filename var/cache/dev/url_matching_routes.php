@@ -43,9 +43,14 @@ return [
                         .'|(*:159)'
                     .')'
                 .')'
-                .'|/posts/([^/]++)/show(*:189)'
-                .'|/activate/([^/]++)(*:215)'
-                .'|/change/([^/]++)(*:239)'
+                .'|/like/post/([^/]++)(*:188)'
+                .'|/unlike/post/([^/]++)(*:217)'
+                .'|/c(?'
+                    .'|reate/comment/([^/]++)(*:252)'
+                    .'|hange/([^/]++)(*:274)'
+                .')'
+                .'|/posts/([^/]++)/show(*:303)'
+                .'|/activate/([^/]++)(*:329)'
             .')/?$}sDu',
     ],
     [ // $dynamicRoutes
@@ -56,10 +61,13 @@ return [
         136 => [[['_route' => '_profiler_exception', '_controller' => 'web_profiler.controller.exception_panel::body'], ['token'], null, null, false, false, null]],
         149 => [[['_route' => '_profiler_exception_css', '_controller' => 'web_profiler.controller.exception_panel::stylesheet'], ['token'], null, null, false, false, null]],
         159 => [[['_route' => '_profiler', '_controller' => 'web_profiler.controller.profiler::panelAction'], ['token'], null, null, false, true, null]],
-        189 => [[['_route' => 'see', '_controller' => 'App\\Controller\\ListController::Post'], ['id'], null, null, false, false, null]],
-        215 => [[['_route' => 'activate', '_controller' => 'App\\Controller\\users\\ActivateController::activate'], ['token'], ['GET' => 0, 'POST' => 1], null, false, true, null]],
-        239 => [
-            [['_route' => 'change', '_controller' => 'App\\Controller\\users\\PasswordChangeController::change'], ['token'], ['GET' => 0, 'POST' => 1], null, false, true, null],
+        188 => [[['_route' => 'add_like', '_controller' => 'App\\Controller\\ListController::addLike'], ['id'], null, null, false, true, null]],
+        217 => [[['_route' => 'app_unlike', '_controller' => 'App\\Controller\\ListController::unlike'], ['id'], null, null, false, true, null]],
+        252 => [[['_route' => 'create_comment', '_controller' => 'App\\Controller\\ListController::Comment'], ['id'], ['POST' => 0], null, false, true, null]],
+        274 => [[['_route' => 'change', '_controller' => 'App\\Controller\\users\\PasswordChangeController::change'], ['token'], ['GET' => 0, 'POST' => 1], null, false, true, null]],
+        303 => [[['_route' => 'see', '_controller' => 'App\\Controller\\ListController::Post'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        329 => [
+            [['_route' => 'activate', '_controller' => 'App\\Controller\\users\\ActivateController::activate'], ['token'], ['GET' => 0, 'POST' => 1], null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],
     ],

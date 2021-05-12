@@ -104,38 +104,44 @@ class __TwigTemplate_504eacf37614a638d94dbbc14b49ae0381724cb50976c2ce6ff5a09e036
         }
         echo "\">Newsletter</a>
                 </li>
-                <li class=\"nav-item\">
+                ";
+        // line 33
+        if ( !twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 33, $this->source); })()), "user", [], "any", false, false, false, 33)) {
+            // line 34
+            echo "                <li class=\"nav-item\">
                     <a class=\"nav-link\" href=\"";
-        // line 34
-        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_login");
-        echo "\">Zaloguj się</a>
+            // line 35
+            echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_login");
+            echo "\">Zaloguj się</a>
                 </li>
                 <li class=\"nav-item\">
                     <a class=\"nav-link\" href=\"";
-        // line 37
-        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("register");
-        echo "\">Zarejestruj</a>
+            // line 38
+            echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("register");
+            echo "\">Zarejestruj</a>
                 </li>
                 ";
-        // line 39
-        if (twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 39, $this->source); })()), "user", [], "any", false, false, false, 39)) {
-            // line 40
+        }
+        // line 41
+        echo "                ";
+        if (twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 41, $this->source); })()), "user", [], "any", false, false, false, 41)) {
+            // line 42
             echo "                    <li class=\"nav-item\">
                         <a class=\"nav-link\" href=\"";
-            // line 41
+            // line 43
             echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_logout");
             echo "\">Wyloguj się</a>
                     </li>
                 ";
         }
-        // line 44
+        // line 46
         echo "            </ul>
         </div>
     </nav>
 </header>
 
 <main>";
-        // line 49
+        // line 51
         $this->displayBlock('body', $context, $blocks);
         echo "</main>
 
@@ -148,18 +154,18 @@ class __TwigTemplate_504eacf37614a638d94dbbc14b49ae0381724cb50976c2ce6ff5a09e036
 
 
 <script src=\"";
-        // line 59
+        // line 61
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("assets/js/jquery-3.5.1/jquery-3.5.1.min.js"), "html", null, true);
         echo "\"></script>
 <script src=\"";
-        // line 60
+        // line 62
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("assets/js/bootstrap/bootstrap.bundle.js"), "html", null, true);
         echo "\"></script>
 <script src=\"https://kit.fontawesome.com/b26e0d0c0b.js\" crossorigin=\"anonymous\"></script>
 ";
-        // line 62
+        // line 64
         $this->displayBlock('javascripts', $context, $blocks);
-        // line 63
+        // line 65
         echo "</body>
 </html>
 
@@ -208,7 +214,7 @@ class __TwigTemplate_504eacf37614a638d94dbbc14b49ae0381724cb50976c2ce6ff5a09e036
 
     }
 
-    // line 49
+    // line 51
     public function block_body($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -226,7 +232,7 @@ class __TwigTemplate_504eacf37614a638d94dbbc14b49ae0381724cb50976c2ce6ff5a09e036
 
     }
 
-    // line 62
+    // line 64
     public function block_javascripts($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -256,7 +262,7 @@ class __TwigTemplate_504eacf37614a638d94dbbc14b49ae0381724cb50976c2ce6ff5a09e036
 
     public function getDebugInfo()
     {
-        return array (  230 => 62,  212 => 49,  194 => 7,  176 => 6,  163 => 63,  161 => 62,  156 => 60,  152 => 59,  139 => 49,  132 => 44,  126 => 41,  123 => 40,  121 => 39,  116 => 37,  110 => 34,  96 => 31,  90 => 28,  84 => 25,  65 => 9,  60 => 8,  58 => 7,  54 => 6,  47 => 1,);
+        return array (  236 => 64,  218 => 51,  200 => 7,  182 => 6,  169 => 65,  167 => 64,  162 => 62,  158 => 61,  145 => 51,  138 => 46,  132 => 43,  129 => 42,  126 => 41,  120 => 38,  114 => 35,  111 => 34,  109 => 33,  96 => 31,  90 => 28,  84 => 25,  65 => 9,  60 => 8,  58 => 7,  54 => 6,  47 => 1,);
     }
 
     public function getSourceContext()
@@ -293,12 +299,14 @@ class __TwigTemplate_504eacf37614a638d94dbbc14b49ae0381724cb50976c2ce6ff5a09e036
                 <li class=\"nav-item active\">
                     <a class=\"nav-link\" href=\"{% if app.user %}{% if not app.user.newsletter %}{{ path('user_join') }}{%  else%}{{ path('newsletter_delete') }}{% endif %}{% else %}{{ path('anon_join') }}{% endif %}\">Newsletter</a>
                 </li>
+                {% if not app.user %}
                 <li class=\"nav-item\">
                     <a class=\"nav-link\" href=\"{{ path('app_login') }}\">Zaloguj się</a>
                 </li>
                 <li class=\"nav-item\">
                     <a class=\"nav-link\" href=\"{{ path('register') }}\">Zarejestruj</a>
                 </li>
+                {% endif %}
                 {% if app.user %}
                     <li class=\"nav-item\">
                         <a class=\"nav-link\" href=\"{{ path('app_logout') }}\">Wyloguj się</a>

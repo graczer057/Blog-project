@@ -93,29 +93,25 @@ class __TwigTemplate_418e9714df9407992dd7cf648d20bffda10f99790dd012a31f80036ea54
             // line 15
             echo "                <div class=\"col-5 mx-auto bg-white border border-dark shadow my-3 p-2\">
                     <div class=\"d-inline-block\">
-                        ";
+                        <strong>Tytuł: ";
             // line 17
-            if ($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("admin")) {
-            }
-            // line 18
-            echo "                        <strong>Tytuł: ";
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["post"], "title", [], "any", false, false, false, 18), "html", null, true);
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["post"], "title", [], "any", false, false, false, 17), "html", null, true);
             echo "</strong>
                         <p> <strong>Opis: </strong> ";
-            // line 19
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["post"], "info", [], "any", false, false, false, 19), "html", null, true);
+            // line 18
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["post"], "info", [], "any", false, false, false, 18), "html", null, true);
             echo "</p>
                         <p><strong>Czas utworzenia posta: </strong>";
-            // line 20
-            echo twig_escape_filter($this->env, twig_date_format_filter($this->env, twig_get_attribute($this->env, $this->source, $context["post"], "adddate", [], "any", false, false, false, 20), "Y:m:d H:i:s"), "html", null, true);
+            // line 19
+            echo twig_escape_filter($this->env, twig_date_format_filter($this->env, twig_get_attribute($this->env, $this->source, $context["post"], "adddate", [], "any", false, false, false, 19), "Y:m:d H:i:s"), "html", null, true);
             echo "</p>
                     </div>
                 </div>
                 <div class=\"d-inline-block float-right\">
 
                     <a class=\"btn btn-outline-primary my-2\" href=\"";
-            // line 25
-            echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("see", ["id" => twig_get_attribute($this->env, $this->source, $context["post"], "id", [], "any", false, false, false, 25)]), "html", null, true);
+            // line 24
+            echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("see", ["id" => twig_get_attribute($this->env, $this->source, $context["post"], "id", [], "any", false, false, false, 24)]), "html", null, true);
             echo "\"><i class=\"fa-edit\"></i></a>
 
                 </div>
@@ -124,7 +120,7 @@ class __TwigTemplate_418e9714df9407992dd7cf648d20bffda10f99790dd012a31f80036ea54
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['post'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 29
+        // line 28
         echo "
         </div>
     </div>
@@ -150,7 +146,7 @@ class __TwigTemplate_418e9714df9407992dd7cf648d20bffda10f99790dd012a31f80036ea54
 
     public function getDebugInfo()
     {
-        return array (  128 => 29,  118 => 25,  110 => 20,  106 => 19,  101 => 18,  98 => 17,  94 => 15,  90 => 14,  87 => 13,  81 => 10,  78 => 9,  76 => 8,  71 => 5,  61 => 4,  50 => 1,  48 => 2,  35 => 1,);
+        return array (  124 => 28,  114 => 24,  106 => 19,  102 => 18,  98 => 17,  94 => 15,  90 => 14,  87 => 13,  81 => 10,  78 => 9,  76 => 8,  71 => 5,  61 => 4,  50 => 1,  48 => 2,  35 => 1,);
     }
 
     public function getSourceContext()
@@ -171,7 +167,6 @@ class __TwigTemplate_418e9714df9407992dd7cf648d20bffda10f99790dd012a31f80036ea54
             {% for post in posts %}
                 <div class=\"col-5 mx-auto bg-white border border-dark shadow my-3 p-2\">
                     <div class=\"d-inline-block\">
-                        {% if is_granted (\"admin\") %}{%  endif %}
                         <strong>Tytuł: {{ post.title }}</strong>
                         <p> <strong>Opis: </strong> {{ post.info }}</p>
                         <p><strong>Czas utworzenia posta: </strong>{{ post.adddate|date('Y:m:d H:i:s')}}</p>

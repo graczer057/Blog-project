@@ -337,6 +337,12 @@
     <service id="App\Adapter\Core\Transaction" class="App\Adapter\Core\Transaction" autowire="true" autoconfigure="true">
       <argument type="service" id="doctrine.orm.default_entity_manager"/>
     </service>
+    <service id="App\Adapter\Like\Likes" class="App\Adapter\Like\Likes" public="true" autowire="true" autoconfigure="true">
+      <argument type="service" id="doctrine.orm.default_entity_manager"/>
+    </service>
+    <service id="App\Adapter\Like\LikesQuery" class="App\Adapter\Like\LikesQuery" public="true" autowire="true" autoconfigure="true">
+      <argument type="service" id="doctrine.orm.default_entity_manager"/>
+    </service>
     <service id="App\Adapter\Newsletter\Newsletters" class="App\Adapter\Newsletter\Newsletters" autowire="true" autoconfigure="true">
       <argument type="service" id="doctrine.orm.default_entity_manager"/>
     </service>
@@ -358,7 +364,6 @@
       <argument type="service" id="App\Repository\PostRepository"/>
       <argument type="service" id="App\Repository\CommentRepository"/>
       <argument type="service" id="App\Adapter\Post\PostsQuery"/>
-      <argument type="service" id="App\Adapter\Comment\CommentsQuery"/>
       <call method="setContainer">
         <argument type="service" id=".service_locator.g9CqTPp.App\Controller\ListController"/>
       </call>
@@ -588,6 +593,22 @@
       <argument type="service" id="doctrine_application_transaction"/>
       <call method="setContainer">
         <argument type="service" id=".service_locator.g9CqTPp.App\Entity\Newsletter\Newsletters\UseCase\UserJoinNewsletter"/>
+      </call>
+    </service>
+    <service id="application_like" class="App\Adapter\Like\Likes" public="true" autowire="true" autoconfigure="true">
+      <argument type="service" id="doctrine.orm.default_entity_manager"/>
+    </service>
+    <service id="App\Entity\Likes\UseCase\addLike" class="App\Entity\Likes\UseCase\addLike" public="true" autowire="true" autoconfigure="true">
+      <argument type="service" id="application_like"/>
+      <argument type="service" id="doctrine_application_transaction"/>
+    </service>
+    <service id="App\Entity\Likes\UseCase\unlike" class="App\Entity\Likes\UseCase\unlike" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <argument type="service" id="application_like"/>
+      <argument type="service" id="doctrine_application_transaction"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.g9CqTPp.App\Entity\Likes\UseCase\unlike"/>
       </call>
     </service>
     <service id="argument_metadata_factory" class="Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadataFactory" public="false"/>
@@ -5230,6 +5251,9 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Entity\Newsletter\Newsletters\UseCase\UserJoinNewsletter" class="App\Entity\Newsletter\Newsletters\UseCase\UserJoinNewsletter" public="true" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Entity\Newsletter\Newsletters\UseCase\UserJoinNewsletter" class="App\Entity\Newsletter\Newsletters\UseCase\UserJoinNewsletter" public="true" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Entity\Newsletter\Newsletters\UseCase\UserJoinNewsletter" class="App\Entity\Newsletter\Newsletters\UseCase\UserJoinNewsletter" public="true" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Entity\Likes\UseCase\unlike" class="App\Entity\Likes\UseCase\unlike" public="true" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Entity\Likes\UseCase\unlike" class="App\Entity\Likes\UseCase\unlike" public="true" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Entity\Likes\UseCase\unlike" class="App\Entity\Likes\UseCase\unlike" public="true" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".service_locator.WaGDpDt" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -5473,12 +5497,33 @@
         <argument key="loader" type="service" id=".errored..service_locator.C9JCBPC.Symfony\Component\Config\Loader\LoaderInterface"/>
       </argument>
     </service>
-    <service id=".service_locator._zxEonK" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.VKJRN78" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
-        <argument key="commentRepository" type="service" id="App\Repository\CommentRepository"/>
+        <argument key="addLike" type="service" id="App\Entity\Likes\UseCase\addLike"/>
+        <argument key="id" type="service" id=".errored..service_locator.VKJRN78.App\Entity\Posts\Post"/>
+      </argument>
+    </service>
+    <service id=".service_locator.aOLTLWk" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="id" type="service" id=".errored..service_locator.aOLTLWk.App\Entity\Posts\Post"/>
+        <argument key="likes" type="service" id="App\Adapter\Like\Likes"/>
+        <argument key="unlike" type="service" id="App\Entity\Likes\UseCase\unlike"/>
+      </argument>
+    </service>
+    <service id=".service_locator.5IH9Rae" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
         <argument key="createComment" type="service" id="App\Entity\Comments\UseCase\CreateComment"/>
-        <argument key="id" type="service" id=".errored..service_locator._zxEonK.App\Entity\Posts\Post"/>
+        <argument key="id" type="service" id=".errored..service_locator.5IH9Rae.App\Entity\Posts\Post"/>
+      </argument>
+    </service>
+    <service id=".service_locator._1aoAhq" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="id" type="service" id=".errored..service_locator._1aoAhq.App\Entity\Posts\Post"/>
+        <argument key="likesQuery" type="service" id="App\Adapter\Like\LikesQuery"/>
         <argument key="postsQuery" type="service" id="App\Adapter\Post\PostsQuery"/>
       </argument>
     </service>
@@ -5637,10 +5682,19 @@
         <argument key="mailer" type="service" id="mailer.mailer"/>
       </argument>
     </service>
-    <service id=".service_locator.ZcqKIvB" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.nriEVfG" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
-        <argument key="App\Controller\ListController::Post" type="service" id=".service_locator._zxEonK"/>
+        <argument key="command" type="service" id=".errored..service_locator.nriEVfG.App\Entity\Likes\UseCase\unlike\Command"/>
+      </argument>
+    </service>
+    <service id=".service_locator.GCmnu9P" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="App\Controller\ListController::Comment" type="service" id=".service_locator.5IH9Rae"/>
+        <argument key="App\Controller\ListController::Post" type="service" id=".service_locator._1aoAhq"/>
+        <argument key="App\Controller\ListController::addLike" type="service" id=".service_locator.VKJRN78"/>
+        <argument key="App\Controller\ListController::unlike" type="service" id=".service_locator.aOLTLWk"/>
         <argument key="App\Controller\PostsController::addAction" type="service" id=".service_locator..DyIK.X"/>
         <argument key="App\Controller\PostsController::postCreated" type="service" id=".service_locator.qR_a68B"/>
         <argument key="App\Controller\SecurityController::login" type="service" id=".service_locator.xA8Fw_."/>
@@ -5661,6 +5715,7 @@
         <argument key="App\Controller\users\RegisterController::register" type="service" id=".service_locator.XXe4fRj"/>
         <argument key="App\Controller\users\RegisterController::userCreated" type="service" id=".service_locator.VnT6WfK"/>
         <argument key="App\Entity\Comments\UseCase\CreateComment::execute" type="service" id=".service_locator.RAIvUZ4"/>
+        <argument key="App\Entity\Likes\UseCase\unlike::execute" type="service" id=".service_locator.nriEVfG"/>
         <argument key="App\Entity\Newsletter\Newsletters\UseCase\AnonJoinNewsletter::execute" type="service" id=".service_locator.apuLg5r"/>
         <argument key="App\Entity\Newsletter\Newsletters\UseCase\UserDeleteNewsletter::exeute" type="service" id=".service_locator.P3K8z4_"/>
         <argument key="App\Entity\Newsletter\Newsletters\UseCase\UserJoinNewsletter::execute" type="service" id=".service_locator.pBzUO1j"/>
@@ -5675,7 +5730,10 @@
         <argument key="kernel::loadRoutes" type="service" id=".service_locator.C9JCBPC"/>
         <argument key="kernel::registerContainerConfiguration" type="service" id=".service_locator.C9JCBPC"/>
         <argument key="kernel::terminate" type="service" id=".service_locator.beq5mCo"/>
-        <argument key="App\Controller\ListController:Post" type="service" id=".service_locator._zxEonK"/>
+        <argument key="App\Controller\ListController:Comment" type="service" id=".service_locator.5IH9Rae"/>
+        <argument key="App\Controller\ListController:Post" type="service" id=".service_locator._1aoAhq"/>
+        <argument key="App\Controller\ListController:addLike" type="service" id=".service_locator.VKJRN78"/>
+        <argument key="App\Controller\ListController:unlike" type="service" id=".service_locator.aOLTLWk"/>
         <argument key="App\Controller\PostsController:addAction" type="service" id=".service_locator..DyIK.X"/>
         <argument key="App\Controller\PostsController:postCreated" type="service" id=".service_locator.qR_a68B"/>
         <argument key="App\Controller\SecurityController:login" type="service" id=".service_locator.xA8Fw_."/>
@@ -5696,6 +5754,7 @@
         <argument key="App\Controller\users\RegisterController:register" type="service" id=".service_locator.XXe4fRj"/>
         <argument key="App\Controller\users\RegisterController:userCreated" type="service" id=".service_locator.VnT6WfK"/>
         <argument key="App\Entity\Comments\UseCase\CreateComment:execute" type="service" id=".service_locator.RAIvUZ4"/>
+        <argument key="App\Entity\Likes\UseCase\unlike:execute" type="service" id=".service_locator.nriEVfG"/>
         <argument key="App\Entity\Newsletter\Newsletters\UseCase\AnonJoinNewsletter:execute" type="service" id=".service_locator.apuLg5r"/>
         <argument key="App\Entity\Newsletter\Newsletters\UseCase\UserDeleteNewsletter:exeute" type="service" id=".service_locator.P3K8z4_"/>
         <argument key="App\Entity\Newsletter\Newsletters\UseCase\UserJoinNewsletter:execute" type="service" id=".service_locator.pBzUO1j"/>
@@ -6127,6 +6186,12 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.g9CqTPp" method="withContext"/>
     </service>
+    <service id=".service_locator.g9CqTPp.App\Entity\Likes\UseCase\unlike" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator_context" id="App\Entity\Likes\UseCase\unlike"/>
+      <argument>App\Entity\Likes\UseCase\unlike</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.g9CqTPp" method="withContext"/>
+    </service>
     <service id=".service_locator.s2oGJED" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -6288,12 +6353,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-      <argument type="service" id=".service_locator.ZcqKIvB"/>
+      <argument type="service" id=".service_locator.GCmnu9P"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver" public="false">
-      <argument type="service" id=".service_locator.ZcqKIvB"/>
+      <argument type="service" id=".service_locator.GCmnu9P"/>
     </service>
     <service id=".debug.http_client.inner" class="Symfony\Contracts\HttpClient\HttpClientInterface" public="false">
       <argument type="collection"/>
@@ -6305,7 +6370,10 @@
     </service>
     <service id=".errored..service_locator.beq5mCo.Symfony\Component\HttpFoundation\Response" class="Symfony\Component\HttpFoundation\Response"/>
     <service id=".errored..service_locator.C9JCBPC.Symfony\Component\Config\Loader\LoaderInterface" class="Symfony\Component\Config\Loader\LoaderInterface"/>
-    <service id=".errored..service_locator._zxEonK.App\Entity\Posts\Post" class="App\Entity\Posts\Post"/>
+    <service id=".errored..service_locator.VKJRN78.App\Entity\Posts\Post" class="App\Entity\Posts\Post"/>
+    <service id=".errored..service_locator.aOLTLWk.App\Entity\Posts\Post" class="App\Entity\Posts\Post"/>
+    <service id=".errored..service_locator.5IH9Rae.App\Entity\Posts\Post" class="App\Entity\Posts\Post"/>
+    <service id=".errored..service_locator._1aoAhq.App\Entity\Posts\Post" class="App\Entity\Posts\Post"/>
     <service id=".errored..service_locator.qR_a68B.App\Entity\Posts\Post" class="App\Entity\Posts\Post"/>
     <service id=".errored..service_locator.L8FURQc.App\Entity\Newsletter\Newsletter" class="App\Entity\Newsletter\Newsletter"/>
     <service id=".errored..service_locator.VnT6WfK.App\Entity\Users\User" class="App\Entity\Users\User"/>
@@ -6319,6 +6387,7 @@
     <service id=".errored..service_locator.P3K8z4_.App\Entity\Newsletter\Newsletters\UseCase\UserDeleteNewsletter\Command" class="App\Entity\Newsletter\Newsletters\UseCase\UserDeleteNewsletter\Command"/>
     <service id=".errored..service_locator.P3K8z4_.App\Entity\Users\User" class="App\Entity\Users\User"/>
     <service id=".errored..service_locator.pBzUO1j.App\Entity\Newsletter\Newsletters\UseCase\UserJoinNewsletter\Command" class="App\Entity\Newsletter\Newsletters\UseCase\UserJoinNewsletter\Command"/>
+    <service id=".errored..service_locator.nriEVfG.App\Entity\Likes\UseCase\unlike\Command" class="App\Entity\Likes\UseCase\unlike\Command"/>
     <service id="console.command_loader" class="Symfony\Component\Console\CommandLoader\ContainerCommandLoader" public="true">
       <tag name="container.no_preload"/>
       <argument type="service" id=".service_locator.Koj7Qt2"/>
@@ -6697,7 +6766,7 @@
     <service id="Psr\Log\LoggerInterface" alias="monolog.logger" public="false"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.WaGDpDt" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.ZcqKIvB"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.GCmnu9P"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
     <service id="Psr\Log\LoggerInterface $consoleLogger" alias="monolog.logger.console"/>

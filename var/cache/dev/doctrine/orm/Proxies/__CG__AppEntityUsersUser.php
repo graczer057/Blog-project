@@ -447,7 +447,7 @@ class User extends \App\Entity\Users\User implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function getLikes(): ?\App\Entity\Likes\Like
+    public function getLikes(): \Doctrine\Common\Collections\Collection
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getLikes', []);
@@ -458,12 +458,23 @@ class User extends \App\Entity\Users\User implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function setLikes(\App\Entity\Likes\Like $likes): \App\Entity\Users\User
+    public function addLike(\App\Entity\Likes\Like $like): \App\Entity\Users\User
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setLikes', [$likes]);
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addLike', [$like]);
 
-        return parent::setLikes($likes);
+        return parent::addLike($like);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function removeLike(\App\Entity\Likes\Like $like): \App\Entity\Users\User
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeLike', [$like]);
+
+        return parent::removeLike($like);
     }
 
 }

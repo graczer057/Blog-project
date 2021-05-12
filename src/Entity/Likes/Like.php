@@ -21,15 +21,10 @@ class Like
     private $id;
 
     /**
-     * @ORM\Column(type="boolean")
-     */
-    private $isActive;
-
-    /**
-     * @ORM\OneToOne(targetEntity=User::class, inversedBy="likes", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="likes")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $User;
+    private $user;
 
     /**
      * @ORM\ManyToOne(targetEntity=Post::class, inversedBy="likes")
@@ -37,31 +32,27 @@ class Like
      */
     private $post;
 
+    public function __construct(
+        User $user,
+        Post $post
+    ){
+        $this->user = $user;
+        $this->post = $post;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getIsActive(): ?bool
-    {
-        return $this->isActive;
-    }
-
-    public function setIsActive(bool $isActive): self
-    {
-        $this->isActive = $isActive;
-
-        return $this;
-    }
-
     public function getUser(): ?User
     {
-        return $this->User;
+        return $this->user;
     }
 
-    public function setUser(User $User): self
+    public function setUser(?User $user): self
     {
-        $this->User = $User;
+        $this->user = $user;
 
         return $this;
     }

@@ -8,6 +8,7 @@ use App\Repository\PostRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\PersistentCollection;
 
 /**
  * @ORM\Entity(repositoryClass=PostRepository::class)
@@ -49,7 +50,7 @@ class Post
 
     /**
      * @var Like $likes
-     * @ORM\OneToMany(targetEntity=Like::class, mappedBy="post")
+     * @ORM\OneToMany(targetEntity=Like::class, mappedBy="post", cascade={"persist", "remove"})
      */
     private $likes;
 
@@ -62,7 +63,6 @@ class Post
         $this->title=$title;
         $this->add_date=new \DateTime("now");
         $this->is_active=$is_active;
-        $this->likes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -133,33 +133,10 @@ class Post
     }
 
     /**
-     * @return Collection|Like[]
+     * @return Like
      */
-    public function getLikes(): Collection
+    public function getLikes(): Like
     {
         return $this->likes;
-    }
-
-    public function addLike(Like $like): self
-    {
-        if (!$this->likes->contains($like)) {
-            $this->likes[] = $like;
-            $like->setPost($this);
-        }
-
-        return $this;
-    }
-
-    public function removeLike(Like $like): self
-    {
-        if ($this->likes->contains($like)) {
-            $this->likes->removeElement($like);
-            // set the owning side to null (unless already changed)
-            if ($like->getPost() === $this) {
-                $like->setPost(null);
-            }
-        }
-
-        return $this;
     }
 }

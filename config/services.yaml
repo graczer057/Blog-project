@@ -138,3 +138,31 @@ services:
             - "@application_Newsletter"
             - "@application_transaction"
         public: true
+
+    App\Adapter\Like\Likes:
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        public: true
+
+    App\Adapter\Like\LikesQuery:
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        public: true
+
+    application_like:
+        class: App\Adapter\Like\Likes
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        public: true
+
+    App\Entity\Likes\UseCase\addLike:
+        arguments:
+            - "@application_like"
+            - "@application_transaction"
+        public: true
+
+    App\Entity\Likes\UseCase\unlike:
+        arguments:
+            - "@application_like"
+            - "@application_transaction"
+        public: true

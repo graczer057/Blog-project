@@ -4,39 +4,105 @@
 {% block body %}
     <div class="container">
         <div class="row">
-
             {% if flashesbag.success is defined %}
-                <div class="col-8 mx-auto bg-success border border-dark shadow rounded">
-                    <p>{{ flashesbag.success[0] }}</p>
+                <div id="success" class="col-8 mx-auto bg-success border border-dark shadow rounded">
+                    <p>comment add</p>
                 </div>
             {% endif %}
-            {% for posts in post %}
                 <div class="col-5 mx-auto bg-light border border-dark shadow my-3 p-2">
-                    <div class="d-inline-block">
-                        <strong>Tytuł: {{ posts.title }}</strong>
-                        <p> <strong>Opis: </strong> {{ posts.info }}</p>
-                        <p><strong>Czas utworzenia posta: </strong>{{ posts.adddate|date('Y:m:d H:i:s')}}</p>
+                    <div id="likes_area" class="d-inline-block">
+                        <strong>Tytuł: {{ post.title }}</strong>
+                        <p> <strong>Opis: </strong> {{ post.info }}</p>
+                        <p><strong>Czas utworzenia posta: </strong>{{ post.adddate|date('Y:m:d H:i:s')}}</p>
+                        <p class="like__count" id="like__count"><strong>Liczba polubień: </strong><span id="likes__quantity">{{ likes }}</span></p>
+{#                        <button class="btn__like" id="btn__like">Lubię to</button>#}
+                        <button class="btn__unlike" id="btn__unlike">Nie lubię tego</button>
                     </div>
                 </div>
-            {% endfor %}
-            {% if app.user %}
+
             <div class="col-5 mx-auto bg-light border border-dark shadow my-3 p-2">
 
-            <h5>Jeśli chcesz pozostawić komentarz pod tym postem musisz być zalogowany</h5>
+                <h5>Jeśli chcesz pozostawić komentarz pod tym postem musisz być zalogowany</h5>
 
-                {{ form_start(form) }}
-                {{ form_row(form.info) }}
 
-                {{ form_end(form) }}
+                {% if app.user %}
+
+                    {{ form_start(form, { 'attr': {'class':'comment_form'}}) }}
+                    {{ form_row(form.info) }}
+
+                    <button class="btn__comment" id="btn__comment">Skomentuj</button>
+
+                    {{ form_end(form) }}
+
+                {% endif %}
             </div>
-            {% endif %}
-            {% for comment in comments %}
-                <div class="col-5 mx-auto bg-light border border-dark shadow my-3 p-2">
-                        <p><strong>Komentarz: </strong>{{ comment.info }}</p>
-                        <p><strong>Czas utworzenia posta: </strong>{{ comment.adddate|date('Y:m:d H:i:s')}}</p>
+
+            <div class="col-12">
+                <div id="comments-area" class="row">
+                    {% for comment in comments %}
+                        <div id="comment-show" class="col-5 mx-auto bg-light border border-dark shadow my-3 p-2">
+                            <p><strong>Komentarz: </strong>{{ comment.info }}</p>
+                            <p><strong>Czas utworzenia posta: </strong>{{ comment.adddate|date('Y:m:d H:i:s')}}</p>
+                        </div>
+                    {% endfor %}
                 </div>
-            {% endfor %}
+            </div>
         </div>
     </div>
 
+{% endblock %}
+{% block javascripts %}
+
+    <script>
+        $('.btn__unlike').on('click', function (event){
+            event.preventDefault();
+
+            $.ajax({
+                url: '{{ path('app_unlike', {'id':post.id}) }}',
+                type: "delete",
+                method: "delete",
+                success: (responseData) => {
+                    let newLikeHtmlObj = $('#likes__quantity')
+
+                    newLikeHtmlObj.html(parseInt(newLikeHtmlObj.html()) - 1)
+                }
+            })
+        })
+        $('.btn__like').on('click', function (event){
+            event.preventDefault();
+
+            $.ajax({
+                url: '{{ path('add_like',{'id':post.id}) }}',
+                type: "post",
+                method: "post",
+                success: (responseData) => {
+                    let newLikeHtmlObj = $('#likes__quantity')
+
+                    newLikeHtmlObj.html(parseInt(newLikeHtmlObj.html()) + 1)
+                }
+            })
+        })
+        $('.comment_form').on('submit', function (event){
+            event.preventDefault();
+            let info = document.getElementById('comment_info').value
+            let time = new Date()
+            let addDate = time.getFullYear() + ":" +  time.getMonth() + ":" + time.getDay() + " " + time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds()
+            $.ajax({
+                url: '{{ path('create_comment',{'id':post.id}) }}',
+                type: "post",
+                method: "post",
+                data: $(this).serialize(),
+                success: (dataResponse) => {
+                    let successMSG = dataResponse.status
+
+                    $('#success').append(successMSG)
+
+                    let newCommentHtmlObj =
+                        '<div id="comment-show" class="col-5 mx-auto bg-light border border-dark shadow my-3 p-2"><p><strong>Komentarz: </strong>'+info+'</p><p><strong>Czas utworzenia posta: </strong>'+addDate+'</p></div>'
+
+                    $('#comments-area').append(newCommentHtmlObj)
+                }
+            })
+        })
+    </script>
 {% endblock %}

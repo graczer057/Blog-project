@@ -5,7 +5,6 @@ namespace App\Adapter\Comment;
 use App\Entity\Comments\Comment;
 use App\Entity\Comments\ReadModel\CommentsQueryInterface;
 use App\Entity\Comments\ReadModel\Comments;
-use App\Entity\Posts\Post;
 use App\Entity\Users\User;
 use Doctrine\DBAL\Driver\Connection;
 

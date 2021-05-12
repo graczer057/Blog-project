@@ -17,12 +17,6 @@ class CommentType extends AbstractType
                 ],
                 'label' => 'Info'
             ])
-            ->add('comment', SubmitType::class, [
-                'attr'=>[
-                    'class' => 'btn btn-success waves-effect right'
-                ],
-                'label' => 'Comment'
-            ])
         ;
     }
 }
