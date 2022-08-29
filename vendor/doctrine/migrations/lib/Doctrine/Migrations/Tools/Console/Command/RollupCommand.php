@@ -6,18 +6,19 @@ namespace Doctrine\Migrations\Tools\Console\Command;
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+
 use function sprintf;
 
 /**
  * The RollupCommand class is responsible for deleting all previously executed migrations from the versions table
  * and marking the freshly dumped schema migration (that was created with DumpSchemaCommand) as migrated.
  */
-class RollupCommand extends AbstractCommand
+final class RollupCommand extends DoctrineCommand
 {
-    /** @var string */
+    /** @var string|null */
     protected static $defaultName = 'migrations:rollup';
 
-    protected function configure() : void
+    protected function configure(): void
     {
         parent::configure();
 
@@ -35,16 +36,25 @@ EOT
             );
     }
 
-    public function execute(
-        InputInterface $input,
-        OutputInterface $output
-    ) : ?int {
-        $version = $this->dependencyFactory
-            ->getRollup()->rollup();
+    protected function execute(InputInterface $input, OutputInterface $output): int
+    {
+        $question = sprintf(
+            'WARNING! You are about to execute a migration in database "%s" that could result in schema changes and data loss. Are you sure you wish to continue?',
+            $this->getDependencyFactory()->getConnection()->getDatabase() ?? '<unnamed>'
+        );
 
-        $output->writeln(sprintf(
-            'Rolled up migrations to version <info>%s</info>',
-            $version->getVersion()
+        if (! $this->canExecute($question, $input)) {
+            $this->io->error('Migration cancelled!');
+
+            return 3;
+        }
+
+        $this->getDependencyFactory()->getMetadataStorage()->ensureInitialized();
+        $version = $this->getDependencyFactory()->getRollup()->rollup();
+
+        $this->io->success(sprintf(
+            'Rolled up migrations to version %s',
+            (string) $version
         ));
 
         return 0;

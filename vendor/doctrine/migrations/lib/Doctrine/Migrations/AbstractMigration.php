@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Doctrine\Migrations;
 
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\DBALException;
+use Doctrine\DBAL\Exception as DBALException;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Schema\AbstractSchemaManager;
 use Doctrine\DBAL\Schema\Schema;
@@ -13,7 +13,10 @@ use Doctrine\Migrations\Exception\AbortMigration;
 use Doctrine\Migrations\Exception\IrreversibleMigration;
 use Doctrine\Migrations\Exception\MigrationException;
 use Doctrine\Migrations\Exception\SkipMigration;
-use Doctrine\Migrations\Version\Version;
+use Doctrine\Migrations\Query\Query;
+use Psr\Log\LoggerInterface;
+
+use function method_exists;
 use function sprintf;
 
 /**
@@ -22,30 +25,29 @@ use function sprintf;
  */
 abstract class AbstractMigration
 {
-    /** @var Version */
-    protected $version;
-
     /** @var Connection */
     protected $connection;
 
-    /** @var AbstractSchemaManager */
+    /** @var AbstractSchemaManager<AbstractPlatform> */
     protected $sm;
 
     /** @var AbstractPlatform */
     protected $platform;
 
-    /** @var OutputWriter */
-    private $outputWriter;
+    /** @var LoggerInterface */
+    private $logger;
 
-    public function __construct(Version $version)
+    /** @var Query[] */
+    private $plannedSql = [];
+
+    public function __construct(Connection $connection, LoggerInterface $logger)
     {
-        $config = $version->getConfiguration();
-
-        $this->version      = $version;
-        $this->connection   = $config->getConnection();
-        $this->sm           = $this->connection->getSchemaManager();
-        $this->platform     = $this->connection->getDatabasePlatform();
-        $this->outputWriter = $config->getOutputWriter();
+        $this->connection = $connection;
+        $this->sm         = method_exists($this->connection, 'createSchemaManager')
+                             ? $this->connection->createSchemaManager()
+                             : $this->connection->getSchemaManager();
+        $this->platform   = $this->connection->getDatabasePlatform();
+        $this->logger     = $logger;
     }
 
     /**
@@ -57,88 +59,85 @@ abstract class AbstractMigration
      *
      * Extending class should override this function to alter the return value.
      */
-    public function isTransactional() : bool
+    public function isTransactional(): bool
     {
         return true;
     }
 
-    public function getDescription() : string
+    public function getDescription(): string
     {
         return '';
     }
 
-    public function warnIf(bool $condition, string $message = '') : void
+    public function warnIf(bool $condition, string $message = 'Unknown Reason'): void
     {
         if (! $condition) {
             return;
         }
 
-        $message = $message ?: 'Unknown Reason';
-
-        $this->outputWriter->write(sprintf(
-            '    <comment>Warning during %s: %s</comment>',
-            $this->version->getExecutionState(),
-            $message
-        ));
+        $this->logger->warning($message, ['migration' => $this]);
     }
 
     /**
      * @throws AbortMigration
      */
-    public function abortIf(bool $condition, string $message = '') : void
+    public function abortIf(bool $condition, string $message = 'Unknown Reason'): void
     {
         if ($condition) {
-            throw new AbortMigration($message ?: 'Unknown Reason');
+            throw new AbortMigration($message);
         }
     }
 
     /**
      * @throws SkipMigration
      */
-    public function skipIf(bool $condition, string $message = '') : void
+    public function skipIf(bool $condition, string $message = 'Unknown Reason'): void
     {
         if ($condition) {
-            throw new SkipMigration($message ?: 'Unknown Reason');
+            throw new SkipMigration($message);
         }
     }
 
     /**
      * @throws MigrationException|DBALException
      */
-    public function preUp(Schema $schema) : void
+    public function preUp(Schema $schema): void
     {
     }
 
     /**
      * @throws MigrationException|DBALException
      */
-    public function postUp(Schema $schema) : void
+    public function postUp(Schema $schema): void
     {
     }
 
     /**
      * @throws MigrationException|DBALException
      */
-    public function preDown(Schema $schema) : void
+    public function preDown(Schema $schema): void
     {
     }
 
     /**
      * @throws MigrationException|DBALException
      */
-    public function postDown(Schema $schema) : void
+    public function postDown(Schema $schema): void
     {
     }
 
     /**
      * @throws MigrationException|DBALException
      */
-    abstract public function up(Schema $schema) : void;
+    abstract public function up(Schema $schema): void;
 
     /**
      * @throws MigrationException|DBALException
      */
-    abstract public function down(Schema $schema) : void;
+    public function down(Schema $schema): void
+    {
+        $this->abortIf(true, sprintf('No down() migration implemented for "%s"', static::class));
+    }
 
     /**
      * @param mixed[] $params
@@ -148,19 +147,27 @@ abstract class AbstractMigration
         string $sql,
         array $params = [],
         array $types = []
-    ) : void {
-        $this->version->addSql($sql, $params, $types);
+    ): void {
+        $this->plannedSql[] = new Query($sql, $params, $types);
     }
 
-    protected function write(string $message) : void
+    /**
+     * @return Query[]
+     */
+    public function getSql(): array
     {
-        $this->outputWriter->write($message);
+        return $this->plannedSql;
+    }
+
+    protected function write(string $message): void
+    {
+        $this->logger->notice($message, ['migration' => $this]);
     }
 
     /**
      * @throws IrreversibleMigration
      */
-    protected function throwIrreversibleMigrationException(?string $message = null) : void
+    protected function throwIrreversibleMigrationException(?string $message = null): void
     {
         if ($message === null) {
             $message = 'This migration is irreversible and cannot be reverted.';

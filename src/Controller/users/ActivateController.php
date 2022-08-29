@@ -15,17 +15,10 @@ use Symfony\Component\Mailer\MailerInterface;
 class ActivateController extends AbstractController implements ActivateResponder
 {
     /**
-     * @param string $token
-     * @throws \Exception
      * @Route("/activate/{token}", name="activate", methods={"GET", "POST"})
      */
 
-    public function activate(
-        string $token,
-        Users $User,
-        ActivateUser $activateUser,
-        MailerInterface $mailer
-    )
+    public function activate(string $token, Users $User, ActivateUser $activateUser, MailerInterface $mailer)
     {
         if($this->getUser()){
             return $this->redirectToRoute('homepage');
@@ -65,11 +58,11 @@ class ActivateController extends AbstractController implements ActivateResponder
     }
 
     public function UserActivated(User $user){
-        $this->addFlash('success', 'User '.$user->getUsername().' has been activated');
+        $this->addFlash('success', 'Użytkownik '.$user->getUsername().' został aktywowany');
     }
 
     public function JoinNewsletter(Newsletter $newsletter)
     {
-        $this->addFlash('success', 'User '.$newsletter->getMail().' has been added to newsletter list');
+        $this->addFlash('success', 'Użytkownik '.$newsletter->getMail().' został dodany do newslettera');
     }
 }

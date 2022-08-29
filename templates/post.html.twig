@@ -13,10 +13,10 @@
                     <div id="likes_area" class="d-inline-block">
                         <strong>Tytuł: {{ post.title }}</strong>
                         <p> <strong>Opis: </strong> {{ post.info }}</p>
-                        <p><strong>Czas utworzenia posta: </strong>{{ post.adddate|date('Y:m:d H:i:s')}}</p>
+                        <p><strong>Czas utworzenia posta: </strong>{{ post.adddate|date('d.m.Y H:i')}}</p>
                         <p class="like__count" id="like__count"><strong>Liczba polubień: </strong><span id="likes__quantity">{{ likes }}</span></p>
-{#                        <button class="btn__like" id="btn__like">Lubię to</button>#}
-                        <button class="btn__unlike" id="btn__unlike">Nie lubię tego</button>
+                        <button class="btn__like" id="btn__like" {% if app.user != like.user|default('undefined') %}style="visibility: visible;"{% else %}style="visibility: hidden;"{% endif %}>Lubię to</button>
+                        <button class="btn__unlike" id="btn__unlike" {% if app.user == like.user|default('undefined') %}style="visibility: visible;"{% else %}style="visibility: hidden;"{% endif %}>Nie lubię tego</button>
                     </div>
                 </div>
 
@@ -42,7 +42,7 @@
                     {% for comment in comments %}
                         <div id="comment-show" class="col-5 mx-auto bg-light border border-dark shadow my-3 p-2">
                             <p><strong>Komentarz: </strong>{{ comment.info }}</p>
-                            <p><strong>Czas utworzenia posta: </strong>{{ comment.adddate|date('Y:m:d H:i:s')}}</p>
+                            <p><strong>Czas utworzenia posta: </strong>{{ comment.adddate|date('d.m.Y H:i')}}</p>
                         </div>
                     {% endfor %}
                 </div>
@@ -59,12 +59,14 @@
 
             $.ajax({
                 url: '{{ path('app_unlike', {'id':post.id}) }}',
-                type: "delete",
-                method: "delete",
+                /*type: "delete",
+                method: "delete",*/
                 success: (responseData) => {
                     let newLikeHtmlObj = $('#likes__quantity')
 
                     newLikeHtmlObj.html(parseInt(newLikeHtmlObj.html()) - 1)
+                    $('.btn__like').css("visibility", "visible")
+                    $('.btn__unlike').css("visibility", "hidden")
                 }
             })
         })
@@ -79,6 +81,9 @@
                     let newLikeHtmlObj = $('#likes__quantity')
 
                     newLikeHtmlObj.html(parseInt(newLikeHtmlObj.html()) + 1)
+                    $('.btn__like').css("visibility", "hidden")
+                    $('.btn__unlike').css("visibility", "visible")
+
                 }
             })
         })

@@ -17,16 +17,9 @@ use App\Entity\Users\UseCase\PasswordResetUser\Responder as PasswordResetRespond
 class PasswordResetController extends AbstractController implements  PasswordResetResponder
 {
     /**
-     * @param User $user
-     * @throws \Exception
      * @Route ("/password/reset", name="password_reset", methods={"GET", "POST"})
      */
-    public function PasswordReset(
-        Request $request,
-        Users $User,
-        PasswordResetUser $passwordResetUser,
-        MailerInterface $mailer
-    )
+    public function PasswordReset(Request $request, Users $User, PasswordResetUser $passwordResetUser, MailerInterface $mailer)
     {
         if($this->getUser()){
             return $this->redirectToRoute('homepage');
@@ -60,6 +53,6 @@ class PasswordResetController extends AbstractController implements  PasswordRes
 
     public function UserPasswordReset(User $user)
     {
-        $this->addFlash('success', 'Please check your email: '.$user->getUsername());
+        $this->addFlash('success', 'Proszę sprawdzić swoją skrzynkę pocztową, użytkowniku: '.$user->getUsername());
     }
 }

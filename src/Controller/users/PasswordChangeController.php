@@ -12,27 +12,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class PasswordChangeController extends AbstractController implements PasswordChangeResponder
 {
     /**
-     * @param Request $request
-     * @param string $token
-     * @param Users $User
-     * @param PasswordChangeUser $passwordChangeUser
-     * @param MailerInterface $mailer
-     * @throws \Throwable
      * @Route("/change/{token}", name="change", methods={"GET", "POST"})
      */
 
-    public function change(
-        Request $request,
-        string $token,
-        Users $User,
-        PasswordChangeUser $passwordChangeUser,
-        MailerInterface $mailer
-    )
+    public function change(Request $request, string $token, Users $User, PasswordChangeUser $passwordChangeUser, MailerInterface $mailer)
     {
         if($this->getUser()){
             return $this->redirectToRoute('homepage');
@@ -70,7 +57,7 @@ class PasswordChangeController extends AbstractController implements PasswordCha
 
                     return $this->redirectToRoute('homepage');
                 }else{
-                    $this->addFlash('error', 'Password is the same as the oldest. Please type your new password once again.');
+                    $this->addFlash('error', 'Hasło jest takie samo jak poprzednie, proszę o wprowadzenie nowego hasła.');
 
                     return $this->render('users/change.html.twig', [
                         'form' => $form->createView()
@@ -85,7 +72,7 @@ class PasswordChangeController extends AbstractController implements PasswordCha
 
     public function passwordChanged(User $user)
     {
-        $this->addFlash('success', 'Now you have a new password dear: '.$user->getUsername());
+        $this->addFlash('success', 'Twoje hasło zostało zmienione użytkowniku: '.$user->getUsername());
 
     }
 }

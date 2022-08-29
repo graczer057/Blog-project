@@ -17,17 +17,10 @@ use App\Entity\Users\UseCase\ExpireUser\Responder as TokenExpireResponder;
 class ExpireController extends AbstractController implements TokenExpireResponder
 {
     /**
-     * @param Request $request
-     * @throws \Exception
      * @Route ("/token/expire", name="token_expire", methods={"GET", "POST"})
      */
 
-    public function TokenExpire(
-        Request $request,
-        Users $User,
-        ExpireUser $expireUser,
-        MailerInterface $mailer
-    )
+    public function TokenExpire(Request $request, Users $User, ExpireUser $expireUser, MailerInterface $mailer)
     {
         if($this->getUser()){
             return $this->redirectToRoute('homepage');
@@ -35,8 +28,6 @@ class ExpireController extends AbstractController implements TokenExpireResponde
 
         $form = $this->createForm(ExpireFormType::class);
         $form->handleRequest($request);
-
-        $isActive = true;
 
         $isNotActive = false;
 
@@ -64,6 +55,6 @@ class ExpireController extends AbstractController implements TokenExpireResponde
     }
 
     public function UserTokenExpire(User $user){
-        $this->addFlash('success', 'Please check your email: '.$user->getMail());
+        $this->addFlash('success', 'Proszę sprawdzić swoją skrzynkę pocztową: '.$user->getMail());
     }
 }

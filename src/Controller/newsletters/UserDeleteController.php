@@ -21,7 +21,6 @@ class UserDeleteController extends AbstractController
     }
 
     /**
-     * @throws \Throwable
      * @Route("/newsletter/delete", name="newsletter_delete")
      */
     public function Delete(
@@ -50,6 +49,6 @@ class UserDeleteController extends AbstractController
 
     public function DeleteNewsletter(Newsletter $newsletter)
     {
-        $this->addFlash('success', 'Sad, you sign out our newsletter');
+        $this->addFlash('success', 'Przykro nam, ale wypisałeś się z newslettera');
     }
 }

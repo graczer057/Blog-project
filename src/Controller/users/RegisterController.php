@@ -2,7 +2,6 @@
 
 namespace App\Controller\users;
 
-use App\Adapter\User\Users;
 use App\Entity\Users\UseCase\CreateUser;
 use App\Entity\Users\UseCase\CreateUser\Responder as RegisterResponder;
 use App\Entity\Users\User;
@@ -10,20 +9,15 @@ use App\Form\Users\RegisterType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class RegisterController extends AbstractController implements RegisterResponder
 {
     /**
      * @Route("/register/form", name="register", methods={"GET"})
      * @Route("/register/create", name="register_create", methods={"POST"})
-     * @throws \Throwable
      */
 
-    public function register(
-        Request $request,
-        CreateUser $createUser
-    )
+    public function register(Request $request, CreateUser $createUser)
     {
         if($this->getUser()){
             return $this->redirectToRoute('homepage');
@@ -62,11 +56,11 @@ class RegisterController extends AbstractController implements RegisterResponder
 
     public function userCreated(User $user)
     {
-        $this->addFlash('success', 'Registration complete check your mail');
+        $this->addFlash('success', 'Rejestracja zakończona, proszę sprawdzić swoją skrzynkę pocztową.');
     }
 
     public function providedNameIsInUse(string $username)
     {
-        $this->addFlash('error', 'Account exists');
+        $this->addFlash('error', 'Konto już istnieje');
     }
 }

@@ -17,12 +17,6 @@ use App\Entity\Newsletter\Newsletters\UseCase\AnonJoinNewsletter\Responder as Jo
 class NewsletterController extends AbstractController implements JoinResponder
 {
     /**
-     * @param Request $request
-     * @param Newsletters $newsletter
-     * @param AnonJoinNewsletter $anonJoinNewsletter
-     * @param MailerInterface $mailer
-     * @return Response
-     * @throws \throwable
      * @Route ("anon/join/newsletter", name="anon_join", methods={"GET", "POST"})
      */
     public function Join(Request $request, AnonJoinNewsletter $anonJoinNewsletter, MailerInterface $mailer){
@@ -46,11 +40,11 @@ class NewsletterController extends AbstractController implements JoinResponder
 
     public function JoinNewsletter(Newsletter $newsletter)
     {
-        $this->addFlash('success', 'Please check your email');
+        $this->addFlash('success', 'Proszę sprawdzić skrzynkę pocztową');
     }
 
     public function mailAlreadyInUse(string $mail)
     {
-        $this->addFlash('error', 'This mail is already in use');
+        $this->addFlash('error', 'Podany adres email już jest zapisany do newslettera');
     }
 }

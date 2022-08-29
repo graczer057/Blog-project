@@ -7,14 +7,18 @@ namespace Doctrine\Migrations\Generator;
 use Doctrine\Migrations\Configuration\Configuration;
 use Doctrine\Migrations\Generator\Exception\InvalidTemplateSpecified;
 use Doctrine\Migrations\Tools\Console\Helper\MigrationDirectoryHelper;
+use InvalidArgumentException;
+
 use function explode;
 use function file_get_contents;
 use function file_put_contents;
 use function implode;
 use function is_file;
 use function is_readable;
+use function preg_match;
 use function preg_replace;
-use function str_replace;
+use function sprintf;
+use function strtr;
 use function trim;
 
 /**
@@ -37,24 +41,24 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version<version> extends AbstractMigration
+final class <className> extends AbstractMigration
 {
-    public function getDescription() : string
+    public function getDescription(): string
     {
         return '';
     }
 
-    public function up(Schema $schema) : void
+    public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
 <up>
     }
 
-    public function down(Schema $schema) : void
+    public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
 <down>
-    }
+    }<override>
 }
 
 TEMPLATE;
@@ -71,37 +75,53 @@ TEMPLATE;
     }
 
     public function generateMigration(
-        string $version,
+        string $fqcn,
         ?string $up = null,
         ?string $down = null
-    ) : string {
-        $placeHolders = [
-            '<namespace>',
-            '<version>',
-            '<up>',
-            '<down>',
-        ];
+    ): string {
+        $mch = [];
+        if (preg_match('~(.*)\\\\([^\\\\]+)~', $fqcn, $mch) === 0) {
+            throw new InvalidArgumentException(sprintf('Invalid FQCN'));
+        }
+
+        [$fqcn, $namespace, $className] = $mch;
+
+        $dirs = $this->configuration->getMigrationDirectories();
+        if (! isset($dirs[$namespace])) {
+            throw new InvalidArgumentException(sprintf('Path not defined for the namespace "%s"', $namespace));
+        }
+
+        $dir = $dirs[$namespace];
 
         $replacements = [
-            $this->configuration->getMigrationsNamespace(),
-            $version,
-            $up !== null ? '        ' . implode("\n        ", explode("\n", $up)) : null,
-            $down !== null ? '        ' . implode("\n        ", explode("\n", $down)) : null,
+            '<namespace>' => $namespace,
+            '<className>' => $className,
+            '<up>' => $up !== null ? '        ' . implode("\n        ", explode("\n", $up)) : null,
+            '<down>' => $down !== null ? '        ' . implode("\n        ", explode("\n", $down)) : null,
+            '<override>' => $this->configuration->isTransactional() ? '' : <<<'METHOD'
+
+
+    public function isTransactional(): bool
+    {
+        return false;
+    }
+METHOD
+        ,
         ];
 
-        $code = str_replace($placeHolders, $replacements, $this->getTemplate());
+        $code = strtr($this->getTemplate(), $replacements);
         $code = preg_replace('/^ +$/m', '', $code);
 
-        $directoryHelper = new MigrationDirectoryHelper($this->configuration);
-        $dir             = $directoryHelper->getMigrationDirectory();
-        $path            = $dir . '/Version' . $version . '.php';
+        $directoryHelper = new MigrationDirectoryHelper();
+        $dir             = $directoryHelper->getMigrationDirectory($this->configuration, $dir);
+        $path            = $dir . '/' . $className . '.php';
 
         file_put_contents($path, $code);
 
         return $path;
     }
 
-    private function getTemplate() : string
+    private function getTemplate(): string
     {
         if ($this->template === null) {
             $this->template = $this->loadCustomTemplate();
@@ -117,7 +137,7 @@ TEMPLATE;
     /**
      * @throws InvalidTemplateSpecified
      */
-    private function loadCustomTemplate() : ?string
+    private function loadCustomTemplate(): ?string
     {
         $customTemplate = $this->configuration->getCustomTemplate();
 

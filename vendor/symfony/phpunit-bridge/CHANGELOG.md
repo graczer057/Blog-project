@@ -1,6 +1,24 @@
 CHANGELOG
 =========
 
+6.1
+---
+
+ * Add option `ignoreFile` to configure a file that lists deprecation messages to ignore
+
+6.0
+---
+
+ * Remove `SetUpTearDownTrait`
+
+5.3
+---
+
+ * bumped the minimum PHP version to 7.1.3
+ * bumped the minimum PHPUnit version to 7.5
+ * deprecated the `SetUpTearDownTrait` trait, use original methods with "void" return typehint.
+ * added `logFile` option to write deprecations to a file instead of echoing them
+
 5.1.0
 -----
 
@@ -25,7 +43,7 @@ CHANGELOG
 -----
 
  * added `ClassExistsMock`
- * bumped PHP version from 5.3.3 to 5.5.9 
+ * bumped PHP version from 5.3.3 to 5.5.9
  * split simple-phpunit bin into php file with code and a shell script
 
 4.1.0

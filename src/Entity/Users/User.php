@@ -45,7 +45,7 @@ class User implements UserInterface
     private $token;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $tokenExpire;
 
